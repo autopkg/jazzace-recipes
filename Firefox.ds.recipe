@@ -39,7 +39,7 @@ spot in the DS hierarchy).</string>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.pkg.firefox_EN</string>
+    <string>com.github.autopkg.pkg.Firefox_EN</string>
     <key>Process</key>
     <array>
         <dict>
