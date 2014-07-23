@@ -3,25 +3,25 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads Firefox, packages it, and moves the package to the DeployStudio packages repository.
+    <string>Downloads Firefox, packages it, and copies the package to the DeployStudio packages repository.
+[Firefox pkg documentation taken from parent recipe.]
 Values for FIREFOX_BUILD correspond to directories here: http://download-origin.cdn.mozilla.net/pub/mozilla.org/firefox/releases/
 Some useful values are: 'latest', 'latest-10.0esr', 'latest-esr', 'latest-3.6', 'latest-beta'
 LOCALE corresponds to directories at http://download-origin.cdn.mozilla.net/pub/mozilla.org/firefox/releases/$FIREFOX_BUILD/mac/
 Examples include 'en-US', 'de', 'ja-JP-mac', 'sv-SE', and 'zh-TW'
 No idea if all Firefox builds are available in all the same localizations, so you may need to verify that any particular
 combination is offered.
-DS_REPO_PATH is the path for the DeployStudio repository (the FileMover process adds /Packages/ to put the package in the correct 
-spot in the DS hierarchy).</string>
+DS_REPO_PATH is the path for the DeployStudio repository (the /Packages/ part of the path is automatically added).</string>
     <key>Identifier</key>
     <string>com.github.jazzace.ds.firefox-rc-en_US</string>
     <key>Input</key>
     <dict>
         <key>DS_REPO_PATH</key>
-        <string>/Volumes/IAML-DSServer/Users/Shared/Deploy</string>
+		<string>/Volumes/IAML-DSServer/Users/Shared/Deploy</string>
 		<key>LOCALE</key>
 		<string>en_US</string>
-        <key>NAME</key>
-        <string>FirefoxESR</string>
+		<key>NAME</key>
+		<string>FirefoxESR</string>
 		<key>RELEASE</key>
 		<string>latest-24.0esr</string>
     </dict>
@@ -34,13 +34,13 @@ spot in the DS hierarchy).</string>
         <dict>
             <key>Arguments</key>
             <dict>
-                <key>source</key>
-                <string>%pathname%</string>
-                <key>target</key>
+                <key>source_pkg</key>
+                <string>%pkg_path%</string>
+                <key>pkg_path</key>
                 <string>%DS_REPO_PATH%/Packages/%NAME%.pkg</string>
             </dict>
             <key>Processor</key>
-            <string>FileMover</string>
+            <string>PkgCopier</string>
         </dict>
     </array>
 </dict>
