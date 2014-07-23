@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads Firefox, packages it, and moves the package to the DeployStudio packages repository.
+Values for FIREFOX_BUILD correspond to directories here: http://download-origin.cdn.mozilla.net/pub/mozilla.org/firefox/releases/
+Some useful values are: 'latest', 'latest-10.0esr', 'latest-esr', 'latest-3.6', 'latest-beta'
+LOCALE corresponds to directories at http://download-origin.cdn.mozilla.net/pub/mozilla.org/firefox/releases/$FIREFOX_BUILD/mac/
+Examples include 'en-US', 'de', 'ja-JP-mac', 'sv-SE', and 'zh-TW'
+No idea if all Firefox builds are available in all the same localizations, so you may need to verify that any particular
+combination is offered.
+DS_REPO_PATH is the path for the DeployStudio repository (the FileMover process adds /Packages/ to put the package in the correct 
+spot in the DS hierarchy).</string>
+    <key>Identifier</key>
+    <string>com.github.jazzace.ds.firefox-rc-en_US</string>
+    <key>Input</key>
+    <dict>
+        <key>DS_REPO_PATH</key>
+        <string>/Volumes/IAML-DSServer/Users/Shared/Deploy</string>
+        <key>NAME</key>
+        <string>FirefoxESR</string>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
+                <string>testing</string>
+            </array>
+            <key>description</key>
+            <string>Mozilla Firefox is a free and open source web browser.</string>
+            <key>display_name</key>
+            <string>Mozilla Firefox</string>
+            <key>name</key>
+            <string>%NAME%</string>
+            <key>unattended_install</key>
+            <true/>
+        </dict>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.pkg.firefox_EN</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>source</key>
+                <string>%pathname%</string>
+                <key>target</key>
+                <string>%DS_REPO_PATH%/Packages/</string>
+            </dict>
+            <key>Processor</key>
+            <string>FileMover</string>
+        </dict>
+    </array>
+</dict>
+</plist>
