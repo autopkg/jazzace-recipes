@@ -3,7 +3,11 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest version of Fetch, packages it, and then copies the package to the DeployStudio packages repository.
+<!-- Use this template to take any parent recipe that creates a pkg using the PkgCreator processor 
+and copy the package to the Packages folder inside your your DeployStudio repository.
+By keeping the package name the same, your DeployStudio workflows will not care that the package contents 
+may have changed, hence the default choice of using the app name for the package name. -->
+    <string>Downloads latest version of ____, packages it, and then copies the package to the DeployStudio packages repository.
 Input keys:
 - DS_PKGS_PATH is the path for the Packages folder in the DeployStudio repository (trailing slash not required/desired).
   The path does not need to be on the same volume as the cache, as the pkg is being duplicated.
@@ -11,7 +15,7 @@ Input keys:
   It defaults to %NAME% (just the app name); use %pkgname% if you want the version number appended.
 </string>
     <key>Identifier</key>
-    <string>com.github.jazzace.ds.Fetch</string>
+    <string>com.github.jazzace.ds.____</string>
     <key>Input</key>
     <dict>
         <key>DS_PKGS_PATH</key>
@@ -22,7 +26,7 @@ Input keys:
     <key>MinimumVersion</key>
     <string>0.2.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.scriptingosx.pkg.Fetch</string>
+    <string>com.github.autopkg.pkg.____</string>
     <key>Process</key>
     <array>
         <dict>
