@@ -53,6 +53,8 @@ combination is offered.
                 <string>%pkg_path%</string>
                 <key>destination_path</key>
                 <string>%DS_PKGS_PATH%/%DS_NAME%.pkg</string>
+                <key>overwrite</key>
+                <true/>
             </dict>
         </dict>
     </array>
