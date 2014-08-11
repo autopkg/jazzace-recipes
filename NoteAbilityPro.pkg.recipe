@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads latest version of NoteAbilityPro and extracts the package installer.
+If there is no new installer, the file will not be extracted from the archive.
+The package installer will be located in the cache at %NAME%/NoteAbilityPro*/NoteAbilityPro_*.pkg
+where * is the version number (e.g., 2.601). 
+</string>
+    <key>Identifier</key>
+    <string>com.github.jazzace.pkg.NoteAbilityPro</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>NoteAbilityPro</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
+    <key>Process</key>
+    <array>
+         <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>http://opusonemusic.net/download/NADemo.zip</string>
+            </dict>
+        </dict>
+       <dict>
+            <key>Processor</key>
+            <string>StopProcessingIf</string>
+            <key>Arguments</key>
+            <dict>
+                <key>predicate</key>
+                <string>download_changed == FALSE</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>Unarchiver</string>
+            <key>Arguments</key>
+            <dict>
+                <key>archive_path</key>
+                <string>%pathname%</string>
+                <key>purge_destination</key>
+                <true/>
+            </dict>
+        </dict>
+	</array>
+</dict>
+</plist>
