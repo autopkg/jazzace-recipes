@@ -1,6 +1,4 @@
 autopkg-recipes
 ===============
 
-Current space for my AutoPkg recipes. I am asking to have my recipes moved to the [AutoPkg project](https://github.com/autopkg/autopkg), so they will be removed from here once that happens.
-
-If you use DeployStudio and you would like to have AutoPkg feed your Packages repo in DS with the latest versions, use my recipes with the .ds tag or make your own by using my Template.ds to leverage existing .pkg recipes as parents.
+These are [AutoPkg recipes](https://github.com/autopkg/autopkg), mostly related to making AutoPkg feed a DeployStudio repository (so if there is no existing .pkg recipe, that is also created). The DeployStudio recipes use the .ds suffix. You could use such recipes to move a copy to any location, not just DeployStudio, since the package is copied, not moved. I've also included a template if you wish to create more DeployStudio recipes that leverage existing .pkg recipes as parents.
