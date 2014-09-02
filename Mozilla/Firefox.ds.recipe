@@ -21,7 +21,7 @@ combination is offered.
     <key>Input</key>
     <dict>
         <key>DS_PKGS_PATH</key>
-		<string>/Volumes/IAML-DSServer/Users/Shared/Deploy/Packages</string>
+		<string>/Volumes/DSServer/Users/Shared/Deploy/Packages</string>
 		<key>LOCALE</key>
 		<string>en_US</string>
 		<key>DS_NAME</key>
