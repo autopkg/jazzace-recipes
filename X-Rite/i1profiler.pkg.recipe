@@ -3,7 +3,10 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the current release of i1Profiler and extracts the installation package.</string>
+    <string>Downloads the current release of i1Profiler and extracts the installation package.
+    Note: No modifications are made to the installer package. For a recipe that attempts to modify
+    the package to eliminate behaviours that may be undesirable in some environments, see 
+    https://github.com/autopkg/mosen-recipes/tree/master/XRite </string>
     <key>Identifier</key>
     <string>com.github.jazzace.pkg.i1profiler</string>
     <key>Input</key>
