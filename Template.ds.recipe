@@ -3,13 +3,14 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-<!-- Use this template to take any parent recipe that creates a pkg using the PkgCreator processor 
-and copy the package to the Packages folder inside your your DeployStudio repository.
-By keeping the package name the same, your DeployStudio workflows will not care that the package contents 
-may have changed, hence the default choice of using the app name for the package name.
-You need to change ____ (to the core recipe name), yourgithubusername, and (in some cases) autopkg as the ParentRecipe author.
-If you might want to leverage this template to auto-create a bunch of these, check Allister Banks' repo
-for ideas and sample code: https://github.com/arubdesu/recipeGenerationUtils  -->
+<!-- Use this template to take any parent .pkg recipe and copy the package that it generates 
+(or extracts) to the Packages folder inside your DeployStudio repository.
+By keeping the package name the same, your DeployStudio workflows will not care that the package 
+contents may have changed, hence the default choice of using the app name for the package name.
+You need to change ____ (to the core recipe name) and yourgithubusername in the recipe Identifier, 
+and (in some cases) autopkg in the ParentRecipe author.
+If you might want to leverage this template to auto-create a bunch of these, check Allister Banks' 
+repo for ideas and sample code: https://github.com/arubdesu/recipeGenerationUtils  -->
     <string>Downloads latest version of ____, packages it, and then copies the package to the DeployStudio packages repository.
 Input keys:
 - DS_PKGS_PATH is the path for the Packages folder in the DeployStudio repository (trailing slash not required/desired).
@@ -38,7 +39,8 @@ Input keys:
             <key>Arguments</key>
             <dict>
                 <key>predicate</key>
-<!-- Depending on the processor in the parent recipe, either download_changed or new_package_request will be used to the left of the ==. -->
+<!-- Depending on the processor in the parent recipe, either download_changed (used by URLDownloader) 
+or new_package_request (used by PkgCreator) will be used to the left of the ==. -->
                 <string>new_package_request == FALSE</string>
             </dict>
         </dict>
