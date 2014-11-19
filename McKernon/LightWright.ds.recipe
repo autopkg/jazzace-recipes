@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest version of LightWright (John McKernon Software), extracts the package, 
+    <string>Downloads latest version of Lightwright (John McKernon Software), extracts the package, 
 and then copies the package to the DeployStudio packages repository.
 Input keys:
 - DS_PKGS_PATH is the path for the Packages folder in the DeployStudio repository (trailing slash not required/desired).

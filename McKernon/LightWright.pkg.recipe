@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest version of LightWright (John McKernon Software) and extracts the package installer.
+    <string>Downloads latest version of Lightwright (John McKernon Software) and extracts the package installer.
 If there is no new installer, the file will not be extracted from the archive, nor will any 
 other steps be processed if this recipe is the parent of another recipe.
 The package installer will be located in the cache at %NAME%/LW5MacInstaller.mpkg.

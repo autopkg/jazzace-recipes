@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the current release version of LightWright (John McKernon Software) in a zip archive.</string>
+    <string>Downloads the current release version of Lightwright (John McKernon Software) in a zip archive.</string>
     <key>Identifier</key>
     <string>com.github.jazzace.download.lightwright</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>LightWright</string>
+        <string>Lightwright</string>
         <key>DOWNLOAD_URL</key>
         <string>http://www.mckernon.com/downloads/LW5MacInstaller.zip</string>
 	</dict>
