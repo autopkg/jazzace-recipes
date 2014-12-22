@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads the latest update of the Pro Video Formats (previously known as ProApps QuickTime Codecs)
+    provided by Apple for their pro apps.
+    *** Note: This Recipe requires an external processor. You must have Nate Felton's recipe repo
+    available in your cache: com.github.autopkg.n8felton-recipes ***</string>
+    <key>Identifier</key>
+    <string>com.github.jazzace.download.ProVideoFormats</string>
+    <key>MinimumVersion</key>
+    <string>0.4.0</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>ProVideoFormats</string>
+    </dict>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>com.github.n8felton.download.XeroxPrinterDrivers/AppleSupportDownloadInfoProvider</string>
+            <key>Arguments</key>
+            <dict>
+                <key>ARTICLE_NUMBER</key>
+                <string>1396</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>%url%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+    </array>
+</dict>
+</plist>
