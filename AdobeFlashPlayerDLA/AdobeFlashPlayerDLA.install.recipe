@@ -33,7 +33,7 @@ a link to this page when your confirmed License Agreement was e-mailed back to y
             <key>Processor</key>
             <string>Installer</string>
             <key>Arguments</key>
-            <dict/>
+            <dict>
                 <key>pkg_path</key>
                 <string>%pathname%/*.pkg</string>
             </dict>
