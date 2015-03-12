@@ -14,7 +14,7 @@ a link to this page when your confirmed License Agreement was e-mailed back to y
 3. Create an override for this recipe:
    • For FLASH_DOWNLOAD_URL_DIR, use the link you just copied (including http://) but delete 
      the .dmg file reference (we only want the directory where the .dmg is located);
-   • For MAJOR_VERSION, use either 16 for the current version or 13 for the ESR version
+   • For MAJOR_VERSION, use either 17 for the current version or 13 for the ESR version
      (Note: When Adobe updates to a new full number version, you will need to change your
      override unless someone out there would like to create a new processor that can supply
      that information — hint, hint);
