@@ -7,6 +7,6 @@ These recipe require that you manually determine the "oid" of your Epson product
    http://www.epson.com/cgi-bin/Store/support/supDetail.jsp?BV_UseBVCookie=yes&oid=119098&prodoid=63079720&infoType=Downloads&detected=yes&platform=OSF_M_X10
 ````
 
-In this case, the oid would be 119098. Enter this number as the value for the OID input key in the recipe.
+In this case, the oid would be 119098. Enter this number as the value for the OID input key in the recipe override (you _will_ require an override, but you can also create separate overrides for each Epson product you use).
 
 You will also notice that the version of OS X is also present in that URI. Enter the desired major version of OS X (expressed as the number after the decimal point) as the OSX_VERSION input key. For example, Yosemite is 10, Mavericks is 9.
