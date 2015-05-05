@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads the latest version of the Epson product driver from Epson's site.
+These will generally be drivers for professional printers and the like not included in
+the drivers supplied by Apple.
+Make separate overrides for each device driver you may want. An override is required.
+
+IMPORTANT:
+This recipe requires that you manually determine the "oid" of your Epson product. You can do 
+this by going to the Drivers and Downloads section of the U.S. web site and clicking on 
+the appropriate links until you get to the Drivers and Downloads page for your product.
+Then capture the URL of that page and look for "oid=" and the number that follows it (usually 
+six digits long. For example, the URI for the Stylus Pro 9900 on the U.S. site looks like this
+(note that I've swapped &amp; in for ampersands; this was necessary for the SEARCH_URL as well):
+
+   http://www.epson.com/cgi-bin/Store/support/supDetail.jsp?BV_UseBVCookie=yes&amp;oid=119098&amp;prodoid=63079720&amp;infoType=Downloads&amp;detected=yes&amp;platform=OSF_M_X10
+
+In this case, the oid would be 119098. Enter this number as the value for the OID input key in the recipe. 
+You will also notice that the version of OS X is also present in that URI. Enter the desired 
+major version of OS X (expressed as the number after the decimal point) as the OSX_VERSION input key. 
+For example, Yosemite is 10, Mavericks is 9.
+
+To do: This recipe depends on the driver download being the first one listed on the page searched.
+When my Python RE skill gets better, it will only find the one directly after the word Driver on the page.
+</string>
+    <key>Identifier</key>
+    <string>com.github.jazzace.download.EpsonProDrivers</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>Epson Stylus Pro</string>
+        <key>SEARCH_URL</key>
+        <string>http://www.epson.com/cgi-bin/Store/support/supDetail.jsp?oid=%OID%&amp;infoType=Downloads&amp;platform=OSF_M_X%OSX_VERSION%</string>
+        <key>SEARCH_PATTERN</key>
+        <string>(?P&lt;html_code&gt;\"download_size\"&gt;epson(?P&lt;dl_number&gt;[0-9].*?)\.dmg)</string>
+        <key>OID</key>
+        <string>000000</string>
+        <key>OSX_VERSION</key>
+        <string>10</string>        
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.4.0</string>
+    <key>Process</key>
+    <array>
+       <dict>
+            <key>Processor</key>
+            <string>URLTextSearcher</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>%SEARCH_URL%</string>
+                <key>re_pattern</key>
+                <string>%SEARCH_PATTERN%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>https://ftp.epson.com/drivers/epson%dl_number%.dmg</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+    </array>
+</dict>
+</plist>
