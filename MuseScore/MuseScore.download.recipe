@@ -13,7 +13,7 @@
         <key>SEARCH_URL</key>
         <string>http://musescore.org/en/download/musescore.dmg</string>
         <key>SEARCH_PATTERN</key>
-        <string>(?P&lt;url&gt;http://ftp\..*\..*/pub/musescore/releases/MuseScore-[0-9.]*/MuseScore-[0-9.]*.dmg)</string>
+        <string>(?P&lt;url&gt;http://ftp\..*\..*/pub/musescore/releases/MuseScore-(?P&lt;version&gt;[0-9.]*)/MuseScore-[0-9.]*\.dmg)</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.9</string>
@@ -40,10 +40,6 @@
                 <key>filename</key>
                 <string>%NAME%.dmg</string>
             </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
         </dict>
     </array>
 </dict>
