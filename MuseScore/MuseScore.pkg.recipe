@@ -51,7 +51,7 @@
 					<key>pkgdir</key>
 					<string>%RECIPE_CACHE_DIR%</string>
 					<key>id</key>
-					<string>%bundleid%</string>
+					<string>org.musescore.MuseScore</string>
 					<key>chown</key>
 					<array>
 						<dict>
