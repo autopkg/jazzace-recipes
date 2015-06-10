@@ -11,6 +11,7 @@ Current Status
 Background Information
 ----------------------
 My original attempt at writing this set of recipes was a bit clumsy (AdobeFlashPlayerDLA), requiring that you enter the Major Version number as well as retrieve part of the link's URL manually from that super secret page Adobe provided for you. Yet it added one bit of functionality that the main repo recipe did not: support for the Extended Support Release (ESR) version.
+
 Now that I have a little more skill writing recipes (and using the URLTextSearcher processor), I've provided a more robust set of recipes (AdobeFlashPlayerDLACurrent) that grab the latest version of the Flash Player pkg installer without the need to increment the Major Version number. It's also simpler in that you just provide the URI that Adobe provided you — no more grabbing the link on that page. (I've intentionally obscured part of the URI in the regular expression that finds the download so as to not run afoul of Adobe's license agreement.) Unfortunately, it does not support ESR, hence the need to maintain both sets of recipes.
 
 Development Plan
