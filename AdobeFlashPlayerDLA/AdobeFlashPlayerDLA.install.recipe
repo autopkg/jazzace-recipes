@@ -6,6 +6,16 @@
     <string>Downloads the latest version of Flash Player for System Administrators and installs it.
   
 This recipe requires that you create a recipe override in order for it to work.
+
+NOTE 1: If you are using this for current (non-ESR) Flash downloads, you should try 
+the AdobeFlashDLACurrent recipes in this same folder, as it eliminates the need to increment 
+the major version number when Adobe decides that a particular release warrants a new major version number.
+
+NOTE 2: The development plan for the recipe with this identifier is a combined recipe where 
+you will be able to specify either ESR or Current (much like you do with Firefox). It will 
+be easier in that you will specify the URI Adobe provided to you (as the new DLACurrent 
+recipe does) but it will probably break your current use of this recipe.
+
 Instructions:
 1. Go to the Adobe Flash Player Distribution page on Adobe's site (you would have received
 a link to this page when your confirmed License Agreement was e-mailed back to you).
