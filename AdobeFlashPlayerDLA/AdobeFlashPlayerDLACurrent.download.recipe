@@ -3,9 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest version of Flash Player for System Administrators and 
-determines the version number (for people who need it for their repos or want AutoPkgr
-to report the correct version number).
+    <string>Downloads the latest version of Flash Player for System Administrators.
 
 This recipe requires that you create a recipe override in order for it to work.
 For FLASH_DLA_URL, use the URI to the Adobe Flash Player Distribution page from Adobe (you would have received
@@ -43,17 +41,6 @@ point, this recipe will become deprecated.)
         <dict>
             <key>Processor</key>
             <string>URLDownloader</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>Versioner</string>
-            <key>Arguments</key>
-            <dict>
-                <key>input_plist_path</key>
-                <string>%pathname%/Install Adobe Flash Player.pkg</string>
-                <key>plist_version_key</key>
-                <string>CFBundleVersion</string>
-            </dict>
         </dict>
 	</array>
 </dict>
