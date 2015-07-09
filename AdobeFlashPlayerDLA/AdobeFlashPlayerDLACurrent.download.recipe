@@ -3,11 +3,14 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest version of Flash Player for System Administrators.
+    <string>Downloads the latest version of Flash Player for System Administrators and determines
+the version number based on Adobe's web page (for people who need it for their repos 
+or want AutoPkgr to report the version number via e-mail).
 
 This recipe requires that you create a recipe override in order for it to work.
-For FLASH_DLA_URL, use the URI to the Adobe Flash Player Distribution page from Adobe (you would have received
-a link to this page when your confirmed License Agreement was e-mailed back to you).
+For FLASH_DLA_URL, use the URI to the Adobe Flash Player Distribution page from Adobe 
+(you would have received a link to this page when your confirmed License Agreement was 
+e-mailed back to you).
 
 If you wish to grab the ESR version of Flash, use my FlashPlayerDLA recipe. 
 (I hope to combine these two recipes in the future once I learn enough Python to write a 
@@ -27,6 +30,17 @@ point, this recipe will become deprecated.)
     <string>0.4.0</string>
     <key>Process</key>
     <array>
+        <dict>
+            <key>Processor</key>
+            <string>URLTextSearcher</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>%FLASH_DLA_URL%</string>
+                <key>re_pattern</key>
+                <string>(?:\sFlash Player (?P&lt;version&gt;[0-9.]*) )</string>
+            </dict>            
+        </dict>
         <dict>
             <key>Processor</key>
             <string>URLTextSearcher</string>
