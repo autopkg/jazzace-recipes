@@ -5,6 +5,13 @@
     <key>Description</key>
     <string>Downloads latest version of the Xerox Printer Drivers from Apple and extracts 
 the package from the dmg.
+
+-----------------------------------------------------------------------------------------------------
+THIS RECIPE IS NOW DEPRECATED and may stop working at any time due to a change in the parent recipe
+(see https://github.com/autopkg/n8felton-recipes/tree/ApplePrinterDriversUpdate/ApplePrinterDrivers).
+Use AppleXeroxPrinterDrivers.pkg.recipe from the same spot in this repo when this happens.
+-----------------------------------------------------------------------------------------------------
+
 Note: This recipe suppresses unnecessary copying of the package using the "StopProcessingIf" 
 processor. This means that any recipe that uses this as a parent recipe could stop execution 
 before reaching the child. You may need to remove the cache for the recipe in question and 
