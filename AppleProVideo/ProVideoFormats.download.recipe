@@ -20,7 +20,7 @@
     <array>
         <dict>
             <key>Processor</key>
-            <string>com.github.n8felton.download.XeroxPrinterDrivers/AppleSupportDownloadInfoProvider</string>
+            <string>com.github.n8felton.download.shared/AppleSupportDownloadInfoProvider</string>
             <key>Arguments</key>
             <dict>
                 <key>ARTICLE_NUMBER</key>
