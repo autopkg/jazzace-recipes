@@ -4,12 +4,13 @@
 <dict>
     <key>Description</key>
     <string>Downloads the latest version of Flash Player for System Administrators.
+The recipe is being maintained (for now) to support ESR releases.
 
 This recipe requires that you create a recipe override in order for it to work.
 
-NOTE 1: If you are using this for current (non-ESR) Flash downloads, you should try 
-the AdobeFlashDLACurrent recipes in this same folder, as it eliminates the need to increment 
-the major version number when Adobe decides that a particular release warrants a new major version number.
+NOTE 1: If you are using this for current (non-ESR) Flash downloads, you should use 
+the AdobeFlashDLACurrent recipes in this same folder, as they eliminate the need to increment 
+the major version number when Adobe decides that a particular release warrants a new number.
 
 NOTE 2: The development plan for the recipe with this identifier is a combined recipe where 
 you will be able to specify either ESR or Current (much like you do with Firefox). It will 
@@ -24,10 +25,7 @@ a link to this page when your confirmed License Agreement was e-mailed back to y
 3. Create an override for this recipe:
    • For FLASH_DOWNLOAD_URL_DIR, use the link you just copied (including http://) but delete 
      the .dmg file reference (we only want the directory where the .dmg is located);
-   • For MAJOR_VERSION, use either 17 for the current version or 13 for the ESR version
-     (Note: When Adobe updates to a new full number version, you will need to change your
-     override unless someone out there would like to create a new processor that can supply
-     that information — hint, hint).
+   • For MAJOR_VERSION, use 18 (or whatever is current for the ESR version)
 </string>
     <key>Identifier</key>
     <string>com.github.jazzace.download.FlashPlayerDLA</string>
@@ -38,7 +36,7 @@ a link to this page when your confirmed License Agreement was e-mailed back to y
         <key>FLASH_DOWNLOAD_URL_DIR</key>
         <string>http://youneed.to/override/this</string> 
         <key>MAJOR_VERSION</key>
-        <string>13</string>
+        <string>18</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.4.0</string>
