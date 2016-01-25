@@ -4,9 +4,16 @@
 <dict>
     <key>Description</key>
     <string>Downloads the latest update of the Pro Video Formats (previously known as ProApps QuickTime Codecs)
-    provided by Apple for their pro apps.
-    *** Note: This Recipe requires an external processor. You must have Nate Felton's recipe repo
-    available in your cache: com.github.autopkg.n8felton-recipes ***</string>
+provided by Apple for their pro apps.
+    
+*** Note 1: This Recipe requires an external processor. You must have Nate Felton's recipe repo
+    available in your cache: com.github.autopkg.n8felton-recipes ***
+*** Note 2: The downloaded installer is an updater that requires that you have one of the following installed:
+    * Final Cut Pro 7 or later (including X)
+    * Compressor 3.5 or later
+    * Motion 4.0 or later
+    Having that software installed means you also agreed to the appropriate Software License Agreement(s). ***    
+    </string>
     <key>Identifier</key>
     <string>com.github.jazzace.download.ProVideoFormats</string>
     <key>MinimumVersion</key>
