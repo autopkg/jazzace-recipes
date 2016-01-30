@@ -11,7 +11,7 @@
         <key>NAME</key>
         <string>i1Profiler</string>
         <key>SPARKLE_FEED_URL</key>
-        <string>http://www.xrite.com/Downloads/Autoupdate/i1profiler_mac_appcast.xml</string>
+        <string>https://www.xrite.com/Downloads/Autoupdate/i1profiler_mac_appcast.xml</string>
 	</dict>
     <key>Process</key>
     <array>
