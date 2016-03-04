@@ -11,7 +11,7 @@
         <key>NAME</key>
         <string>Finale Update</string>
         <key>SPARKLE_FEED_URL</key>
-        <string>http://downloads2.makemusic.com/xml/Finale_Mac.xml</string>
+        <string>https://downloads2.makemusic.com/xml/Finale_Mac.xml</string>
 	</dict>
     <key>Process</key>
     <array>
