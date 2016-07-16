@@ -37,15 +37,25 @@ provided by Apple for their pro apps.
         <dict>
             <key>Processor</key>
             <string>URLDownloader</string>
-            <key>Arguments</key>
-            <dict>
-                <key>url</key>
-                <string>%url%</string>
-            </dict>
         </dict>
         <dict>
             <key>Processor</key>
             <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%pathname%/ProVideoFormats.pkg</string>
+                <key>expected_authority_names</key>
+                <array>
+                    <string>Software Update</string>
+                    <string>Apple Software Update Certification Authority</string>
+                    <string>Apple Root CA</string>
+                </array>
+            </dict>
         </dict>
     </array>
 </dict>
