@@ -39,7 +39,7 @@ When my Python RE skill gets better, it will only find the one directly after th
         <key>OID</key>
         <string>000000</string>
         <key>OSX_VERSION</key>
-        <string>10</string>        
+        <string>11</string>        
     </dict>
     <key>MinimumVersion</key>
     <string>0.4.0</string>
@@ -68,6 +68,21 @@ When my Python RE skill gets better, it will only find the one directly after th
         <dict>
             <key>Processor</key>
             <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%pathname%/Office*.*pkg</string>
+                <key>expected_authority_names</key>
+                <array>
+                    <string>Developer ID Installer: Epson America, Inc.</string>
+                    <string>Developer ID Certification Authority</string>
+                    <string>Apple Root CA</string>
+                </array>
+            </dict>
         </dict>
     </array>
 </dict>
