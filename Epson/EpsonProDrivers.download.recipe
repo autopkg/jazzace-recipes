@@ -75,7 +75,7 @@ When my Python RE skill gets better, it will only find the one directly after th
             <key>Arguments</key>
             <dict>
                 <key>input_path</key>
-                <string>%pathname%/Office*.*pkg</string>
+                <string>%pathname%/*.pkg</string>
                 <key>expected_authority_names</key>
                 <array>
                     <string>Developer ID Installer: Epson America, Inc.</string>
