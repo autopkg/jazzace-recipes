@@ -10,10 +10,8 @@ This recipe requires that you create a recipe override in order for it to work.
 For FLASH_DLA_URL, use the URI to the Adobe Flash Player Distribution page from Adobe (you would have received
 a link to this page when your confirmed License Agreement was e-mailed back to you).
 
-If you wish to grab the ESR version of Flash, use my FlashPlayerDLA recipe. 
-(I hope to combine these two recipes in the future once I learn enough Python to write a 
-custom processor that would let you select your version based on an input value. At that 
-point, this recipe will become deprecated.)
+This recipe only works for URIs from Adobe that contain "distribution4". See the ReadMe 
+in this folder for newer license renewals (Oct. 2016 and later).
 
 This recipe suppresses unnecessary copying of the package using the "StopProcessingIf" 
 processor. This means that any recipe that uses this as a parent recipe could stop execution 
