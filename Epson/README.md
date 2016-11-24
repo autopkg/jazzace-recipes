@@ -1,12 +1,25 @@
 Driver Downloads Directly from Epson
 ====================================
 
-These recipes require that you manually determine the "oid" of your Epson product. You can do this by going to the Drivers and Downloads section of the U.S. web site and clicking on the appropriate links until you get to the Drivers and Downloads page for your product. Then capture the URL of that page and look for "oid=" and the number that follows it (usually six digits long). For example, the URI for the Stylus Pro 9900 on the U.S. site looks like this:
+This recipe requires that you find the support page for your product and copy that URL for use as the base string for the SEARCH_URL key in your override. In order for the recipe to work, the target OS must be explicitly specified in the URL.
 
+Recommended Procedure for Creating URL:
+---------------------------------------
+1. Go to the Epson site for your country.
+2. Find the support page for your Epson device.
+3. The support page will attempt to determine your current OS version and will display that in a pop-up menu on the page. If that is OS you are targeting for deployment, temporarily change the value in that popup menu to any other OS, wait a second (enough for the page to quickly reload), and then change to the OS you are targeting for deployment. If you are targeting a different OS, then directly change the OS in the popup menu. 
+4. Copy the URL.
+5. Create an override of this recipe (or edit an existing override).
+6. In the Input section, paste the URL that you copied earlier into the string for SEARCH_URL.
+7. Check the URL you just pasted. Confirm that it ends with one of the following strings (substituting the number of the OS as appropriate). You can append this string if it is not present. 
+
+For macOS 10.12 and later:     `?review-filter=macOS+10.12.x`
+For OS X 10.11.x and earlier:  `?review-filter=Mac+OS+X+10.11.x`
+
+For example, the URL for the Epson Stylus Pro 3880 fetched from the Canadian Epson site with macOS Sierra as the deployment OS is:
 ````
-   http://www.epson.com/cgi-bin/Store/support/supDetail.jsp?BV_UseBVCookie=yes&oid=119098&prodoid=63079720&infoType=Downloads&detected=yes&platform=OSF_M_X10
+   https://epson.ca/Support/Printers/Professional-Imaging-Printers/Epson-Stylus-Pro-Series/Epson-Stylus-Pro-3880/s/SPT_CA61201-VM?review-filter=macOS+10.12.x
 ````
+(The US URL is the same, except it is .com instead of .ca. Only the Canadian and US sites have been tested.)
 
-In this case, the oid would be 119098. Enter this number as the value for the OID input key in the recipe override (you _will_ require an override, but you can also create separate overrides for each Epson product you use).
-
-You will also notice that the version of OS X is also present in that URI. Enter the desired major version of OS X (expressed as the number after the decimal point) as the OSX_VERSION input key. For example, Yosemite is 10, Mavericks is 9.
+This recipe depends on the driver download being the first one listed on the page searched. If you wish to improve my Python RE to ensure that the search finds the URL associated with the words "Printer Driver" or other appropriate string in the HTML, I gratefully accept pull requests.
