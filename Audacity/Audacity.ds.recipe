@@ -3,7 +3,13 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest version of Audacity, packages it, and then copies the package to the DeployStudio packages repository.
+    <string>Packages the latest version of Audacity and then copies the package to the DeployStudio packages repository.
+This recipe requires the scriptingosx-recipes repo. As well, you must manually download 
+the latest version from http://www.audacityteam.org/download/mac/ and then run this recipe 
+from the command line with the --pkg option. For example:
+    autopkg run Audacity.ds --pkg ~/Downloads/audacity-macosx-ub-2.1.2.dmg
+More details can be found in the ReadMe found with the parent recipe.
+
 Input keys:
 - DS_PKGS_PATH is the path for the Packages folder in the DeployStudio repository (trailing slash not required/desired).
   The path does not need to be on the same volume as the cache, as the pkg is being duplicated.
@@ -15,9 +21,9 @@ Input keys:
     <key>Input</key>
     <dict>
         <key>DS_PKGS_PATH</key>
-        <string>/Volumes/DSServer/Users/Shared/Deploy/Packages</string>
-        <key>DS_NAME</key>
-        <string>%NAME%</string>
+		<string>/Volumes/DSServer/Users/Shared/Deploy/Packages</string>
+		<key>DS_NAME</key>
+		<string>%NAME%</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
