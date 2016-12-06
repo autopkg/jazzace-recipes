@@ -1,7 +1,7 @@
-Driver Downloads Directly from Epson
-====================================
+Pro Driver Downloads Directly from Epson
+========================================
 
-This recipe requires that you find the support page for your product and copy that URL for use as the base string for the SEARCH_URL key in your override. In order for the recipe to work, the target OS must be explicitly specified in the URL.
+This recipe family requires that you find the support page for your product and copy that URL for use as the base string for the SEARCH_URL key in your override. In order for the recipe to work, the target OS must be explicitly specified in the URL.
 
 Recommended Procedure for Creating URL:
 ---------------------------------------
