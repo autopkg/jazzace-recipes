@@ -39,8 +39,8 @@ Input keys:
             <key>Arguments</key>
             <dict>
                 <key>predicate</key>
-<!-- Depending on the processor in the parent recipe, either download_changed (used by URLDownloader) 
-or new_package_request (used by PkgCreator) will be used to the left of the ==. -->
+<!-- Depending on the processor in the parent recipe, either download_changed (returned by URLDownloader) 
+or new_package_request (returned by PkgCreator and AppPkgCreator) will be used to the left of the ==. -->
                 <string>new_package_request == FALSE</string>
             </dict>
         </dict>
