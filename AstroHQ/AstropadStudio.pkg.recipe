@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Comment</key>
+	<string>Thanks to Recipe Robot v1.0.5 (https://github.com/homebysix/recipe-robot) for the head start.</string>
+	<key>Description</key>
+	<string>Downloads the latest version of Astropad Studio and creates a package.</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.AstropadStudio</string>
+	<key>Input</key>
+	<dict/>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.download.AstropadStudio</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>AppPkgCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>app_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%/%NAME%.app</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
