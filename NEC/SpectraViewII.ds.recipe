@@ -4,7 +4,7 @@
 <dict>
     <key>Description</key>
     <string>Downloads latest version of SpectraView II, packages it, and then copies the package to the DeployStudio packages repository.
-Requires that you have Patrick Fergus' (foigus) recipes in your repo.</string>
+Requires that you have Patrick Fergus' (foigus) recipes in your repo.
 Input keys:
 - DS_PKGS_PATH is the path for the Packages folder in the DeployStudio repository (trailing slash not required/desired).
   The path does not need to be on the same volume as the cache, as the pkg is being duplicated.
