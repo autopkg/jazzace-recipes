@@ -10,10 +10,7 @@
     <key>Identifier</key>
     <string>com.github.jazzace.pkg.i1profiler</string>
     <key>Input</key>
-    <dict>
-        <key>NAME</key>
-        <string>i1Profiler</string>
-    </dict>
+    <dict/>
     <key>ParentRecipe</key>
     <string>com.github.jazzace.download.i1profiler</string>
     <key>MinimumVersion</key>
