@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest version of Lightwright (John McKernon Software) and extracts the package installer.
-If there is no new installer, the file will not be extracted from the archive, nor will any 
-other steps be processed if this recipe is the parent of another recipe.
-The package installer will be located in the cache at %NAME%/LW5MacInstaller.mpkg.
+    <string>Downloads the current release version of Lightwright (John McKernon Software), extracts the
+dmg from the Zip archive and then packages the Lightwright app into a package.
+The package installer will be located in the cache inside the folder %NAME% (usually "Lightwright").
+This recipe is based on the Version 6 installer.
 </string>
     <key>Identifier</key>
     <string>com.github.jazzace.pkg.lightwright</string>
     <key>Input</key>
     <dict/>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>1.0.0</string>
     <key>ParentRecipe</key>
     <string>com.github.jazzace.download.lightwright</string>
     <key>Process</key>
@@ -32,10 +32,17 @@ The package installer will be located in the cache at %NAME%/LW5MacInstaller.mpk
             <string>Unarchiver</string>
             <key>Arguments</key>
             <dict>
-                <key>archive_path</key>
-                <string>%pathname%</string>
                 <key>purge_destination</key>
                 <true/>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>AppPkgCreator</string>
+            <key>Arguments</key>
+            <dict>
+                <key>app_path</key>
+                <string>%RECIPE_CACHE_DIR%/%NAME%/Lightwright*.dmg/Lightwr*.app</string>
             </dict>
         </dict>
 	</array>

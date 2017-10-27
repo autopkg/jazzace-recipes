@@ -3,26 +3,43 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the current release version of Lightwright (John McKernon Software) in a zip archive.</string>
+    <string>Downloads the current release version of Lightwright (John McKernon Software) in a zip archive.
+This recipe supports version 6 and (hopefully) later. Specify the version in the Input key.
+</string>
     <key>Identifier</key>
     <string>com.github.jazzace.download.lightwright</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
         <string>Lightwright</string>
-        <key>DOWNLOAD_URL</key>
-        <string>http://www.mckernon.com/downloads/LW5MacInstaller.zip</string>
+        <key>LW_VERSION</key>
+        <string>6</string>
 	</dict>
+    <key>MinimumVersion</key>
+    <string>1.0.0</string>
     <key>Process</key>
     <array>
         <dict>
             <key>Processor</key>
-            <string>URLDownloader</string>
+            <string>URLTextSearcher</string>
             <key>Arguments</key>
             <dict>
                 <key>url</key>
-                <string>%DOWNLOAD_URL%</string>
+                <string>https://www.mckernon.com/downloads/downloadslw%LW_VERSION%.html</string>
+                <key>re_pattern</key>
+                <string>http*://www\.mckernon\.com/filedownloads/Lightwright[0-9]*\.dmg\.zip</string>
+                <key>result_output_var_name</key>
+				<string>url</string>
+                <key>request_headers</key>
+                <dict>
+                    <key>User-Agent</key>
+                    <string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Safari/604.1.38</string>
+                </dict>
             </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
         </dict>
         <dict>
             <key>Processor</key>
