@@ -8,8 +8,8 @@
 *** Note 1: This Recipe requires an external processor. You must have Nate Felton's recipe repo
     available in your cache: com.github.autopkg.n8felton-recipes ***
 *** Note 2: The downloaded installer is an updater that requires that you have one of the following installed:
-    * Final Cut Pro 7 or later (including X)
-    * Compressor 3.5 or later (4.1 preferred)
+    * Final Cut Pro X
+    * Compressor 4.1
     * Motion 4.0 or later
     Having that software installed means you also agreed to the appropriate Software License Agreement(s).
     Version 2.0.5 and later requires OS X 10.11 or a later version of macOS. ***    
@@ -31,7 +31,7 @@
             <key>Arguments</key>
             <dict>
                 <key>ARTICLE_NUMBER</key>
-                <string>1898</string>
+                <string>1947</string>
             </dict>
         </dict>
         <dict>
