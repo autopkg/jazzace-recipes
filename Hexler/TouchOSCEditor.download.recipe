@@ -10,10 +10,6 @@
     <dict>
         <key>NAME</key>
         <string>TouchOSC Editor</string>
-        <key>SEARCH_URL</key>
-        <string>http://hexler.net/software/touchosc</string>
-        <key>SEARCH_PATTERN</key>
-        <string>(?P&lt;url&gt;/pub/touchosc/touchosc-editor-(?P&lt;version&gt;.*?)-osx\.zip)</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.9</string>
@@ -25,9 +21,9 @@
             <key>Arguments</key>
             <dict>
                 <key>url</key>
-                <string>%SEARCH_URL%</string>
+                <string>http://hexler.net/software/touchosc</string>
                 <key>re_pattern</key>
-                <string>%SEARCH_PATTERN%</string>
+                <string>(?P&lt;uri&gt;/pub/touchosc/touchosc-editor-(?P&lt;version&gt;.*?)-osx\.zip)</string>
             </dict>
         </dict>
         <dict>
@@ -36,7 +32,7 @@
             <key>Arguments</key>
             <dict>
                 <key>url</key>
-                <string>http://www.hexler.net%url%</string>
+                <string>http://www.hexler.net%uri%</string>
             </dict>
         </dict>
         <dict>
