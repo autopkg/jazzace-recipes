@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads the latest version of a particular Apple Support Article (specified in the input keys)
+and, if it has updated, copies it to the designated directory as HTML, marked with the modification date 
+(in English, using UTC for time).
+
+Input Keys:
+    ARTICLE is the Apple Support Article number, usually two letters (HT) and six digits.
+    LANG is the language and country descriptor, consisting of two letters for the language, a dash, and 
+        two letters for the country (e.g., en-us). Many will want to force the US version in order to get
+        the earliest indication of a change. 
+    SAVE_LOCATION is the path to the directory where the HTML file should be saved. The path should exist. 
+</string>
+    <key>Identifier</key>
+    <string>com.github.jazzace.download.AppleSupportArticle</string>
+    <key>Input</key>
+    <dict>
+        <key>ARTICLE</key>
+        <string>HT208020</string>
+        <key>LANG</key>
+        <string>en-us</string>
+        <key>SAVE_LOCATION</key>
+        <string>/Users/Shared</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.5.0</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>https://support.apple.com/%LANG%/%ARTICLE%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>StopProcessingIf</string>
+            <key>Arguments</key>
+            <dict>
+                <key>predicate</key>
+                <string>download_changed == FALSE</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLTextSearcher</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>file://%RECIPE_CACHE_DIR%/downloads/%ARTICLE%</string>
+                <key>re_pattern</key>
+                <string>itemProp="dateModified"&gt;(?P&lt;monthhour&gt;[^:]*):(?P&lt;mm&gt;..):.. ... (?P&lt;yr&gt;....)</string>
+            </dict>            
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>Copier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>source_path</key>
+                <string>%pathname%</string>
+                <key>destination_path</key>
+                <string>%SAVE_LOCATION%/%ARTICLE% %yr% %monthhour%h%mm% UTC.html</string>
+                <key>overwrite</key>
+                <true/>
+            </dict>
+        </dict>
+	</array>
+</dict>
+</plist>
