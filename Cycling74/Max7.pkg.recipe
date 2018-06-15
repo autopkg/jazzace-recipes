@@ -10,7 +10,7 @@ Requires that you have Tim Sutton's recipes (timsutton-recipes) in your repo.</s
 	<key>Input</key>
 	<dict/>
 	<key>MinimumVersion</key>
-	<string>0.6.1</string>
+	<string>1.0.0</string>
 	<key>ParentRecipe</key>
 	<string>com.github.timsutton.download.Max7</string>
 	<key>Process</key>

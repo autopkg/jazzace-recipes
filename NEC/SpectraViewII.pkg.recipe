@@ -10,7 +10,7 @@ Requires that you have Patrick Fergus' (foigus) recipes in your repo.</string>
 	<key>Input</key>
 	<dict/>
 	<key>MinimumVersion</key>
-	<string>0.4.0</string>
+	<string>1.0.0</string>
 	<key>ParentRecipe</key>
 	<string>com.github.foigus.download.SpectraViewII</string>
 	<key>Process</key>
