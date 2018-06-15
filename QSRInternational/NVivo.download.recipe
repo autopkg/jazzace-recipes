@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads the latest release of the version of NVivo that you specify in NVIVO_VERSION.
+This recipe requires that you have Elliott Jordan's recipes (homebysix-recipes) in your RecipeRepos,
+as his FindAndReplace processor is used.
+
+Because the app identifier changed in NVivo 12, you must also specify this in the APP_ID input
+value to enable the CodeSignatureVerifier processor to evaluate the download correctly.
+Version 12: com.qsrinternational.NVivo-12
+Version 10 and 11: com.qsrinternational.NVivo
+</string>
+    <key>Identifier</key>
+    <string>com.github.jazzace.download.NVivo</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>NVivo</string>
+        <key>NVIVO_VERSION</key>
+        <string>12</string>
+        <key>APP_ID</key>
+        <string>com.qsrinternational.NVivo-12</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>1.0.0</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>URLTextSearcher</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>http://qsrinternational.com/nvivo/support-overview/downloads</string>
+                <key>re_pattern</key>
+                <string>http[s]*://download\.qsrinternational\.com/Software/NVivo%NVIVO_VERSION%forMac/NVivo[^\.]*\.dmg</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_string</key>
+                <string>%match%</string>
+                <key>find</key>
+                <string> </string>
+                <key>replace</key>
+                <string>%20</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>%output_string%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%pathname%/*.app</string>
+                <key>requirement</key>
+                <string>identifier "%APP_ID%" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = A66L57342X</string>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>
