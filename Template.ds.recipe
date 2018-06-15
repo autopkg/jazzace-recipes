@@ -10,7 +10,9 @@ contents may have changed, hence the default choice of using the app name for th
 You need to change ____ (to the core recipe name), yourgithubusername in the recipe Identifier, 
 and parentgithubusername in the ParentRecipe author.
 If you might want to leverage this template to auto-create a bunch of these, check Allister Banks' 
-repo for ideas and sample code: https://github.com/arubdesu/recipeGenerationUtils  -->
+repo for ideas and sample code: https://github.com/arubdesu/recipeGenerationUtils  
+Alternately, Recipe Robot has incorporated this template into its receipe generator:
+https://github.com/homebysix/recipe-robot  -->
     <string>Downloads latest version of ____, packages it, and then copies the package to the DeployStudio packages repository.
 Input keys:
 - DS_PKGS_PATH is the path for the Packages folder in the DeployStudio repository (trailing slash not required/desired).
@@ -50,7 +52,7 @@ or new_package_request (returned by PkgCreator and AppPkgCreator) will be used t
             <key>Arguments</key>
             <dict>
                 <key>source_path</key>
-<!-- If you created the pkg using PkgCreator, use %pkg_path% for the source_path.
+<!-- If you created the pkg using [App]PkgCreator, use %pkg_path% for the source_path.
 If you extracted an existing pkg (e.g., using Unarchiver), the conventional source_path 
 would be %RECIPE_CACHE_DIR%/%NAME%/*.pkg -->
                 <string>%pkg_path%</string>
