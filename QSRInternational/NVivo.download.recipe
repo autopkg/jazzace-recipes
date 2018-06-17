@@ -4,7 +4,7 @@
 <dict>
     <key>Description</key>
     <string>Downloads the latest release of the version of NVivo that you specify in NVIVO_VERSION.
-This recipe requires that you have Elliott Jordan's recipes (homebysix-recipes) in your RecipeRepos,
+This recipe requires that you have Elliot Jordan's recipes (homebysix-recipes) in your RecipeRepos,
 as his FindAndReplace processor is used.
 
 Because the app identifier changed in NVivo 12, you must also specify this in the APP_ID input
