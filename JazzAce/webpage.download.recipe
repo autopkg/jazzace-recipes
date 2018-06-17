@@ -7,7 +7,9 @@
 Since this recipe simply captures the raw HTML, if you open the resulting file, it will often fail in resolving things
 like stylesheets and internal links because any shorthand references will not point to the correct location.
 
-This recipe date+timestamps the filename of the download, using Elliot Jordan’s FindAndReplace processor to strip the (reserved) colons from the filename. You’ll need to have the homebysix-recipes repo added to your local RecipeRepos in order to run this recipe.
+This recipe date+timestamps the filename of the download, using Elliot Jordan’s FindAndReplace processor
+to strip the (reserved) colons and " GMT" from the filename. You’ll need to add homebysix-recipes to your 
+local RecipeRepos in order to run this recipe.
 
 Input Keys:
     PAGE_URL is the full URI for the page to be checked/downloaded.
