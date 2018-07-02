@@ -3,7 +3,8 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest version of TouchOSC Editor.</string>
+    <string>Downloads the latest version of TouchOSC Editor.
+In order to check the Code Signature, the Zip archive is expanded.</string>
     <key>Identifier</key>
     <string>com.github.jazzace.download.TouchOSCEditor</string>
     <key>Input</key>
@@ -21,9 +22,9 @@
             <key>Arguments</key>
             <dict>
                 <key>url</key>
-                <string>http://hexler.net/software/touchosc</string>
+                <string>https://hexler.net/software/touchosc</string>
                 <key>re_pattern</key>
-                <string>(?P&lt;uri&gt;/pub/touchosc/touchosc-editor-(?P&lt;version&gt;.*?)-osx\.zip)</string>
+                <string>(?P&lt;uri&gt;/pub/touchosc/touchosc-editor-(?P&lt;versn&gt;.*?)-osx\.zip)</string>
             </dict>
         </dict>
         <dict>
@@ -32,12 +33,36 @@
             <key>Arguments</key>
             <dict>
                 <key>url</key>
-                <string>http://www.hexler.net%uri%</string>
+                <string>https://www.hexler.net%uri%</string>
             </dict>
         </dict>
         <dict>
             <key>Processor</key>
             <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>Unarchiver</string>
+            <key>Arguments</key>
+            <dict>
+                <key>archive_path</key>
+                <string>%pathname%</string>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/Unarchived</string>
+                <key>purge_destination</key>
+                <true/>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%RECIPE_CACHE_DIR%/Unarchived/touchosc-editor-%versn%-osx/%NAME%.app</string>
+                <key>requirement</key>
+                <string>identifier "net.hexler.TouchOSCEditor" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "784FHWRMF9"</string>
+            </dict>
         </dict>
     </array>
 </dict>
