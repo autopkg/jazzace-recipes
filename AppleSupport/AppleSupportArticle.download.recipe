@@ -4,8 +4,8 @@
 <dict>
     <key>Description</key>
     <string>Downloads the latest version of a particular Apple Support Article (specified in the input keys)
-and, if it has updated, copies it to the designated directory as HTML, marked with the modification date 
-(in English, using UTC for time).
+and, if it has updated, copies it to the designated directory as HTML, marked with the modification date
+(ISO 8601 date format).
 
 Input Keys:
     ARTICLE is the Apple Support Article number, usually two letters (HT) and six digits.
