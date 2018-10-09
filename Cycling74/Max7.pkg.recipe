@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest version of Max 7 and creates a package installer for the app.
+	<string>Downloads the latest version of Max and creates a package installer for the app.
 Requires that you have Tim Sutton's recipes (timsutton-recipes) in your repo.</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.Max7</string>
