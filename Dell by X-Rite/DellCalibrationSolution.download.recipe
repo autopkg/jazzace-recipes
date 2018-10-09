@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the latest version of Dell UltraSharp Calibration Solution (made by X-Rite).
+In order to verify the code signature, the Zip archive downloaded is unarchived to reveal the .pkg
+installer therein.</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.download.DellCalibrationSolution</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>Dell Calibration Solution</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>SparkleUpdateInfoProvider</string>
+			<key>Arguments</key>
+			<dict>
+				<key>appcast_url</key>
+				<string>http://downloads.xrite.com/downloads/AutoUpdate/DellCalibrationSolution/dell_mac_appcast.xml</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Unarchiver</string>
+			<key>Arguments</key>
+			<dict>
+				<key>archive_path</key>
+				<string>%pathname%</string>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+				<key>purge_destination</key>
+				<true/>
+			</dict>
+		</dict>
+		<dict>   
+			<key>Processor</key>   
+			<string>CodeSignatureVerifier</string>   
+			<key>Arguments</key>   
+			<dict>   
+				<key>input_path</key>   
+				<string>%RECIPE_CACHE_DIR%/%NAME%/Dell*.pkg</string>
+				<key>expected_authority_names</key>
+				<array>
+					<string>Developer ID Installer: X-Rite, Incorporated (2K7GT73B4R)</string>
+					<string>Developer ID Certification Authority</string>
+					<string>Apple Root CA</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
