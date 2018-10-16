@@ -4,9 +4,11 @@
 <dict>
     <key>Description</key>
     <string>Downloads the current release of i1Profiler and extracts the installation package.
-    Note: No modifications are made to the installer package. For a recipe that attempts to modify
-    the package to eliminate behaviours that may be undesirable in some environments, see 
-    https://github.com/autopkg/mosen-recipes/tree/master/XRite </string>
+This recipe is a stub, as the updated parent recipe provides a pkg installer.
+If it is your process to add versioning to the filename of the pkg, you may wish to write
+your own pkg recipe that leverages the fact that the version number is returned by the
+SparkleUpdateInfoProvider processor in the download recipe (%version%).
+</string>
     <key>Identifier</key>
     <string>com.github.jazzace.pkg.i1profiler</string>
     <key>Input</key>
@@ -14,20 +16,8 @@
     <key>ParentRecipe</key>
     <string>com.github.jazzace.download.i1profiler</string>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>0.5.0</string>
     <key>Process</key>
-    <array>
-        <dict>
-            <key>Processor</key>
-            <string>Unarchiver</string>
-            <key>Arguments</key>
-            <dict>
-                <key>archive_path</key>
-                <string>%pathname%</string>
-                <key>purge_destination</key>
-                <true/>
-            </dict>
-        </dict>
-    </array>
+    <array/>
 </dict>
 </plist>

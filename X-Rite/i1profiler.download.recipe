@@ -3,7 +3,8 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the current release version of i1 Profiler as a Zip archive (via Sparkle).</string>
+    <string>Downloads the current release version of i1 Profiler and verifies the code signature
+of the pkg intaller inside the zip archive downloaded.</string>
     <key>Identifier</key>
     <string>com.github.jazzace.download.i1profiler</string>
     <key>Input</key>
@@ -11,6 +12,8 @@
         <key>NAME</key>
         <string>i1Profiler</string>
 	</dict>
+    <key>MinimumVersion</key>
+    <string>0.5.0</string>
     <key>Process</key>
     <array>
         <dict>
@@ -34,6 +37,32 @@
         <dict>
             <key>Processor</key>
             <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>Unarchiver</string>
+            <key>Arguments</key>
+            <dict>
+                <key>archive_path</key>
+                <string>%pathname%</string>
+                <key>purge_destination</key>
+                <true/>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%RECIPE_CACHE_DIR%/%NAME%/*.pkg</string>
+                <key>expected_authority_names</key>
+                <array>
+                    <string>Developer ID Installer: X-Rite, Incorporated (2K7GT73B4R)</string>
+                    <string>Developer ID Certification Authority</string>
+                    <string>Apple Root CA</string>
+                </array>
+            </dict>
         </dict>
     </array>
 </dict>

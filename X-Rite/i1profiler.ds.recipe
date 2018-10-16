@@ -3,7 +3,9 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest version of i1 Profiler, extracts the package, and then copies the package to the DeployStudio packages repository.
+    <string>Downloads latest version of i1 Profiler, extracts the package, 
+and then copies the package to the DeployStudio packages repository.
+
 Input keys:
 - DS_PKGS_PATH is the path for the Packages folder in the DeployStudio repository (trailing slash not required/desired).
   The path does not need to be on the same volume as the cache, as the pkg is being duplicated.
@@ -20,9 +22,9 @@ Input keys:
         <string>%NAME%</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>0.5.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.jazzace.pkg.i1profiler</string>
+    <string>com.github.jazzace.download.i1profiler</string>
     <key>Process</key>
     <array>
         <dict>
