@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Comment</key>
+    <string>Based on a recipe by Tim Sutton for Version 9.</string>
+    <key>Description</key>
+    <string>Downloads the most recent version of Ableton Live based on the version and edition you specify.
+LIVE_VERS is the major version of Live. The two most recent versions are supported (currently 9 and 10).
+Possible values for EDITION are: trial, live, intro, standard, and suite.</string>
+    <key>Identifier</key>
+    <string>com.github.jazzace.download.AbletonLive</string>
+    <key>Input</key>
+    <dict>
+        <key>LIVE_VERS</key>
+        <string>10</string>
+        <key>NAME</key>
+        <string>AbletonLive%LIVE_VERS%</string>
+        <key>EDITION</key>
+        <string>lite</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.3.1</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>URLTextSearcher</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>https://help.ableton.com/hc/en-us/articles/211934625-Latest-Live-Version</string>
+                <key>re_pattern</key>
+                <string>The latest version of Live %LIVE_VERS% is Live (?P&lt;version&gt;%LIVE_VERS%(\.\d)+)</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>http://cdn2-downloads.ableton.com/channels/%version%/ableton_live_%EDITION%_%version%_64.dmg</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+		<dict>
+			<key>Processor</key>
+			<string>CodeSignatureVerifier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_path</key>
+				<string>%RECIPE_CACHE_DIR%/downloads/ableton_live_%EDITION%_%version%_64.dmg/*.app</string>
+				<key>requirement</key>
+				<string>identifier "com.ableton.live" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = MWR434WD94</string>
+			</dict>
+		</dict>
+    </array>
+</dict>
+</plist>
