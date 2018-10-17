@@ -7,7 +7,7 @@
     <key>Description</key>
     <string>Downloads the most recent version of Ableton Live based on the version and edition you specify.
 LIVE_VERS is the major version of Live. The two most recent versions are supported (currently 9 and 10).
-Possible values for EDITION are: trial, live, intro, standard, and suite.</string>
+Possible values for EDITION are: trial, lite, intro, standard, and suite.</string>
     <key>Identifier</key>
     <string>com.github.jazzace.download.AbletonLive</string>
     <key>Input</key>
