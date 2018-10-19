@@ -12,10 +12,10 @@ Possible values for EDITION are: trial, lite, intro, standard, and suite.</strin
     <string>com.github.jazzace.download.AbletonLive</string>
     <key>Input</key>
     <dict>
+        <key>NAME</key>
+        <string>Ableton Live 10 Lite</string>
         <key>LIVE_VERS</key>
         <string>10</string>
-        <key>NAME</key>
-        <string>AbletonLive%LIVE_VERS%</string>
         <key>EDITION</key>
         <string>lite</string>
     </dict>
@@ -53,7 +53,7 @@ Possible values for EDITION are: trial, lite, intro, standard, and suite.</strin
 			<key>Arguments</key>
 			<dict>
 				<key>input_path</key>
-				<string>%RECIPE_CACHE_DIR%/downloads/ableton_live_%EDITION%_%version%_64.dmg/*.app</string>
+				<string>%pathname%/*.app</string>
 				<key>requirement</key>
 				<string>identifier "com.ableton.live" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = MWR434WD94</string>
 			</dict>
