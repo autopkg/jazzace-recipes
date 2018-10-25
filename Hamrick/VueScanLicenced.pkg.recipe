@@ -87,8 +87,8 @@ the path to that file (including the file name with extension). AutoPkg will do 
             <string>PkgCreator</string>
             <key>Arguments</key>
             <dict>
-				<key>pkgname</key>
-				<string>%NAME%-%version%</string>
+                <key>pkgname</key>
+                <string>%NAME%-%version%</string>
                 <key>pkg_request</key>
                 <dict>
                     <key>chown</key>
