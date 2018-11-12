@@ -32,10 +32,8 @@
             <string>URLDownloader</string>
             <key>Arguments</key>
             <dict>
-                <key>url</key>
-                <string>%url%</string>
                 <key>filename</key>
-                <string>%NAME%.dmg</string>
+                <string>MuseScore.dmg</string>
                 <key>CHECK_FILESIZE_ONLY</key>
                 <true/>
             </dict>
