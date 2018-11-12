@@ -10,7 +10,7 @@
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>MuseScore</string>
+        <string>MuseScore 2</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.9</string>
@@ -32,8 +32,6 @@
             <string>URLDownloader</string>
             <key>Arguments</key>
             <dict>
-                <key>filename</key>
-                <string>MuseScore.dmg</string>
                 <key>CHECK_FILESIZE_ONLY</key>
                 <true/>
             </dict>
