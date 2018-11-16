@@ -53,11 +53,11 @@ If a new package is created, the temporary files needed during packaging are del
         <dict>
             <key>Processor</key>
             <string>AppPkgCreator</string>
-			<key>Arguments</key>
-			<dict>
-				<key>app_path</key>
-				<string>%RECIPE_CACHE_DIR%/%NAME%/%dmg_found_filename%</string>
-			</dict>
+            <key>Arguments</key>
+            <dict>
+                <key>app_path</key>
+                <string>%RECIPE_CACHE_DIR%/%NAME%/%dmg_found_filename%</string>
+            </dict>
         </dict>
         <dict>
             <key>Processor</key>
@@ -80,6 +80,6 @@ If a new package is created, the temporary files needed during packaging are del
                 </array>
             </dict>
         </dict>
-	</array>
+    </array>
 </dict>
 </plist>
