@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>This is a generic recipe to turn an app into a .pkg installer for it.
+The user must specify the path to the app at runtime via the --pkg option.
+The package will be saved in the AutoPkg cache for this recipe.
+A new package will be built each time.
+Note that many Apple-authored apps do not work with this recipe—consider using
+AppStoreApp.pkg from the nmcspadden-recipes repo instead.</string>
+    <key>Identifier</key>
+    <string>com.github.jazzace.pkg.packageapp</string>
+    <key>Input</key>
+    <dict/>
+    <key>MinimumVersion</key>
+    <string>1.0.0</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>PackageRequired</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>AppPkgCreator</string>
+            <key>Arguments</key>
+            <dict>
+                <key>app_path</key>
+                <string>%PKG%</string>
+                <key>force_pkg_build</key>
+                <true/>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>
