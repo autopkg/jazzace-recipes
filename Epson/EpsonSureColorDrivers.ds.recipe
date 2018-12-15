@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads latest version of the Epson SureColor P-series product driver from Epson's site, 
+extracts the package from the dmg, and copies it to the DeployStudio packages repository.
+These will generally be drivers and ICC profiles not included in the OS by Apple.
+Make separate overrides for each printer you may want. An override is required.
+
+See the parent (download) recipe for important recipe instructions.
+</string>
+    <key>Identifier</key>
+    <string>com.github.jazzace.ds.EpsonSureColorDrivers</string>
+    <key>Input</key>
+    <dict>
+        <key>DS_NAME</key>
+        <string>%NAME%</string>
+        <key>DS_PKGS_PATH</key>
+        <string>/Volumes/DSServer/Users/Shared/Deploy/Packages</string>
+    </dict>
+    <key>ParentRecipe</key>
+    <string>com.github.jazzace.download.EpsonSureColorDrivers</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>StopProcessingIf</string>
+            <key>Arguments</key>
+            <dict>
+                <key>predicate</key>
+                <string>download_changed == FALSE</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>Copier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>source_path</key>
+                <string>%pathname%/*.pkg</string>
+                <key>destination_path</key>
+                <string>%DS_PKGS_PATH%/%DS_NAME%.pkg</string>
+                <key>overwrite</key>
+                <true/>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>

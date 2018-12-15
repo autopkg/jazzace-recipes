@@ -22,4 +22,7 @@ For example, the URL for the Epson Stylus Pro 3880 fetched from the Canadian Eps
 ````
 (The US URL is the same, except it is .com instead of .ca. Only the Canadian and US sites have been tested.)
 
-This recipe depends on the driver download being the first one listed on the page searched. If you wish to improve my Python RE to ensure that the search finds the URL associated with the words "Printer Driver" or other appropriate string in the HTML, I gratefully accept pull requests.
+The major difference between the ProDrivers recipes and the SureColorDrivers recipes is
+that Epson changed the information that the Code Signature Verifier uses. There has also
+been some work done on the regular expression in the SureColorDrivers recipes to dodge
+some issues with the new "Recommended for you" feature on some products.
