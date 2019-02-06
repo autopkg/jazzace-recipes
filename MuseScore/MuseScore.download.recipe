@@ -24,7 +24,7 @@
                 <key>url</key>
                 <string>https://musescore.org/en/download/musescore.dmg</string>
                 <key>re_pattern</key>
-                <string>(?P&lt;url&gt;https://.*/releases/MuseScore-(?P&lt;version&gt;[0-9.]*)/MuseScore-[0-9.]*\.dmg)</string>
+                <string>(?P&lt;url&gt;https://.*/releases/download/.*/MuseScore-[0-9.]*\.dmg)</string>
             </dict>
         </dict>
         <dict>
