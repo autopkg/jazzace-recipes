@@ -3,8 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest version of MuseScore.
-(Due to the use of multiple download mirrors, this recipe only checks to see if the filesize has changed.)</string>
+    <string>Downloads the latest version of MuseScore using the GitHub release info.</string>
     <key>Identifier</key>
     <string>com.github.jazzace.download.MuseScore</string>
     <key>Input</key>
@@ -13,28 +12,23 @@
         <string>MuseScore 3</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.9</string>
+    <string>0.5.0</string>
     <key>Process</key>
     <array>
         <dict>
             <key>Processor</key>
-            <string>URLTextSearcher</string>
+            <string>GitHubReleasesInfoProvider</string>
             <key>Arguments</key>
             <dict>
-                <key>url</key>
-                <string>https://musescore.org/en/download/musescore.dmg</string>
-                <key>re_pattern</key>
-                <string>(?P&lt;url&gt;https://.*/MuseScore-(?P&lt;version&gt;[0-9.]*)\.dmg)</string>
+                <key>github_repo</key>
+                <string>musescore/MuseScore</string>
+                <key>asset_regex</key>
+                <string>MuseScore-[\.\d]+\.dmg</string>
             </dict>
         </dict>
         <dict>
             <key>Processor</key>
             <string>URLDownloader</string>
-            <key>Arguments</key>
-            <dict>
-                <key>CHECK_FILESIZE_ONLY</key>
-                <true/>
-            </dict>
         </dict>
         <dict>
             <key>Processor</key>
