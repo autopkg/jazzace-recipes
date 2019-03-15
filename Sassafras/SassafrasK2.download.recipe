@@ -21,8 +21,10 @@ Admin
 Server
 Client
 
+The primary purpose of this recipe is to support Admin and Server installer downloads.
 If you want to customize your Client installer, you should use the SassafrasK2Client recipes.
-The purpose of this recipe is to support Admin and Server installer downloads.
+(If, however, you want an unaltered client installer, like those required to support the
+self-updates functionality, then this is the recipe for you!)
 
 If you want to download more than one (e.g., both Admin and Server),
 make an override for each and specify a unique identifier using the -n option

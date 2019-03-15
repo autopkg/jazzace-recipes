@@ -5,7 +5,9 @@
     <key>Description</key>
     <string>Fetches the latest Sassafras KeyClient Mac installer and imports into
 DeployStudio. Additionally, fetches the k2clientconfig tool from the Sassafras website
-for the purposes of customizing the installer.
+for the purposes of customizing the installer. If you do not wish/need to customize
+the installer (e.g., in order to copy the Client to a Self-Updates server), use the 
+SassafrasK2.ds recipe.
 
 This is an adaptation of the Munki recipe (written by Tim Sutton, in the main AutoPkg 
 recipes repo). The main AutoPkg recipes must be installed in order to use the 
