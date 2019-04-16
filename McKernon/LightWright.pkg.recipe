@@ -36,13 +36,22 @@ This recipe is based on the Version 6 installer.
                 <true/>
             </dict>
         </dict>
+		<dict>
+			<key>Processor</key>
+			<string>FileFinder</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pattern</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%/*.dmg</string>
+			</dict>
+		</dict>
         <dict>
             <key>Processor</key>
             <string>AppPkgCreator</string>
             <key>Arguments</key>
             <dict>
                 <key>app_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%/Lightwright*.dmg/Lightwr*.app</string>
+                <string>%found_filename%/*.app</string>
             </dict>
         </dict>
 	</array>
