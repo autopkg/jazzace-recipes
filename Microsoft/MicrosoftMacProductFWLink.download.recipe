@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+   <dict>
+      <key>Description</key>
+      <string>Downloads any Microsoft product that can be located using a Microsoft FWLink number.
+Because this recipe is targeted at Mac products, the download is assumed to be a package (.pkg).
+
+NOTE: This recipe fills a niche. Most people would be better off considering the recipes in the
+main recipes repo, the rtrouton-recipes repo (supplemented for Munki by dataJAR-recipes), or in
+the arubdesu/office-recipes repo.
+
+This recipe is designed to be used with an override or child recipe.
+
+The value of the FWLink number should be assigned to the input variable PRODUCTID in your override.
+Here are a few FWLink values that may be useful:
+
+525136 - Office 365/2019 Suite
+871743 - Office 2016 Suite
+2009112 - Office 365 BusinessPro Suite (with Teams)
+869428 - Teams Standalone Installer
+
+While you can find the FWLink value for a product in various places, a (manually-) complied source list 
+can be found at macadmins.software (just look for the 6- or 7-digit number at the end of the appropriate link).
+
+This recipe make no attempt to capture version information. The assumption is that you will write a
+pkg recipe if you want to rename the downloaded package to include a version number. To this end,
+you could use the pkg recipes in the rtrouton-recipes repo as a model (we have adopted the PRODUCTID
+input variable name used in those recipes to make it even easier, since they use the same underlying mechanism).
+</string>
+      <key>Identifier</key>
+      <string>com.github.jazzace.download.microsoftmacproductfwlink</string>
+      <key>MinimumVersion</key>
+      <string>1.0.0</string>
+      <key>Input</key>
+      <dict>
+         <key>NAME</key>
+         <string>MicrosoftProduct</string>
+         <key>PRODUCTID</key>
+         <string>2009112</string>
+      </dict>
+      <key>Process</key>
+      <array>
+         <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+               <key>url</key>
+               <string>https://go.microsoft.com/fwlink/?linkid=%PRODUCTID%</string>
+               <key>filename</key>
+               <string>%NAME%.pkg</string>
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+               <key>input_path</key>
+               <string>%pathname%</string>
+               <key>expected_authority_names</key>
+               <array>
+                  <string>Developer ID Installer: Microsoft Corporation (UBF8T346G9)</string>
+                  <string>Developer ID Certification Authority</string>
+                  <string>Apple Root CA</string>
+               </array>
+            </dict>
+         </dict>
+      </array>
+   </dict>
+</plist>
