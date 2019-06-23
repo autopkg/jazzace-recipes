@@ -10,15 +10,15 @@ Requires that you have Matt Hansen's (hansen-m) and Jesse Peterson's (jessepeter
 	<key>Input</key>
 	<dict/>
 	<key>MinimumVersion</key>
-	<string>0.4.0</string>
+	<string>1.0.0</string>
 	<key>ParentRecipe</key>
 	<string>com.github.hansen-m.download.MeshLab</string>
 	<key>Process</key>
 	<array>
-        <dict>
-            <key>Processor</key>
-            <string>AppPkgCreator</string>
-        </dict>
+		<dict>
+			<key>Processor</key>
+			<string>AppPkgCreator</string>
+		</dict>
 	</array>
 </dict>
 </plist>
