@@ -47,7 +47,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>info_path</key>
-				<string>%pkgroot%/Applications/%NAME%.app</string>
+				<string>%pkgroot%/Applications/Processing.app</string>
 				<key>plist_keys</key>
 				<dict>
 					<key>CFBundleIdentifier</key>
