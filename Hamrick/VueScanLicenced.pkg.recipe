@@ -8,7 +8,7 @@ This recipe requires the hansen-m-recipes (Matt Hansen) repo.
 
 The recipe requires the authorization file created by VueScan for your licence.
 The suggested way to do this is to install VueScan on the Mac/VM running AutoPkg and use the recipe's
-default value for RC_FILE. Alternately, you can create a text file made up of the following four lines 
+default value for RC_FILE. Alternately, you can create a text file made up of the following four lines
 (where you replace # with the values for your license):
 
 [VueScan]
@@ -16,7 +16,7 @@ SerialNumber=#
 CustomerNumber=#
 EmailAddress=#@#.#
 
-Then, save that file in a locally-accessible location and set the RC_FILE input variable to 
+Then, save that file in a locally-accessible location and set the RC_FILE input variable to
 the path to that file (including the file name with extension). AutoPkg will do the rest.</string>
     <key>Identifier</key>
     <string>com.github.jazzace.pkg.VueScanLicenced</string>
@@ -68,7 +68,7 @@ the path to that file (including the file name with extension). AutoPkg will do 
                 <key>source_path</key>
                 <string>%pathname%/*.app</string>
                 <key>destination_path</key>
-                <string>%pkgroot%/Applications/%NAME%.app</string>
+                <string>%pkgroot%/Applications/VueScan.app</string>
             </dict>
         </dict>
         <dict>
