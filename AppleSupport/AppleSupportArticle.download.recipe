@@ -59,7 +59,7 @@ Input Keys:
                 <key>url</key>
                 <string>file://%RECIPE_CACHE_DIR%/downloads/%ARTICLE%</string>
                 <key>re_pattern</key>
-                <string>time dateTime="(?P&lt;pubdate&gt;[0-9-]*)</string>
+                <string>time dateTime=(?P&lt;pubdate&gt;[0-9-]*)</string>
             </dict>            
         </dict>
         <dict>
