@@ -20,7 +20,7 @@
             <key>Arguments</key>
             <dict>
                 <key>app_path</key>
-                <string>%RECIPE_CACHE_DIR%/Unarchived/touchosc-editor-%versn%-osx/%NAME%.app</string>
+                <string>%RECIPE_CACHE_DIR%/Unarchived/touchosc-editor-%versn%-osx/TouchOSC Editor.app</string>
                 <key>overwrite</key>
                 <true/>
             </dict>
