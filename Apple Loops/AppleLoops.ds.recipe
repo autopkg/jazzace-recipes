@@ -34,7 +34,7 @@ Input keys:
             <key>Arguments</key>
             <dict>
                 <key>source_path</key>
-                <string>%download_path%</string>
+                <string>%pkg_path%</string>
                 <key>destination_path</key>
                 <string>%DS_PKGS_PATH%/%DS_NAME%.pkg</string>
                 <key>overwrite</key>
