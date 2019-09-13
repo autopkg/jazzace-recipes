@@ -24,7 +24,7 @@ In order to check the Code Signature, the Zip archive is expanded.</string>
                 <key>url</key>
                 <string>https://hexler.net/products/touchosc</string>
                 <key>re_pattern</key>
-                <string>(?P&lt;uri&gt;/pub/touchosc/touchosc-editor-(?P&lt;versn&gt;.*?)-osx\.zip)</string>
+                <string>(?P&lt;uri&gt;/pub/touchosc/touchosc-editor-(?P&lt;versn&gt;.*?)-macos\.zip)</string>
             </dict>
         </dict>
         <dict>
