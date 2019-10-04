@@ -5,6 +5,7 @@
     <key>Description</key>
     <string>Downloads the current release version of Lightwright (John McKernon Software) in a zip archive.
 This recipe supports version 6 and (hopefully) later. Specify the version in the Input key.
+Note that the app is unsigned by the developer (hence the lack of a CodeSignatureVerifier processor).
 </string>
     <key>Identifier</key>
     <string>com.github.jazzace.download.lightwright</string>
