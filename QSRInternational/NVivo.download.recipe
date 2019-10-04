@@ -33,7 +33,7 @@ Version 10 and 11: com.qsrinternational.NVivo
             <key>Arguments</key>
             <dict>
                 <key>url</key>
-                <string>http://qsrinternational.com/nvivo/support-overview/downloads</string>
+                <string>https://qsrinternational.com/nvivo/support-overview/downloads</string>
                 <key>re_pattern</key>
                 <string>http[s]*://download\.qsrinternational\.com/Software/NVivo%NVIVO_VERSION%forMac/NVivo[^\.]*\.dmg</string>
             </dict>
