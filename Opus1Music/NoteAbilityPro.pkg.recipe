@@ -6,7 +6,8 @@
     <string>Downloads latest version of NoteAbilityPro and extracts the package installer.
 If there is no new installer, the file will not be extracted from the archive.
 The package installer will be located in the cache at %NAME%/NoteAbilityPro*/NoteAbilityPro_*.pkg
-where * is the version number (e.g., 2.601). 
+where * is the version number (e.g., 2.657).
+Note that the app is unsigned by the developer (hence the lack of a CodeSignatureVerifier processor).
 </string>
     <key>Identifier</key>
     <string>com.github.jazzace.pkg.NoteAbilityPro</string>
@@ -25,7 +26,7 @@ where * is the version number (e.g., 2.601).
             <key>Arguments</key>
             <dict>
                 <key>url</key>
-                <string>http://opusonemusic.net/download/NADemo.zip</string>
+                <string>https://opusonemusic.net/download/NADemo.zip</string>
             </dict>
         </dict>
        <dict>
