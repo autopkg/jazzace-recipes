@@ -31,9 +31,9 @@ For macOS 10.12 and later:     ?review-filter=macOS+10.12.x
 For OS X 10.11.x and earlier:  ?review-filter=Mac+OS+X+10.11.x
 
 For example, the URL for the Epson SureColor P9000 fetched from the Canadian Epson site with 
-macOS High Sierra as the deployment OS is:
+macOS Catalina as the deployment OS is:
 
-	https://epson.ca/Support/Printers/Professional-Imaging-Printers/SureColor-Series/Epson-SureColor-P9000-Standard-Edition/s/SPT_SCP9000SE?review-filter=macOS+10.13.x
+	https://epson.ca/Support/Printers/Professional-Imaging-Printers/SureColor-Series/Epson-SureColor-P9000-Standard-Edition/s/SPT_SCP9000SE?review-filter=macOS+10.15.x
 		
 This recipe should grab the first link on the specified web page that is only a printer driver
 (not a “combo package” or “recommended for you”).
@@ -41,9 +41,6 @@ This recipe should grab the first link on the specified web page that is only a 
 This recipe is based on the EpsonProDrivers.download recipe in the same repo. This recipe is
 necessary because of the change to the code signature being used. Should other products start
 using this new developer identity, it can be used in place of EpsonProDrivers.download.
-
-Known Limitation: This does not work on a page where the printer driver is not the first item listed
-in the Drivers section of the web page. Currently, the recipe fails for the P600 page because of this.
 </string>
     <key>Identifier</key>
     <string>com.github.jazzace.download.EpsonSureColorDrivers</string>
@@ -66,7 +63,7 @@ in the Drivers section of the web page. Currently, the recipe fails for the P600
                 <key>url</key>
                 <string>%SEARCH_URL%</string>
                 <key>re_pattern</key>
-                <string>"icc_drivers"([\s\w="]*-){1,}[\s\w="]*href="(?P&lt;url&gt;https://ftp.epson.com/drivers/[\w].*\.dmg)"</string>
+                <string>data-dl_title="Printer Driver&amp;nbsp;v[\d.]*([\s\w="]*-){1,}[\s\w="]*href="(?P&lt;url&gt;https://ftp.epson.com/drivers/[\w].*\.dmg)"</string>
             </dict>
         </dict>
         <dict>
