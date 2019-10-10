@@ -5,8 +5,8 @@
     <key>Description</key>
     <string>Downloads the latest update of the Pro Video Formats provided by Apple for their pro apps.
 
-*** WARNING: If you are not running macOS Mojave 10.14.3 or later, you should manually download
-    Pro Video Formats 2.0.7, the terminal version for OS X 10.11 through macOS 10.14.2:
+*** WARNING: If you are not running macOS Mojave 10.14.5 or later, you should manually download
+    Pro Video Formats 2.0.7, the terminal version for OS X 10.11:
     https://support.apple.com/kb/DL1947
     You can use the -p or --pkg option when running your child recipe to process the installer if desired
     (e.g., to load version 2.0.7 into your management system). ***
@@ -37,7 +37,7 @@
             <key>Arguments</key>
             <dict>
                 <key>ARTICLE_NUMBER</key>
-                <string>1988</string>
+                <string>2020</string>
             </dict>
         </dict>
         <dict>
