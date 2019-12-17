@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>This recipe takes the Vectorworks installer app that you have already downloaded and creates a package 
+that leverages the silent install CLI method to automate installation. To use, make an override of this recipe and  
+add the specific information for your installation into the Input Variables (most crucially, serial number and major
+version number), then run the following command, substituting the actual path to the disk image that you have already 
+downloaded:
+
+    autopkg run VectorworksDmg.pkg -p /path/to/Vectorworks20##-SP#-######-SeriesBEG-installer#-osx.dmg
+
+The pkg is named with the name and the version number (e.g., the installer for Vectorworks 2020 SP2 would be named 
+"Vectorworks-25.0.2"); if you want to include the year/major version in the pkg name, change the NAME variable accordingly.
+This recipe was tested with Vectorworks 2019 and 2020 G-Series full installer downloads.</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.vectorworksdmg</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>Vectorworks</string>
+		<key>MAJOR_VERSION</key>
+		<string>2020</string>
+		<key>VW_USERNAME</key>
+		<string>Group or User Name</string>
+		<key>VW_COMPANY</key>
+		<string>Your Company</string>
+		<key>VW_SERIAL_NO</key>
+		<string>GFXXXX-123456-ABCDEF-G7HI89</string>
+	</dict>
+	<key>MiniumumVersion</key>
+	<string>1.4</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>PackageRequired</string>
+		</dict>
+        <dict>
+            <key>Processor</key>
+            <string>PkgRootCreator</string>
+            <key>Arguments</key>
+            <dict>
+                <key>pkgroot</key>
+                <string>%RECIPE_CACHE_DIR%/%NAME%</string>
+                <key>pkgdirs</key>
+                <dict>
+                    <key>private</key>
+                    <string>0777</string>
+                    <key>private/tmp</key>
+                    <string>0777</string>
+                    <key>private/tmp/vw</key>
+                    <string>0777</string>
+                </dict>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>Copier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>source_path</key>
+                <string>%PKG%/Vectorworks %MAJOR_VERSION% Installer.app</string>
+                <key>destination_path</key>
+                <string>%pkgroot%/private/tmp/vw/Vectorworks %MAJOR_VERSION% Installer.app</string>
+                <key>overwrite</key>
+                <true/>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>AppDmgVersioner</string>
+            <key>Arguments</key>
+            <dict>
+                <key>dmg_path</key>
+                <string>%PKG%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>PkgRootCreator</string>
+            <key>Arguments</key>
+            <dict>
+                <key>pkgroot</key>
+                <string>%RECIPE_CACHE_DIR%/scripts</string>
+                <key>pkgdirs</key>
+                <dict/>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>FileCreator</string>
+            <key>Arguments</key>
+            <dict>
+                <key>file_content</key>
+                <string>#!/bin/sh
+# Installs Vectorworks. Assumes installer is already available in the path specified (/Users/Shared by default).
+# Installer will be deleted upon completion.
+#
+# Set variables (constants) for script run
+vers="%MAJOR_VERSION%"
+serialno="%VW_SERIAL_NO%"
+vwipathroot="/private/tmp/vw"
+vwuser="%VW_USERNAME%"
+vwcompany="%VW_COMPANY%"
+"${vwipathroot}/Vectorworks ${vers} Installer.app/Contents/Resources/installer/Install Vectorworks${vers}.app/Contents/MacOS/installbuilder.sh" --mode unattended --unattendedmodeui none --Serial "${serialno}" --UserName "${vwuser}" --CompName "${vwcompany}" --installdir "/Applications/Vectorworks ${vers}"
+# Check to verify app is in expected location; delete installer if app present
+if [ -e "/Applications/Vectorworks ${vers}/Vectorworks ${vers}.app" ]
+then
+    rm -Rf "${vwipathroot}/Vectorworks ${vers} Installer.app"
+    exit 0
+else
+    echo "Error in installing Vectorworks ${vers}; installer left in ${vwipathroot}" >> /var/log/vw_install.log
+    exit 1
+fi
+</string>
+                <key>file_mode</key>
+                <string>0755</string>
+                <key>file_path</key>
+                <string>%RECIPE_CACHE_DIR%/scripts/postinstall</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>PkgCreator</string>
+            <key>Arguments</key>
+            <dict>
+                <key>pkg_request</key>
+                <dict>
+                    <key>chown</key>
+                    <array>
+                        <dict>
+                            <key>path</key>
+                            <string>private/tmp/vw/</string>
+                            <key>user</key>
+                            <string>root</string>
+                            <key>group</key>
+                            <string>admin</string>
+                            <key>mode</key>
+                            <string>0777</string>
+                        </dict>
+                    </array>
+                    <key>id</key>
+                    <string>%bundleid%custom</string>
+                    <key>options</key>
+                    <string>purge_ds_store</string>
+                    <key>pkgname</key>
+                    <string>%NAME%-%version%</string>
+                    <key>pkgroot</key>
+                    <string>%RECIPE_CACHE_DIR%/%NAME%</string>
+                    <key>scripts</key>
+                    <string>%RECIPE_CACHE_DIR%/scripts</string>
+                    <key>version</key>
+                    <string>%version%</string>
+                </dict>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>PathDeleter</string>
+            <key>Arguments</key>
+            <dict>
+                <key>path_list</key>
+                <array>
+                    <string>%RECIPE_CACHE_DIR%/%NAME%</string>     
+                    <string>%RECIPE_CACHE_DIR%/scripts</string> 
+                </array>
+            </dict>
+        </dict>
+	</array>
+</dict>
+</plist>
