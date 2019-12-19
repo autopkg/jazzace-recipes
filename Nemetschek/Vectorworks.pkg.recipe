@@ -98,7 +98,7 @@ Should the download not have changed, no processing is done; this is done to sav
             <dict>
                 <key>file_content</key>
                 <string>#!/bin/sh
-# Installs Vectorworks. Assumes installer is already available in the path specified (/Users/Shared by default).
+# Installs Vectorworks. Assumes installer is already available in the path specified by $vwipathroot.
 # Installer will be deleted upon completion.
 #
 # Set variables (constants) for script run
@@ -114,7 +114,7 @@ then
     rm -Rf "${vwipathroot}/Vectorworks ${vers} Installer.app"
     exit 0
 else
-    echo "Error in installing Vectorworks ${vers}; installer left in ${vwipathroot}" >> /var/log/vw_install.log
+    echo "Error in installing Vectorworks ${vers}; installer left in ${vwipathroot}" &gt;&gt; /var/log/vw_install.log
     exit 1
 fi
 </string>
