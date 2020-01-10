@@ -32,16 +32,14 @@ For macOS 10.12 and later:     ?review-filter=macOS+10.12.x
 For OS X 10.11.x and earlier:  ?review-filter=Mac+OS+X+10.11.x
 
 For example, the URL for the Epson Stylus Pro 3880 fetched from the Canadian Epson site with 
-macOS Sierra as the deployment OS is:
+macOS Catalina as the deployment OS is:
 
-   https://epson.ca/Support/Printers/Professional-Imaging-Printers/Epson-Stylus-Pro-Series/Epson-Stylus-Pro-3880/s/SPT_CA61201-VM?review-filter=macOS+10.12.x
+   https://epson.ca/Support/Printers/Professional-Imaging-Printers/Epson-Stylus-Pro-Series/Epson-Stylus-Pro-3880/s/SPT_CA61201-VM?review-filter=macOS+10.15.x
 
 (The US URL is the same, except it is .com instead of .ca. Only the Canadian and US sites 
 have been tested.)
 
-This recipe depends on the driver download being the first one listed on the page searched.
-If you wish to improve my Python RE to ensure that the search finds the URL associated with 
-the words "Printer Driver" or other appropriate string in the HTML, I gratefully accept pull requests.
+This recipe has been updated with the improved re_pattern from the EpsonSureColor download recipe.
 </string>
     <key>Identifier</key>
     <string>com.github.jazzace.download.EpsonProDrivers</string>
@@ -64,17 +62,12 @@ the words "Printer Driver" or other appropriate string in the HTML, I gratefully
                 <key>url</key>
                 <string>%SEARCH_URL%</string>
                 <key>re_pattern</key>
-                <string>https://ftp.epson.com/drivers/epson[0-9].*\.dmg</string>
+                <string>data-dl_title="Printer Driver&amp;nbsp;v[\d.]*([\s\w="]*-){1,}[\s\w="]*href="(?P&lt;url&gt;https://ftp.epson.com/drivers/[\w].*\.dmg)"</string>
             </dict>
         </dict>
         <dict>
             <key>Processor</key>
             <string>URLDownloader</string>
-            <key>Arguments</key>
-            <dict>
-                <key>url</key>
-                <string>%match%</string>
-            </dict>
         </dict>
         <dict>
             <key>Processor</key>
