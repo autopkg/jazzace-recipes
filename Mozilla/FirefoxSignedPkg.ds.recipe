@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>This recipe downloads the signed installer package that Mozilla made available starting in Firefox 69.0 and 68.1esr 
+and then copies the package to a local path of your choosing. 
+Note that this recipe breaks with .ds convention because it appends version information to the file name, 
+so the DS_NAME input variable is omitted.
+Input key:
+- DS_PKGS_PATH is the destination path for the copy.
+  A trailing slash is not required/desired. The path does not need to be on the same volume as the cache.
+</string>
+    <key>Identifier</key>
+    <string>com.github.jazzace.ds.FirefoxSignedPkg</string>
+    <key>Input</key>
+    <dict>
+        <key>DS_PKGS_PATH</key>
+        <string>/Volumes/DSServer/Users/Shared/Deploy/Packages</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>1.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.FirefoxSignedPkg</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>StopProcessingIf</string>
+            <key>Arguments</key>
+            <dict>
+                <key>predicate</key>
+                <string>download_changed == FALSE</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>PkgCopier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>source_pkg</key>
+                <string>%pathname%</string>
+                <key>pkg_path</key>
+                <string>%DS_PKGS_PATH%/%NAME%-%version%.pkg</string>
+                <key>overwrite</key>
+                <true/>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>
