@@ -25,7 +25,7 @@ Input keys:
     <key>MinimumVersion</key>
     <string>0.5.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.novaksam.pkg.appleloops</string>
+    <string>com.github.novaksam.pkg.appleLoops</string>
     <key>Process</key>
     <array>
         <dict>
