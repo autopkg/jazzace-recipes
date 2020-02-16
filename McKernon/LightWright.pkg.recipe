@@ -2,58 +2,25 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>Description</key>
-    <string>Downloads the current release version of Lightwright (John McKernon Software), extracts the
-dmg from the Zip archive and then packages the Lightwright app into a package.
-The package installer will be located in the cache inside the folder %NAME% (usually "Lightwright").
-This recipe is based on the Version 6 installer.
+	<key>Description</key>
+	<string>Downloads the current release version of Lightwright (John McKernon Software) and then 
+packages the Lightwright app.
+This recipe is based on the Version 6 app (now wrapped in a dmg).
 </string>
-    <key>Identifier</key>
-    <string>com.github.jazzace.pkg.lightwright</string>
-    <key>Input</key>
-    <dict/>
-    <key>MinimumVersion</key>
-    <string>1.0.0</string>
-    <key>ParentRecipe</key>
-    <string>com.github.jazzace.download.lightwright</string>
-    <key>Process</key>
-    <array>
-       <dict>
-            <key>Processor</key>
-            <string>StopProcessingIf</string>
-            <key>Arguments</key>
-            <dict>
-                <key>predicate</key>
-                <string>download_changed == FALSE</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>Unarchiver</string>
-            <key>Arguments</key>
-            <dict>
-                <key>purge_destination</key>
-                <true/>
-            </dict>
-        </dict>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.lightwright</string>
+	<key>Input</key>
+	<dict/>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.download.lightwright</string>
+	<key>Process</key>
+	<array>
 		<dict>
 			<key>Processor</key>
-			<string>FileFinder</string>
-			<key>Arguments</key>
-			<dict>
-				<key>pattern</key>
-				<string>%RECIPE_CACHE_DIR%/%NAME%/*.dmg</string>
-			</dict>
+			<string>AppPkgCreator</string>
 		</dict>
-        <dict>
-            <key>Processor</key>
-            <string>AppPkgCreator</string>
-            <key>Arguments</key>
-            <dict>
-                <key>app_path</key>
-                <string>%found_filename%/*.app</string>
-            </dict>
-        </dict>
 	</array>
 </dict>
 </plist>
