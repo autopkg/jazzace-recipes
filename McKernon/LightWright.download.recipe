@@ -2,50 +2,79 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>Description</key>
-    <string>Downloads the current release version of Lightwright (John McKernon Software) in a zip archive.
-This recipe supports version 6 and (hopefully) later. Specify the version in the Input key.
-Note that the app is unsigned by the developer (hence the lack of a CodeSignatureVerifier processor).
+	<key>Description</key>
+	<string>Downloads the current release version of Lightwright (John McKernon Software).
+This recipe supports version 6.0.30 and later. Specify the major version in the Input key.
+Requires homebysix-recipes repo.
 </string>
-    <key>Identifier</key>
-    <string>com.github.jazzace.download.lightwright</string>
-    <key>Input</key>
-    <dict>
-        <key>NAME</key>
-        <string>Lightwright</string>
-        <key>LW_VERSION</key>
-        <string>6</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.download.lightwright</string>
+	<key>Input</key>
+	<dict>
+		<key>LW_VERSION</key>
+		<string>6</string>
+		<key>NAME</key>
+		<string>Lightwright</string>
 	</dict>
-    <key>MinimumVersion</key>
-    <string>1.0.0</string>
-    <key>Process</key>
-    <array>
-        <dict>
-            <key>Processor</key>
-            <string>URLTextSearcher</string>
-            <key>Arguments</key>
-            <dict>
-                <key>url</key>
-                <string>https://www.mckernon.com/downloads/downloadslw%LW_VERSION%.html</string>
-                <key>re_pattern</key>
-                <string>http*://www\.mckernon\.com/filedownloads/Lightwright[0-9]*\.dmg\.zip</string>
-                <key>result_output_var_name</key>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>URLTextSearcher</string>
+			<key>Arguments</key>
+			<dict>
+				<key>re_pattern</key>
+				<string>"(http*://www\.mckernon\.com/filedownloads/Lightwright[\d.\s].*\.dmg)"</string>
+				<key>request_headers</key>
+				<dict>
+					<key>User-Agent</key>
+					<string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15</string>
+				</dict>
+				<key>result_output_var_name</key>
 				<string>url</string>
-                <key>request_headers</key>
-                <dict>
-                    <key>User-Agent</key>
-                    <string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1 Safari/605.1.15</string>
-                </dict>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
-    </array>
+				<key>url</key>
+				<string>https://www.mckernon.com/downloads/downloadslw%LW_VERSION%.html</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
+			<key>Arguments</key>
+			<dict>
+				<key>find</key>
+				<string> </string>
+				<key>input_string</key>
+				<string>%url%</string>
+				<key>replace</key>
+				<string>%20</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>%output_string%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>CodeSignatureVerifier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_path</key>
+				<string>%pathname%/Lightwright*.app</string>
+				<key>requirement</key>
+				<string>identifier "com.mckernon.lightwright6" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "6SCCLKDYL2"</string>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>
