@@ -5,7 +5,7 @@
 	<key>Description</key>
 	<string>Downloads the current version of Amadeus Lite and creates a pkg installer.</string>
 	<key>Identifier</key>
-	<string>com.github.jazzace.pkg.AmadeusPro</string>
+	<string>com.github.jazzace.pkg.AmadeusLite</string>
 	<key>Input</key>
 	<dict/>
 	<key>MiniumumVersion</key>
