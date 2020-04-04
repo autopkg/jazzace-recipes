@@ -25,7 +25,7 @@ You should delete APPNAME from your override and adjust the value of DS_NAME (si
 	<key>MinimumVersion</key>
 	<string>0.2.0</string>
 	<key>ParentRecipe</key>
-	<string>com.github.jazzace.pkg.AmadeusPro2</string>
+	<string>com.github.jazzace.pkg.AmadeusPro</string>
 	<key>Process</key>
 	<array>
 		<dict>
