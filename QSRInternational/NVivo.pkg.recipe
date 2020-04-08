@@ -3,8 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest release of the version of NVivo that you specify in NVIVO_VERSION 
-and creates a package installer for the app.</string>
+	<string>Downloads the latest release of NVivo (Version 20 or later) and creates a package installer for the app.</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.NVivo</string>
 	<key>Input</key>
@@ -18,6 +17,11 @@ and creates a package installer for the app.</string>
 		<dict>
 			<key>Processor</key>
 			<string>AppPkgCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>version</key>
+				<string>%full_version%</string>
+			</dict>
 		</dict>
 	</array>
 </dict>
