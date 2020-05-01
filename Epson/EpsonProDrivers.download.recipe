@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>Description</key>
-    <string>Downloads the latest version of the Epson product driver from Epson's site.
+	<key>Description</key>
+	<string>Downloads the latest version of the Epson product driver from Epson's site.
 These will generally be drivers for professional printers and the like not included in
 the drivers supplied by Apple.
 Make separate overrides for each device driver you may want. An override is required.
@@ -41,53 +41,53 @@ have been tested.)
 
 This recipe has been updated with the improved re_pattern from the EpsonSureColor download recipe.
 </string>
-    <key>Identifier</key>
-    <string>com.github.jazzace.download.EpsonProDrivers</string>
-    <key>Input</key>
-    <dict>
-        <key>NAME</key>
-        <string>Epson Stylus Pro</string>
-        <key>SEARCH_URL</key>
-        <string>https://www.epson.com/Support/override/this</string>
-    </dict>
-    <key>MinimumVersion</key>
-    <string>0.4.0</string>
-    <key>Process</key>
-    <array>
-       <dict>
-            <key>Processor</key>
-            <string>URLTextSearcher</string>
-            <key>Arguments</key>
-            <dict>
-                <key>url</key>
-                <string>%SEARCH_URL%</string>
-                <key>re_pattern</key>
-                <string>data-dl_title="Printer Driver&amp;nbsp;v[\d.]*([\s\w="]*-){1,}[\s\w="]*href="(?P&lt;url&gt;https://ftp.epson.com/drivers/[\w].*\.dmg)"</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>CodeSignatureVerifier</string>
-            <key>Arguments</key>
-            <dict>
-                <key>input_path</key>
-                <string>%pathname%/*.pkg</string>
-                <key>expected_authority_names</key>
-                <array>
-                    <string>Developer ID Installer: Epson America, Inc.</string>
-                    <string>Developer ID Certification Authority</string>
-                    <string>Apple Root CA</string>
-                </array>
-            </dict>
-        </dict>
-    </array>
+	<key>Identifier</key>
+	<string>com.github.jazzace.download.EpsonProDrivers</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>Epson Stylus Pro</string>
+		<key>SEARCH_URL</key>
+		<string>https://www.epson.com/Support/override/this</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>0.4.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>URLTextSearcher</string>
+			<key>Arguments</key>
+			<dict>
+				<key>re_pattern</key>
+				<string>data-dl_title="Printer Driver&amp;nbsp;v[\d.]*([\s\w="]*-){1,}[\s\w="]*href="(?P&lt;url&gt;https://ftp.epson.com/drivers/[\w].*\.dmg)"</string>
+				<key>url</key>
+				<string>%SEARCH_URL%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>CodeSignatureVerifier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>expected_authority_names</key>
+				<array>
+					<string>Developer ID Installer: Epson America, Inc.</string>
+					<string>Developer ID Certification Authority</string>
+					<string>Apple Root CA</string>
+				</array>
+				<key>input_path</key>
+				<string>%pathname%/*.pkg</string>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>

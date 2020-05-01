@@ -14,16 +14,16 @@
 	<string>com.github.jazzace.download.TouchOSCEditor</string>
 	<key>Process</key>
 	<array>
-        <dict>
-            <key>Processor</key>
-            <string>AppPkgCreator</string>
-            <key>Arguments</key>
-            <dict>
-                <key>app_path</key>
-                <string>%RECIPE_CACHE_DIR%/Unarchived/touchosc-editor-%version%-macos/TouchOSC Editor.app</string>
-                <key>overwrite</key>
-                <true/>
-            </dict>
+		<dict>
+			<key>Processor</key>
+			<string>AppPkgCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>app_path</key>
+				<string>%RECIPE_CACHE_DIR%/Unarchived/touchosc-editor-%version%-macos/TouchOSC Editor.app</string>
+				<key>overwrite</key>
+				<true/>
+			</dict>
 		</dict>
 	</array>
 </dict>

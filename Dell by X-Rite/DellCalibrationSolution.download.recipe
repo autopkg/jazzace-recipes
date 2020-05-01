@@ -47,19 +47,19 @@ installer therein.</string>
 				<true/>
 			</dict>
 		</dict>
-		<dict>   
-			<key>Processor</key>   
-			<string>CodeSignatureVerifier</string>   
-			<key>Arguments</key>   
-			<dict>   
-				<key>input_path</key>   
-				<string>%RECIPE_CACHE_DIR%/%NAME%/Dell*.pkg</string>
+		<dict>
+			<key>Processor</key>
+			<string>CodeSignatureVerifier</string>
+			<key>Arguments</key>
+			<dict>
 				<key>expected_authority_names</key>
 				<array>
 					<string>Developer ID Installer: X-Rite, Incorporated (2K7GT73B4R)</string>
 					<string>Developer ID Certification Authority</string>
 					<string>Apple Root CA</string>
 				</array>
+				<key>input_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%/Dell*.pkg</string>
 			</dict>
 		</dict>
 	</array>

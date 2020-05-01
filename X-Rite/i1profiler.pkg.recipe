@@ -2,22 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>Description</key>
-    <string>Downloads the current release of i1Profiler and extracts the installation package.
+	<key>Description</key>
+	<string>Downloads the current release of i1Profiler and extracts the installation package.
 This recipe is a stub, as the updated parent recipe provides a pkg installer.
 If it is your process to add versioning to the filename of the pkg, you may wish to write
 your own pkg recipe that leverages the fact that the version number is returned by the
 SparkleUpdateInfoProvider processor in the download recipe (%version%).
 </string>
-    <key>Identifier</key>
-    <string>com.github.jazzace.pkg.i1profiler</string>
-    <key>Input</key>
-    <dict/>
-    <key>ParentRecipe</key>
-    <string>com.github.jazzace.download.i1profiler</string>
-    <key>MinimumVersion</key>
-    <string>0.5.0</string>
-    <key>Process</key>
-    <array/>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.i1profiler</string>
+	<key>Input</key>
+	<dict/>
+	<key>MinimumVersion</key>
+	<string>0.5.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.download.i1profiler</string>
+	<key>Process</key>
+	<array/>
 </dict>
 </plist>

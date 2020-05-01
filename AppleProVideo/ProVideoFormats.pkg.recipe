@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>Description</key>
-    <string>Downloads latest version of the Pro Video Formats (previously known as ProApps QuickTime Codecs)
+	<key>Description</key>
+	<string>Downloads latest version of the Pro Video Formats (previously known as ProApps QuickTime Codecs)
     provided by Apple for their pro apps and extracts the package from the dmg.
     
 This recipe suppresses unnecessary copying of the package using the "StopProcessingIf" 
@@ -22,38 +22,38 @@ start again if you manually delete or move the package that this recipe creates.
 The NAME input key is specified in the parent recipe. Use an override if you want something
 other than the default.
 </string>
-    <key>Identifier</key>
-    <string>com.github.jazzace.pkg.ProVideoFormats</string>
-    <key>Input</key>
-    <dict/>
-    <key>ParentRecipe</key>
-    <string>com.github.jazzace.download.ProVideoFormats</string>
-    <key>MinimumVersion</key>
-    <string>0.4.0</string>
-    <key>Process</key>
-    <array>
-        <dict>
-            <key>Processor</key>
-            <string>StopProcessingIf</string>
-            <key>Arguments</key>
-            <dict>
-                <key>predicate</key>
-                <string>download_changed == FALSE</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>Copier</string>
-            <key>Arguments</key>
-            <dict>
-                <key>source_path</key>
-                <string>%pathname%/*.pkg</string>
-                <key>destination_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%.pkg</string>
-                <key>overwrite</key>
-                <true/>
-            </dict>
-        </dict>
-    </array>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.ProVideoFormats</string>
+	<key>Input</key>
+	<dict/>
+	<key>MinimumVersion</key>
+	<string>0.4.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.download.ProVideoFormats</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>StopProcessingIf</string>
+			<key>Arguments</key>
+			<dict>
+				<key>predicate</key>
+				<string>download_changed == FALSE</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%.pkg</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%pathname%/*.pkg</string>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>

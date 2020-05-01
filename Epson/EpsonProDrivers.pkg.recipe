@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>Description</key>
-    <string>Downloads the latest version of the Epson product driver from Epson's site
+	<key>Description</key>
+	<string>Downloads the latest version of the Epson product driver from Epson's site
 and extracts the package from the dmg.
 These will generally be drivers for professional printers and the like not included in
 the drivers supplied by Apple.
@@ -16,38 +16,38 @@ This means that any recipe that uses this as a parent recipe could stop executio
 You may need to remove the cache for the recipe in question and start again if you manually delete or move 
 the package that this recipe creates.
 </string>
-    <key>Identifier</key>
-    <string>com.github.jazzace.pkg.EpsonProDrivers</string>
-    <key>Input</key>
-    <dict/>
-    <key>ParentRecipe</key>
-    <string>com.github.jazzace.download.EpsonProDrivers</string>
-    <key>MinimumVersion</key>
-    <string>0.4.0</string>
-    <key>Process</key>
-    <array>
-        <dict>
-            <key>Processor</key>
-            <string>StopProcessingIf</string>
-            <key>Arguments</key>
-            <dict>
-                <key>predicate</key>
-                <string>download_changed == FALSE</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>Copier</string>
-            <key>Arguments</key>
-            <dict>
-                <key>source_path</key>
-                <string>%pathname%/*.pkg</string>
-                <key>destination_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%.pkg</string>
-                <key>overwrite</key>
-                <true/>
-            </dict>
-        </dict>
-    </array>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.EpsonProDrivers</string>
+	<key>Input</key>
+	<dict/>
+	<key>MinimumVersion</key>
+	<string>0.4.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.download.EpsonProDrivers</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>StopProcessingIf</string>
+			<key>Arguments</key>
+			<dict>
+				<key>predicate</key>
+				<string>download_changed == FALSE</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%.pkg</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%pathname%/*.pkg</string>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>

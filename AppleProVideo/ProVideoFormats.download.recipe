@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>Description</key>
-    <string>Downloads the latest update of the Pro Video Formats provided by Apple for their pro apps.
+	<key>Description</key>
+	<string>Downloads the latest update of the Pro Video Formats provided by Apple for their pro apps.
 
 *** WARNING: If you are not running macOS Mojave 10.14.5 or later, you should manually download
     Pro Video Formats 2.0.7, the terminal version for OS X 10.11:
@@ -20,49 +20,49 @@
     Having that software installed means you also agreed to the appropriate Software License Agreement(s).
     Version 2.1 and later requires macOS 10.14.3 or later. ***    
     </string>
-    <key>Identifier</key>
-    <string>com.github.jazzace.download.ProVideoFormats</string>
-    <key>MinimumVersion</key>
-    <string>0.4.0</string>
-    <key>Input</key>
-    <dict>
-        <key>NAME</key>
-        <string>ProVideoFormats</string>
-    </dict>
-    <key>Process</key>
-    <array>
-        <dict>
-            <key>Processor</key>
-            <string>com.github.n8felton.shared/AppleSupportDownloadInfoProvider</string>
-            <key>Arguments</key>
-            <dict>
-                <key>ARTICLE_NUMBER</key>
-                <string>2020</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>CodeSignatureVerifier</string>
-            <key>Arguments</key>
-            <dict>
-                <key>input_path</key>
-                <string>%pathname%/ProVideoFormats.pkg</string>
-                <key>expected_authority_names</key>
-                <array>
-                    <string>Software Update</string>
-                    <string>Apple Software Update Certification Authority</string>
-                    <string>Apple Root CA</string>
-                </array>
-            </dict>
-        </dict>
-    </array>
+	<key>Identifier</key>
+	<string>com.github.jazzace.download.ProVideoFormats</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>ProVideoFormats</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>0.4.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.n8felton.shared/AppleSupportDownloadInfoProvider</string>
+			<key>Arguments</key>
+			<dict>
+				<key>ARTICLE_NUMBER</key>
+				<string>2020</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>CodeSignatureVerifier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>expected_authority_names</key>
+				<array>
+					<string>Software Update</string>
+					<string>Apple Software Update Certification Authority</string>
+					<string>Apple Root CA</string>
+				</array>
+				<key>input_path</key>
+				<string>%pathname%/ProVideoFormats.pkg</string>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>

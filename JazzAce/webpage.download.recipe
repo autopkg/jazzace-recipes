@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>Description</key>
-    <string>Downloads the latest version of a particular web page when it changes and makes a date-stamped copy.
+	<key>Description</key>
+	<string>Downloads the latest version of a particular web page when it changes and makes a date-stamped copy.
 Since this recipe simply captures the raw HTML, if you open the resulting file, it will often fail in resolving things
 like stylesheets and internal links because any shorthand references will not point to the correct location.
 
@@ -20,82 +20,82 @@ This is useful if you are overriding this recipe multiple times and having the r
 The default values act as a kind of RSS feed for Anthony Reimer’s MacLabs blog posts.
 Override with the values that suit your use case.
 </string>
-    <key>Identifier</key>
-    <string>com.github.jazzace.download.webpage</string>
-    <key>Input</key>
-    <dict>
-        <key>PAGE_URL</key>
-        <string>https://maclabs.jazzace.ca/blogposts</string>
-        <key>SAVE_LOCATION</key>
-        <string>/Users/Shared</string>
-        <key>PAGE_NAME_PREFIX</key>
-        <string>Blogfeed </string>
-    </dict>
-    <key>MinimumVersion</key>
-    <string>1.0.0</string>
-    <key>Process</key>
-    <array>
-        <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-            <key>Arguments</key>
-            <dict>
-                <key>url</key>
-                <string>%PAGE_URL%</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>StopProcessingIf</string>
-            <key>Arguments</key>
-            <dict>
-                <key>predicate</key>
-                <string>download_changed == FALSE</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
-            <key>Arguments</key>
-            <dict>
-                <key>input_string</key>
-                <string>%last_modified%</string>
-                <key>find</key>
-                <string>:</string>
-                <key>replace</key>
-                <string></string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
-            <key>Arguments</key>
-            <dict>
-                <key>input_string</key>
-                <string>%output_string%</string>
-                <key>find</key>
-                <string> GMT</string>
-                <key>replace</key>
-                <string></string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>Copier</string>
-            <key>Arguments</key>
-            <dict>
-                <key>source_path</key>
-                <string>%pathname%</string>
-                <key>destination_path</key>
-                <string>%SAVE_LOCATION%/%PAGE_NAME_PREFIX%%output_string%.html</string>
-                <key>overwrite</key>
-                <true/>
-            </dict>
-        </dict>
+	<key>Identifier</key>
+	<string>com.github.jazzace.download.webpage</string>
+	<key>Input</key>
+	<dict>
+		<key>PAGE_NAME_PREFIX</key>
+		<string>Blogfeed </string>
+		<key>PAGE_URL</key>
+		<string>https://maclabs.jazzace.ca/blogposts</string>
+		<key>SAVE_LOCATION</key>
+		<string>/Users/Shared</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>%PAGE_URL%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>StopProcessingIf</string>
+			<key>Arguments</key>
+			<dict>
+				<key>predicate</key>
+				<string>download_changed == FALSE</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
+			<key>Arguments</key>
+			<dict>
+				<key>find</key>
+				<string>:</string>
+				<key>input_string</key>
+				<string>%last_modified%</string>
+				<key>replace</key>
+				<string></string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
+			<key>Arguments</key>
+			<dict>
+				<key>find</key>
+				<string> GMT</string>
+				<key>input_string</key>
+				<string>%output_string%</string>
+				<key>replace</key>
+				<string></string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%SAVE_LOCATION%/%PAGE_NAME_PREFIX%%output_string%.html</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%pathname%</string>
+			</dict>
+		</dict>
 	</array>
 </dict>
 </plist>
