@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads latest version of NoteAbilityPro, extracts the package, and then copies it to a local path of your choosing.
+	<string>Downloads latest version of NoteAbilityPro 3, extracts the package, and then copies it to a local path of your choosing.
 If there is no new installer, the file will not be copied (processing will be stopped by the parent recipe).
 Input keys:
 - DS_PKGS_PATH is the destination path for the copy. A trailing slash is not required/desired.
@@ -21,7 +21,7 @@ Input keys:
 		<string>/Volumes/DSServer/Users/Shared/Deploy/Packages</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>0.2.0</string>
+	<string>1.0.0</string>
 	<key>ParentRecipe</key>
 	<string>com.github.jazzace.pkg.NoteAbilityPro</string>
 	<key>Process</key>
