@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>This recipe takes the ZBrush volume license installer app that you have already downloaded and 
+creates a package that leverages the silent install CLI method to automate installation. Additionally, the
+postinstall script adds the volume licensing files (specific to your installation, provided by Pixologic) 
+and a modified DefaultZScript.txt file (e.g., to keep ZHomePage from starting at launch every time)
+to the correct locations in the application's directories.
+
+Input Variables of note:
+• LIC_FILES_DIR is the path to the local *directory* that holds the volume licensing files
+  (license_ZBrush*_1seat.lic and FloatingLicenseDLL.lib will be used);
+• ZSCRIPT_FILE is the path to the *file* you wish to use for DefaultZScript.txt
+  (a sample file that suppresses the launch of ZHomePage upon opening the app is included in 
+  the repo for this recipe).
+
+Once the input variables are set (likely in an override), your command to create the pkg will
+look something like this:
+
+    autopkg run ZBrushVolume.pkg -p ~/Downloads/ZBrush_2020.1.3_FL_Installer.dmg
+   
+(Substitute the actual path to your downloaded disk image.)</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.zbrushvolume</string>
+	<key>Input</key>
+	<dict>
+		<key>LIC_FILES_DIR</key>
+		<string>/path/to/ZBrush - YourInstitution</string>
+		<key>NAME</key>
+		<string>ZBrush</string>
+		<key>ZSCRIPT_FILE</key>
+		<string>/path/to/DefaultZScript.txt</string>
+	</dict>
+	<key>MiniumumVersion</key>
+	<string>1.4</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>PackageRequired</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>AppDmgVersioner</string>
+			<key>Arguments</key>
+			<dict>
+				<key>dmg_path</key>
+				<string>%PKG%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgdirs</key>
+				<dict>
+					<key>private</key>
+					<string>0777</string>
+					<key>private/tmp</key>
+					<string>0777</string>
+					<key>private/tmp/zbrush</key>
+					<string>0777</string>
+					<key>private/tmp/zbrush/vl</key>
+					<string>0777</string>
+				</dict>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%pkgroot%/private/tmp/zbrush/%app_name%</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%PKG%/%app_name%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%pkgroot%/private/tmp/zbrush/vl</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%LIC_FILES_DIR%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%pkgroot%/private/tmp/zbrush/vl/DefaultZScript.txt</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%ZSCRIPT_FILE%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgdirs</key>
+				<dict/>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/scripts</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>FileCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>file_content</key>
+				<string>#!/bin/sh
+# Installs ZBrush using its command line mode.
+# This is intended to be a postinstall script for a pkg that:
+# • copies the installer .app to ${instpathroot}
+# • copies the .lic and .lib files needed to use the licence server to $liblicfolder
+# • copies a modified version of DefaultZScript.txt to $liblicfolder
+#
+# Assign the version number to vers:
+vers="%version%"
+instpathroot="$3/private/tmp/zbrush"
+liblicfolder="$instpathroot/vl"
+# Main Install: (note that installer names sometimes change underscores to spaces and vice versa between versions; keep an eye out when updating)
+"${instpathroot}/ZBrush_${vers}_Installer.app/Contents/MacOS/installbuilder.sh" --mode unattended
+#
+# Copy files to make Floating Licence work:
+cp $liblicfolder/*_1seat.lic "/Applications/ZBrushOSX ${vers}/Licenses/"
+cp $liblicfolder/FloatingLicenseDLL.lib "/Applications/ZBrushOSX ${vers}/ZData/ZPlugs64/RLM/"
+# Copy fix to keep ZHomePage from starting at launch every time
+cp $liblicfolder/DefaultZScript.txt "/Applications/ZBrushOSX ${vers}/ZScripts/"
+# Get rid of the installer items if installation of main app confirmed:
+if [ -e "/Applications/ZBrushOSX ${vers}/ZBrush.app" ] ; then
+    rm -R "${instpathroot:?}"
+else
+    exit 1
+fi
+exit 0		## Success
+</string>
+				<key>file_mode</key>
+				<string>0755</string>
+				<key>file_path</key>
+				<string>%RECIPE_CACHE_DIR%/scripts/postinstall</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_request</key>
+				<dict>
+					<key>chown</key>
+					<array>
+						<dict>
+							<key>group</key>
+							<string>admin</string>
+							<key>mode</key>
+							<string>0777</string>
+							<key>path</key>
+							<string>private/tmp/zbrush/</string>
+							<key>user</key>
+							<string>root</string>
+						</dict>
+					</array>
+					<key>id</key>
+					<string>%bundleid%custom</string>
+					<key>options</key>
+					<string>purge_ds_store</string>
+					<key>pkgname</key>
+					<string>%NAME%-%version%</string>
+					<key>pkgroot</key>
+					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+					<key>scripts</key>
+					<string>%RECIPE_CACHE_DIR%/scripts</string>
+					<key>version</key>
+					<string>%version%</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PathDeleter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+					<string>%RECIPE_CACHE_DIR%/scripts</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
