@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the latest version of the Final Cut Pro X Supplemental Content provided by Apple.
+
+*** Note: This Recipe requires an external processor. You must have Nate Felton's recipe repo
+    available in your cache: com.github.autopkg.n8felton-recipes ***
+</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.download.FCPContent</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>FCPContent</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.n8felton.shared/AppleSupportDownloadInfoProvider</string>
+			<key>Arguments</key>
+			<dict>
+				<key>ARTICLE_NUMBER</key>
+				<string>1394</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>CodeSignatureVerifier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>expected_authority_names</key>
+				<array>
+					<string>Software Update</string>
+					<string>Apple Software Update Certification Authority</string>
+					<string>Apple Root CA</string>
+				</array>
+				<key>input_path</key>
+				<string>%pathname%/*.pkg</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
