@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the Alberta COVID-19 Data page daily and date stamps it using the date at the top of the web page.
+
+Input Keys:
+    SAVE_LOCATION is the path to the directory where the web page should be copied. The path must exist.
+    PAGE_NAME_PREFIX is the text (if any) that will precede the datestamp in the (copied) filename.
+</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.download.abcovid19</string>
+	<key>Input</key>
+	<dict>
+		<key>PAGE_NAME_PREFIX</key>
+		<string>Alberta COVID-19 Data </string>
+		<key>SAVE_LOCATION</key>
+		<string>/Users/Shared/Alberta-COVID-19</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>https://www.alberta.ca/stats/covid-19-alberta-statistics.htm</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLTextSearcher</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>file://%pathname%</string>
+                <key>re_pattern</key>
+                <string>&lt;h4&gt;[\s]*(.*)</string>
+                <key>result_output_var_name</key>
+                <string>stats_date</string>
+            </dict>
+        </dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%SAVE_LOCATION%/%PAGE_NAME_PREFIX%%stats_date%.html</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%pathname%</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
