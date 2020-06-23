@@ -3,8 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the Alberta COVID-19 Data page daily and date stamps it using the date at the top of the web page.
-
+	<string>Downloads the Alberta COVID-19 Data page daily and date stamps it using the date at the 
+top of the web page (the last date of full results).
 Input Keys:
     SAVE_LOCATION is the path to the directory where the web page should be copied. The path must exist.
     PAGE_NAME_PREFIX is the text (if any) that will precede the datestamp in the (copied) filename.
@@ -35,19 +35,19 @@ Input Keys:
 			<key>Processor</key>
 			<string>EndOfCheckPhase</string>
 		</dict>
-        <dict>
-            <key>Processor</key>
-            <string>URLTextSearcher</string>
-            <key>Arguments</key>
-            <dict>
-                <key>url</key>
-                <string>file://%pathname%</string>
-                <key>re_pattern</key>
-                <string>&lt;h4&gt;[\s]*(.*)</string>
-                <key>result_output_var_name</key>
-                <string>stats_date</string>
-            </dict>
-        </dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLTextSearcher</string>
+			<key>Arguments</key>
+			<dict>
+				<key>re_pattern</key>
+				<string>last-updated\"&gt;([^&lt;]+)</string>
+				<key>result_output_var_name</key>
+				<string>stats_date</string>
+				<key>url</key>
+				<string>file://%pathname%</string>
+			</dict>
+		</dict>
 		<dict>
 			<key>Processor</key>
 			<string>Copier</string>
@@ -60,6 +60,19 @@ Input Keys:
 				<key>source_path</key>
 				<string>%pathname%</string>
 			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PathDeleter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%RECIPE_CACHE_DIR%/downloads</string>
+				</array>
+			</dict>
+			<key>Comment</key>
+			<string>Force fresh download of page every run.</string>
 		</dict>
 	</array>
 </dict>
