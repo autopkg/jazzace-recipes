@@ -4,7 +4,7 @@
 <dict>
 	<key>Description</key>
 	<string>Downloads the current release version of Lightwright (John McKernon Software).
-This recipe supports version 6.0.30 and later. Specify the major version in the Input key.
+This recipe supports version 6.0.30 and later. Specify the major version in the LW_VERSION Input variable.
 Requires homebysix-recipes repo.
 </string>
 	<key>Identifier</key>
@@ -26,11 +26,11 @@ Requires homebysix-recipes repo.
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>"(http*://www\.mckernon\.com/filedownloads/Lightwright[\d.\s].*\.dmg)"</string>
+				<string>"(http[s]*://www\.mckernon\.com/filedownloads/Lightwright[\d.\s]+\.dmg)"</string>
 				<key>request_headers</key>
 				<dict>
 					<key>User-Agent</key>
-					<string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15</string>
+					<string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.2 Safari/605.1.15</string>
 				</dict>
 				<key>result_output_var_name</key>
 				<string>url</string>
