@@ -47,6 +47,8 @@
 			<dict>
 				<key>archive_path</key>
 				<string>%pathname%</string>
+				<key>purge_destination</key>
+				<true/>
 			</dict>
 		</dict>
 		<dict>
