@@ -5,8 +5,7 @@
 	<key>Description</key>
 	<string>Downloads latest version of NoteAbilityPro 3 and extracts the package installer.
 If there is no new installer, the file will not be extracted from the archive.
-The package installer will be located in the cache at %NAME%/NoteAbilityPro*/NoteAbilityPro_*.pkg
-where * is the version number (e.g., 3.102). Since Version 2 was 32-bit, this recipe no longer supports it.
+Since Version 2 was 32-bit, this recipe no longer supports it.
 Note that the app is unsigned by the developer (hence the lack of a CodeSignatureVerifier processor).
 </string>
 	<key>Identifier</key>
@@ -22,24 +21,11 @@ Note that the app is unsigned by the developer (hence the lack of a CodeSignatur
 	<array>
 		<dict>
 			<key>Processor</key>
-			<string>URLTextSearcher</string>
-			<key>Arguments</key>
-			<dict>
-				<key>re_pattern</key>
-				<string>download/NoteAbilityPro(3[.\d]*).zip</string>
-				<key>result_output_var_name</key>
-				<string>version</string>
-				<key>url</key>
-				<string>https://opusonemusic.net/download.html</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
 			<string>URLDownloader</string>
 			<key>Arguments</key>
 			<dict>
 				<key>url</key>
-				<string>https://opusonemusic.net/download/NoteAbilityPro%version%.zip</string>
+				<string>https://opusonemusic.net/download/NoteAbilityPro.zip</string>
 			</dict>
 		</dict>
 		<dict>
