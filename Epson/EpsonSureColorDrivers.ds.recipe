@@ -8,7 +8,12 @@ extracts the package from the dmg, and copies it to a local path of your choosin
 These will generally be drivers and ICC profiles not included in the OS by Apple.
 Make separate overrides for each printer you may want. An override is required.
 
-See the parent (download) recipe for important recipe instructions.
+When Epson was using separate code signing authorities for older and new products, it was
+necessary to have separate recipes (EpsonProDrivers and EpsonSureColorDrivers). Now that 
+Epson is using the same authority for all new releases, this recipe has been turned into a stub
+recipe that points to EpsonProDrivers.download.
+
+If you are creating a new override, use the EpsonProDrivers series of recipes.
 </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.ds.EpsonSureColorDrivers</string>
@@ -19,32 +24,9 @@ See the parent (download) recipe for important recipe instructions.
 		<key>DS_PKGS_PATH</key>
 		<string>/Volumes/DSServer/Users/Shared/Deploy/Packages</string>
 	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
 	<key>ParentRecipe</key>
-	<string>com.github.jazzace.download.EpsonSureColorDrivers</string>
-	<key>Process</key>
-	<array>
-		<dict>
-			<key>Processor</key>
-			<string>StopProcessingIf</string>
-			<key>Arguments</key>
-			<dict>
-				<key>predicate</key>
-				<string>download_changed == FALSE</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>Copier</string>
-			<key>Arguments</key>
-			<dict>
-				<key>destination_path</key>
-				<string>%DS_PKGS_PATH%/%DS_NAME%.pkg</string>
-				<key>overwrite</key>
-				<true/>
-				<key>source_path</key>
-				<string>%pathname%/*.pkg</string>
-			</dict>
-		</dict>
-	</array>
+	<string>com.github.jazzace.ds.EpsonProDrivers</string>
 </dict>
 </plist>

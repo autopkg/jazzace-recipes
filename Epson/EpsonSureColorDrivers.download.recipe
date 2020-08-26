@@ -7,40 +7,12 @@
 These will generally be drivers and ICC profiles not included in the OS by Apple.
 Make separate overrides for each printer you may want. An override is required.
 
-IMPORTANT:
-This recipe requires that you find the support page for your product and copy that URL for 
-use as the base string for the SEARCH_URL key in your override. In order for the recipe to 
-work, the target OS must be explicitly specified in the URL.
+When Epson was using separate code signing authorities for older and new products, it was
+necessary to have separate recipes (EpsonProDrivers and EpsonSureColorDrivers). Now that 
+Epson is using the same authority for all new releases, this recipe has been turned into a stub
+recipe that points to EpsonProDrivers.download.
 
-Recommended Procedure for Creating URL:
-1. Go to the Epson site for your country.
-2. Find the support page for your Epson device.
-3. The support page will attempt to determine your current OS version and will display that 
-in a pop-up menu on the page. If that is OS you are targeting for deployment, temporarily 
-change the value in that popup menu to any other OS, wait a second (enough for the page to 
-quickly reload), and then change to the OS you are targeting for deployment. If you are 
-targeting a different OS, then directly change the OS in the popup menu. 
-4. Copy the URL.
-5. Create an override of this recipe (or edit an existing override).
-6. In the Input section, paste the URL that you copied earlier into the string for SEARCH_URL.
-7. Check the URL you just pasted. Confirm that it ends with one of the following strings
-(substituting the number of the OS as appropriate). You can append this string if it is not 
-present. 
-
-For macOS 10.12 and later:     ?review-filter=macOS+10.12.x
-For OS X 10.11.x and earlier:  ?review-filter=Mac+OS+X+10.11.x
-
-For example, the URL for the Epson SureColor P9000 fetched from the Canadian Epson site with 
-macOS Catalina as the deployment OS is:
-
-	https://epson.ca/Support/Printers/Professional-Imaging-Printers/SureColor-Series/Epson-SureColor-P9000-Standard-Edition/s/SPT_SCP9000SE?review-filter=macOS+10.15.x
-		
-This recipe should grab the first link on the specified web page that is only a printer driver
-(not a “combo package” or “recommended for you”).
-
-This recipe is based on the EpsonProDrivers.download recipe in the same repo. This recipe is
-necessary because of the change to the code signature being used. Should other products start
-using this new developer identity, it can be used in place of EpsonProDrivers.download.
+If you are creating a new override, use the EpsonProDrivers series of recipes.
 </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.EpsonSureColorDrivers</string>
@@ -48,47 +20,10 @@ using this new developer identity, it can be used in place of EpsonProDrivers.do
 	<dict>
 		<key>NAME</key>
 		<string>Epson SureColor</string>
-		<key>SEARCH_URL</key>
-		<string>https://www.epson.com/Support/override/this</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>0.4.0</string>
-	<key>Process</key>
-	<array>
-		<dict>
-			<key>Processor</key>
-			<string>URLTextSearcher</string>
-			<key>Arguments</key>
-			<dict>
-				<key>re_pattern</key>
-				<string>data-dl_title="Printer Driver&amp;nbsp;v[\d.]*([\s\w="]*-){1,}[\s\w="]*href="(?P&lt;url&gt;https://ftp.epson.com/drivers/[\w].*\.dmg)"</string>
-				<key>url</key>
-				<string>%SEARCH_URL%</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>URLDownloader</string>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>EndOfCheckPhase</string>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>CodeSignatureVerifier</string>
-			<key>Arguments</key>
-			<dict>
-				<key>expected_authority_names</key>
-				<array>
-					<string>Developer ID Installer: Seiko Epson Corporation (TXAEAV5RN4)</string>
-					<string>Developer ID Certification Authority</string>
-					<string>Apple Root CA</string>
-				</array>
-				<key>input_path</key>
-				<string>%pathname%/*.pkg</string>
-			</dict>
-		</dict>
-	</array>
+	<string>1.0.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.download.EpsonProDrivers</string>
 </dict>
 </plist>

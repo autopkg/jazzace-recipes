@@ -39,7 +39,8 @@ macOS Catalina as the deployment OS is:
 (The US URL is the same, except it is .com instead of .ca. Only the Canadian and US sites 
 have been tested.)
 
-This recipe has been updated with the improved re_pattern from the EpsonSureColor download recipe.
+This recipe uses Epson's new code signing authority. Turn off code signature verification
+if you require older installers.
 </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.EpsonProDrivers</string>
@@ -51,7 +52,7 @@ This recipe has been updated with the improved re_pattern from the EpsonSureColo
 		<string>https://www.epson.com/Support/override/this</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>0.4.0</string>
+	<string>1.0.0</string>
 	<key>Process</key>
 	<array>
 		<dict>
@@ -80,7 +81,7 @@ This recipe has been updated with the improved re_pattern from the EpsonSureColo
 			<dict>
 				<key>expected_authority_names</key>
 				<array>
-					<string>Developer ID Installer: Epson America, Inc.</string>
+					<string>Developer ID Installer: Seiko Epson Corporation (TXAEAV5RN4)</string>
 					<string>Developer ID Certification Authority</string>
 					<string>Apple Root CA</string>
 				</array>

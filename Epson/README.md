@@ -16,13 +16,17 @@ Recommended Procedure for Creating URL:
 For macOS 10.12 and later:     `?review-filter=macOS+10.12.x`
 For OS X 10.11.x and earlier:  `?review-filter=Mac+OS+X+10.11.x`
 
-For example, the URL for the Epson Stylus Pro 3880 fetched from the Canadian Epson site with macOS Sierra as the deployment OS is:
+For example, the URL for the Epson SureColor P9000 fetched from the Canadian Epson site with macOS Catalina as the deployment OS is:
 ````
-   https://epson.ca/Support/Printers/Professional-Imaging-Printers/Epson-Stylus-Pro-Series/Epson-Stylus-Pro-3880/s/SPT_CA61201-VM?review-filter=macOS+10.12.x
+	https://epson.ca/Support/Printers/Professional-Imaging-Printers/SureColor-Series/Epson-SureColor-P9000-Standard-Edition/s/SPT_SCP9000SE?review-filter=macOS+10.15.x
 ````
 (The US URL is the same, except it is .com instead of .ca. Only the Canadian and US sites have been tested.)
 
-The major difference between the ProDrivers recipes and the SureColorDrivers recipes is
-that Epson changed the information that the Code Signature Verifier uses. There has also
-been some work done on the regular expression in the SureColorDrivers recipes to dodge
-some issues with the new "Recommended for you" feature on some products.
+When Epson was using separate code signing authorities for older and new products, it was
+necessary to have separate recipes (EpsonProDrivers and EpsonSureColorDrivers). Now that 
+Epson is using the same authority for all new releases, the EpsonSureColorDrivers.download recipe has been turned into a stub recipe that points to EpsonProDrivers.download.
+
+If you are creating a new override, use the EpsonProDrivers series of recipes.
+
+If you encounter a product still using the previous code signing authority, you will need
+to turn off code signature verification when you run that recipe.
