@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Fetches the latest Sassafras KeyClient Mac installer and copies it to a location of your choosing.
+	<string>Fetches the latest Sassafras KeyClient Mac installer for versions 7.0-7.6 and copies it to a location of your choosing.
 Additionally, fetches the k2clientconfig tool from the Sassafras website
 for the purposes of customizing the installer. If you do not wish/need to customize
 the installer (e.g., in order to copy the Client to a Self-Updates server), use the 
@@ -13,7 +13,7 @@ This is an adaptation of the Munki recipe (written by Tim Sutton, in the main Au
 recipes repo). The main AutoPkg recipes must be installed in order to use the 
 SassafrasK2ClientCustomizer processor.
 
-This recipe supports KeyClient 7.0 and up only. See SassafrasK2Client.download
+This recipe supports KeyClient 7.0-7.6 only. See SassafrasK2Client.download
 for details on the REVISION Input variable, which you may wish to override.
 
 Local Input keys:
@@ -54,6 +54,15 @@ pane, etc.), so we use the three-decimal version.
 	<string>com.github.autopkg.download.sassafras-k2client</string>
 	<key>Process</key>
 	<array>
+		<dict>
+			<key>Processor</key>
+			<string>DeprecationWarning</string>
+			<key>Arguments</key>
+			<dict>
+				<key>warning_message</key>
+				<string>This recipe does not work with version 7.7 of the product or later — please use the new SassafrasClient recipe. Expect this recipe to be removed at a future date.</string>
+			</dict>
+		</dict>
 		<dict>
 			<key>Processor</key>
 			<string>StopProcessingIf</string>

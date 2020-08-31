@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads the latest client installer for Sassafras AllSight/LabSight/KeySight.
+</string>
+    <key>Identifier</key>
+    <string>com.github.jazzace.download.sassafrasclient</string>
+    <key>MinimumVersion</key>
+    <string>1.4</string>
+    <key>Input</key>
+    <dict>
+        <key>INSTALLER_TYPE</key>
+        <string>client</string>
+        <key>NAME</key>
+        <string>AllSight</string>
+    </dict>
+    <key>ParentRecipe</key>
+    <string>com.github.jazzace.download.sassafrasallsight</string>
+</dict>
+</plist>

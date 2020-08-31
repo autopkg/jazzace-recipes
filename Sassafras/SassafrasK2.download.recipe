@@ -3,8 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Fetches the latest Sassafras K2 Mac installer specified by PRODUCT
-(usually Admin or Server).
+	<string>Fetches the latest Sassafras K2 Mac installer for versions 7.0-7.6 specified by PRODUCT.
+
+For versions 7.7 and later, use the new SassafrasClient/Admin/Server recipes.
 
 REVISION is the major version without a decimal, for example:
 7.0: 70
@@ -12,19 +13,13 @@ REVISION is the major version without a decimal, for example:
 7.2: 72
 7.5: 75
 
-This recipe supports only a REVISION of 70 and up. If REVISION
-is set to an empty string, the latest version will be retrieved —
-this is generally the desired setting.
+This recipe supports only a REVISION of 70 through 76. If REVISION
+is set to an empty string, the 7.6 version will be retrieved.
 
 PRODUCT must be one of the following:
 Admin
 Server
 Client
-
-The primary purpose of this recipe is to support Admin and Server installer downloads.
-If you want to customize your Client installer, you should use the SassafrasK2Client recipes.
-(If, however, you want an unaltered client installer, like those required to support the
-self-updates functionality, then this is the recipe for you!)
 
 If you want to download more than one (e.g., both Admin and Server),
 make an override for each and specify a unique identifier using the -n option
@@ -44,6 +39,15 @@ make an override for each and specify a unique identifier using the -n option
 	<string>0.3.1</string>
 	<key>Process</key>
 	<array>
+		<dict>
+			<key>Processor</key>
+			<string>DeprecationWarning</string>
+			<key>Arguments</key>
+			<dict>
+				<key>warning_message</key>
+				<string>This recipe does not work with version 7.7 of the product or later — please use the new SassafrasAllSight recipes. Expect this recipe to be removed at a future date.</string>
+			</dict>
+		</dict>
 		<dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>

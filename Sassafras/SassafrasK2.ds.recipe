@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Fetches the latest Sassafras K2 Mac installer (specified by PRODUCT) and copies it to a local/mounted drive.
+    <string>Fetches the latest Sassafras K2 Mac installer (specified by PRODUCT) for versions 7.0-7.6
+and copies it to a local/mounted drive.
 This could be useful for setting up your own Client Self-updates server.
 
-This recipe supports KeyClient 7.0 and up only. See SassafrasK2.download
-for details on the REVISION Input variable, which you may wish to override.
+For versions 7.7 and later, use the new SassafrasClient/Admin/Server recipes.
 
 Local Input keys:
 - DS_PKGS_PATH is the path to the folder where you would like to locate the copied package (trailing slash not required/desired).
