@@ -29,9 +29,9 @@ Possible values for EDITION are: trial, lite, intro, standard, and suite.</strin
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>The latest version of Live %LIVE_VERS% is Live (?P&lt;version&gt;%LIVE_VERS%(\.[\d]+)+)</string>
+				<string>h2[^1-9]*(?P&lt;version&gt;%LIVE_VERS%(\.\d+)+)</string>
 				<key>url</key>
-				<string>https://help.ableton.com/hc/en-us/articles/211934625-Latest-Live-Version</string>
+				<string>https://www.ableton.com/en/release-notes/live-%LIVE_VERS%/</string>
 			</dict>
 		</dict>
 		<dict>
