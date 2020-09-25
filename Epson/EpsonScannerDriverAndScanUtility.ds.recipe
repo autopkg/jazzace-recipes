@@ -19,7 +19,7 @@ the package that this recipe creates.
 Note 2: This recipe is identical to the .pkg version except that the pkg is copied directly to the 
 destination path DS_PKGS_PATH.</string>
 	<key>Identifier</key>
-	<string>com.github.jazzace.ds.EpsonProDrivers</string>
+	<string>com.github.jazzace.ds.EpsonScannerDriver</string>
 	<key>Input</key>
 	<dict>
 		<key>DS_NAME</key>
