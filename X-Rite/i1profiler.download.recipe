@@ -22,7 +22,7 @@ of the pkg intaller inside the zip archive downloaded.</string>
 			<key>Arguments</key>
 			<dict>
 				<key>appcast_url</key>
-				<string>http://downloads.xrite.com/Downloads/Autoupdate/i1profiler_mac_appcast.xml</string>
+				<string>https://downloads.xrite.com/Downloads/Autoupdate/i1profiler_mac_appcast.xml</string>
 			</dict>
 		</dict>
 		<dict>
