@@ -23,7 +23,7 @@ installer therein.</string>
 			<key>Arguments</key>
 			<dict>
 				<key>appcast_url</key>
-				<string>http://downloads.xrite.com/downloads/AutoUpdate/DellCalibrationSolution/dell_mac_appcast.xml</string>
+				<string>https://downloads.xrite.com/downloads/AutoUpdate/DellCalibrationSolution/dell_mac_appcast.xml</string>
 			</dict>
 		</dict>
 		<dict>
