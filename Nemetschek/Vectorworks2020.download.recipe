@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the latest version of Vectorworks 2020, as specified via Input Variables.</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.download.vectorworks2020</string>
+	<key>Input</key>
+	<dict>
+		<key>COMPANY</key>
+		<string>nemetschek</string>
+		<key>DOWNLOAD_URL</key>
+		<string>https://release.vectorworks.net/latest/Vectorworks/2020-NNA-eng-mac</string>
+		<key>MAJOR_VERSION</key>
+		<string>2020</string>
+		<key>NAME</key>
+		<string>Vectorworks</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.4.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.download.vectorworks</string>
+</dict>
+</plist>

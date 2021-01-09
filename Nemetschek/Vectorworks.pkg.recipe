@@ -5,10 +5,11 @@
 	<key>Description</key>
 	<string>This recipe downloads the latest Vectorworks installer app and creates a package that leverages the silent install 
 CLI method to automate installation. Input variables are used to specify which major version of Vectorworks you are 
-packaging (e.g., 2020) and to customize the installation package with the recipe user's license information. 
-The pkg is named with the name and the version number (e.g., the installer for Vectorworks 2020 SP2 would be named 
-"Vectorworks-25.0.2"); if you want to include the year/major version in the pkg name, change the NAME variable accordingly.
+packaging (e.g., 2021) and to customize the installation package with the recipe user's license information. 
+The pkg is named with the name and the version number (e.g., the installer for Vectorworks 2021 SP2 would be named 
+"Vectorworks-26.0.2"); if you want to include the year/major version in the pkg name, change the NAME variable accordingly.
 Should the download not have changed, no processing is done; this is done to save redundant copying of the 2+ GB installer.
+If you need Vectorworks 2020, use the Vectorworks2020.pkg recipe.
 </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.vectorworks</string>
@@ -17,7 +18,7 @@ Should the download not have changed, no processing is done; this is done to sav
 		<key>NAME</key>
 		<string>Vectorworks</string>
 		<key>MAJOR_VERSION</key>
-		<string>2020</string>
+		<string>2021</string>
 		<key>VW_USERNAME</key>
 		<string>Group or User Name</string>
 		<key>VW_COMPANY</key>
