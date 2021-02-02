@@ -40,7 +40,7 @@ Possible values for EDITION are: trial, lite, intro, standard, and suite.</strin
 			<key>Arguments</key>
 			<dict>
 				<key>url</key>
-				<string>https://cdn2-downloads.ableton.com/channels/%version%/ableton_live_%EDITION%_%version%_64.dmg</string>
+				<string>https://cdn-downloads.ableton.com/channels/%version%/ableton_live_%EDITION%_%version%_64.dmg</string>
 			</dict>
 		</dict>
 		<dict>
