@@ -26,7 +26,7 @@ If you need Vectorworks 2020, use the Vectorworks2020.pkg recipe.
 		<key>VW_SERIAL_NO</key>
 		<string>GFXXXX-123456-ABCDEF-G7HI89</string>
 	</dict>
-	<key>MiniumumVersion</key>
+	<key>MinimumVersion</key>
 	<string>1.4</string>
 	<key>ParentRecipe</key>
 	<string>com.github.jazzace.download.vectorworks</string>

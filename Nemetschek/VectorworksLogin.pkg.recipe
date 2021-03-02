@@ -26,7 +26,7 @@ Quit. You will find the file at ~/Library/Application Support/Vectorworks/20##/S
 		<key>VW_SERIES</key>
 		<string>G</string>
 	</dict>
-	<key>MiniumumVersion</key>
+	<key>MinimumVersion</key>
 	<string>1.4</string>
 	<key>Process</key>
 	<array>
