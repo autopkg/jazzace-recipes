@@ -11,7 +11,7 @@
 		<key>NAME</key>
 		<string>AllSight</string>
 	</dict>
-	<key>MiniumumVersion</key>
+	<key>MinimumVersion</key>
 	<string>1.4</string>
 	<key>ParentRecipe</key>
 	<string>com.github.jazzace.download.sassafrasadmin</string>

@@ -8,7 +8,7 @@
 	<string>com.github.jazzace.pkg.ClipGrabMac</string>
 	<key>Input</key>
 	<dict/>
-	<key>MiniumumVersion</key>
+	<key>MinimumVersion</key>
 	<string>1.0</string>
 	<key>ParentRecipe</key>
 	<string>com.github.jazzace.download.ClipGrabMac</string>
