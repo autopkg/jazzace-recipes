@@ -8,6 +8,7 @@ creates a package that leverages the silent install CLI method to automate insta
 postinstall script adds the volume licensing files (specific to your installation, provided by Pixologic) 
 and a modified DefaultZScript.txt file (e.g., to keep ZHomePage from starting at launch every time)
 to the correct locations in the application's directories.
+This version of the recipe supports ZBrush 2021.5 and later.
 
 Input Variables of note:
 • LIC_FILES_DIR is the path to the local *directory* that holds the volume licensing files
@@ -19,7 +20,7 @@ Input Variables of note:
 Once the input variables are set (likely in an override), your command to create the pkg will
 look something like this:
 
-    autopkg run ZBrushVolume.pkg -p ~/Downloads/ZBrush_2020.1.3_FL_Installer.dmg
+    autopkg run ZBrushVolume.pkg -p ~/Downloads/ZBrush_2021.6_FL_Installer.dmg
    
 (Substitute the actual path to your downloaded disk image.)</string>
 	<key>Identifier</key>
