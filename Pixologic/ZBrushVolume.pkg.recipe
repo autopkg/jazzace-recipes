@@ -138,20 +138,21 @@ vers="%version%"
 instpathroot="$3/private/tmp/zbrush"
 liblicfolder="$instpathroot/vl"
 # Main Install: (note that installer names sometimes change underscores to spaces and vice versa between versions; keep an eye out when updating)
-"${instpathroot}/ZBrush_${vers}_Installer.app/Contents/MacOS/installbuilder.sh" --mode unattended
+"${instpathroot}/%app_name%/Contents/MacOS/installbuilder.sh" --mode unattended
 #
 # Copy files to make Floating Licence work:
-cp $liblicfolder/*_1seat.lic "/Applications/ZBrushOSX ${vers}/Licenses/"
-cp $liblicfolder/FloatingLicenseDLL.lib "/Applications/ZBrushOSX ${vers}/ZData/ZPlugs64/RLM/"
+cp $liblicfolder/*_1seat.lic "/Applications/ZBrush ${vers}/Licenses/"
+cp $liblicfolder/FloatingLicenseDLL.lib "/Applications/ZBrush ${vers}/ZData/ZPlugs64/RLM/"
 # Copy fix to keep ZHomePage from starting at launch every time
-cp $liblicfolder/DefaultZScript.txt "/Applications/ZBrushOSX ${vers}/ZScripts/"
+cp $liblicfolder/DefaultZScript.txt "/Applications/ZBrush ${vers}/ZScripts/"
 # Get rid of the installer items if installation of main app confirmed:
-if [ -e "/Applications/ZBrushOSX ${vers}/ZBrush.app" ] ; then
+if [ -e "/Applications/ZBrush ${vers}/ZBrush.app" ] ; then
     rm -R "${instpathroot:?}"
 else
+    echo "The expected app path (/Applications/ZBrush ${vers}/ZBrush.app) was not found after the installer script finished."
     exit 1
 fi
-exit 0		## Success
+exit 0
 </string>
 				<key>file_mode</key>
 				<string>0755</string>
