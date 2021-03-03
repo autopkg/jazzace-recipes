@@ -8,7 +8,7 @@ creates a package that leverages the silent install CLI method to automate insta
 postinstall script adds the volume licensing files (specific to your installation, provided by Pixologic) 
 and a modified DefaultZScript.txt file (e.g., to keep ZHomePage from starting at launch every time)
 to the correct locations in the application's directories.
-This version of the recipe supports ZBrush 2021.5 and later.
+This version of the recipe supports ZBrush 2021.5 and later and requires the homebysix-recipes repo.
 
 Input Variables of note:
 • LIC_FILES_DIR is the path to the local *directory* that holds the volume licensing files
@@ -49,6 +49,37 @@ look something like this:
 			<dict>
 				<key>dmg_path</key>
 				<string>%PKG%</string>
+			</dict>
+			<key>Comment</key>
+			<string>The "version" that this processor extracts is the major version, 
+			which is used as the name of the parent folder in /Applications (e.g., 2021 FL).
+			The 2 FindAndReplace processor calls that follow extract the current version number 
+			from the installer app name (e.g., 2021.6) and store it in the variable "output_string".</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_string</key>
+				<string>%app_name%</string>
+				<key>find</key>
+				<string>ZBrush_</string>
+				<key>replace</key>
+				<string></string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_string</key>
+				<string>%output_string%</string>
+				<key>find</key>
+				<string>_FL_Installer.app</string>
+				<key>replace</key>
+				<string></string>
 			</dict>
 		</dict>
 		<dict>
@@ -134,7 +165,7 @@ look something like this:
 # • copies the .lic and .lib files needed to use the licence server to $liblicfolder
 # • copies a modified version of DefaultZScript.txt to $liblicfolder
 #
-# Assign the version number to vers:
+# Assign the version number found on the parent folder in /Applications to vers:
 vers="%version%"
 instpathroot="$3/private/tmp/zbrush"
 liblicfolder="$instpathroot/vl"
@@ -186,13 +217,13 @@ exit 0
 					<key>options</key>
 					<string>purge_ds_store</string>
 					<key>pkgname</key>
-					<string>%NAME%-%version%</string>
+					<string>%NAME%-%output_string%</string>
 					<key>pkgroot</key>
 					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
 					<key>scripts</key>
 					<string>%RECIPE_CACHE_DIR%/scripts</string>
 					<key>version</key>
-					<string>%version%</string>
+					<string>%output_string%</string>
 				</dict>
 			</dict>
 		</dict>
