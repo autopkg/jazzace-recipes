@@ -10,6 +10,8 @@ scope must be specified in the POLICY_TEMPLATE.</string>
 	<string>com.github.jazzace.jamf.AmadeusPro</string>
 	<key>Input</key>
 	<dict>
+		<key>CATEGORY</key>
+		<string>Testing</string>
 		<key>NAME</key>
 		<string>Amadeus Pro</string>
 		<key>POLICY_CATEGORY</key>
@@ -28,6 +30,11 @@ scope must be specified in the POLICY_TEMPLATE.</string>
 		<dict>
 			<key>Processor</key>
 			<string>com.github.grahampugh.jamf-upload.processors/JamfPackageUploader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_category</key>
+				<string>%CATEGORY%</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>Processor</key>
