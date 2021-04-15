@@ -16,6 +16,15 @@ Requires that you have Matt Hansen's (hansen-m) and Jesse Peterson's (jessepeter
 	<key>Process</key>
 	<array>
 		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>dmg_path</key>
+				<string>%pathname%</string>
+			</dict>
+			<key>Processor</key>
+			<string>AppDmgVersioner</string>
+		</dict>
+		<dict>
 			<key>Processor</key>
 			<string>AppPkgCreator</string>
 		</dict>
