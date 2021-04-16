@@ -3,8 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads MeshLab and creates a package installer for the app.
-Requires that you have homebysix-recipes in your repo (for the FindAndReplace processor).</string>
+	<string>Downloads the latest PreRelease version of MeshLab and creates a package installer for the app.
+Requires the hansen-m-recipes repo.</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.MeshLabPreRelease</string>
 	<key>Input</key>
@@ -17,24 +17,11 @@ Requires that you have homebysix-recipes in your repo (for the FindAndReplace pr
 	<array>
 		<dict>
 			<key>Processor</key>
-			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
-			<key>Arguments</key>
-			<dict>
-				<key>find</key>
-				<string>Meshlab-</string>
-				<key>input_string</key>
-				<string>%version%</string>
-				<key>replace</key>
-				<string></string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
 			<string>AppPkgCreator</string>
 			<key>Arguments</key>
 			<dict>
 				<key>version</key>
-				<string>%output_string%</string>
+				<string/>
 			</dict>
 		</dict>
 	</array>
