@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the latest version of Amadeus Pro, packages it, then uploads the package to the Jamf Pro Server 
+and creates/updates the policy that deploys it. The POLICY_CATEGORY must exist on the Jamf Pro Server and the 
+scope must be specified in the POLICY_TEMPLATE.</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.jamf.AmadeusPro</string>
+	<key>Input</key>
+	<dict>
+		<key>CATEGORY</key>
+		<string>Testing</string>
+		<key>NAME</key>
+		<string>Amadeus Pro</string>
+		<key>POLICY_CATEGORY</key>
+		<string>Testing</string>
+		<key>POLICY_NAME</key>
+		<string>Install %NAME% Latest</string>
+		<key>POLICY_TEMPLATE</key>
+		<string>Policy-install-latest-scoped.xml</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>2.0.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.pkg.AmadeusPro</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.grahampugh.jamf-upload.processors/JamfPackageUploader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_category</key>
+				<string>%CATEGORY%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>StopProcessingIf</string>
+			<key>Arguments</key>
+			<dict>
+				<key>predicate</key>
+				<string>pkg_uploaded == False</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>policy_name</key>
+				<string>%POLICY_NAME%</string>
+				<key>policy_template</key>
+				<string>%POLICY_TEMPLATE%</string>
+				<key>replace_policy</key>
+				<string>True</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

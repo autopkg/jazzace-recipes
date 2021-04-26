@@ -13,7 +13,7 @@
 		<key>os</key>
 		<string>dmg</string>
 	</dict>
-	<key>MiniumumVersion</key>
+	<key>MinimumVersion</key>
 	<string>1.0</string>
 	<key>ParentRecipe</key>
 	<string>com.github.peshay.download.ClipGrab</string>

@@ -21,8 +21,6 @@
 			<dict>
 				<key>app_path</key>
 				<string>%RECIPE_CACHE_DIR%/Unarchived/touchosc-editor-%version%-macos/TouchOSC Editor.app</string>
-				<key>overwrite</key>
-				<true/>
 			</dict>
 		</dict>
 	</array>

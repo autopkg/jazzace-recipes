@@ -3,16 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the current release version of Lightwright (John McKernon Software).
-This recipe supports version 6.0.30 and later. Specify the major version in the LW_VERSION Input variable.
-Requires homebysix-recipes repo.
+	<string>Downloads the current release version of Lightwright.
+This recipe supports version 6.0.40 and later. 
 </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.lightwright</string>
 	<key>Input</key>
 	<dict>
-		<key>LW_VERSION</key>
-		<string>6</string>
 		<key>NAME</key>
 		<string>Lightwright</string>
 	</dict>
@@ -26,39 +23,16 @@ Requires homebysix-recipes repo.
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>"(http[s]*://www\.mckernon\.com/filedownloads/Lightwright[\d.\s]+\.dmg)"</string>
-				<key>request_headers</key>
-				<dict>
-					<key>User-Agent</key>
-					<string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.2 Safari/605.1.15</string>
-				</dict>
+				<string>"softwareUrlMac":"([^"]+)"</string>
 				<key>result_output_var_name</key>
 				<string>url</string>
 				<key>url</key>
-				<string>https://www.mckernon.com/downloads/downloadslw%LW_VERSION%.html</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
-			<key>Arguments</key>
-			<dict>
-				<key>find</key>
-				<string> </string>
-				<key>input_string</key>
-				<string>%url%</string>
-				<key>replace</key>
-				<string>%20</string>
+				<string>https://www.lightwright.com/api/web/public/download/getLinks</string>
 			</dict>
 		</dict>
 		<dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>
-			<key>Arguments</key>
-			<dict>
-				<key>url</key>
-				<string>%output_string%</string>
-			</dict>
 		</dict>
 		<dict>
 			<key>Processor</key>
