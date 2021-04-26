@@ -4,9 +4,13 @@
 <dict>
 	<key>Description</key>
 	<string>Downloads the most recent version of Ableton Live and creates an installer package.
-The version and edition is specified through input variables (see the parent download recipe).
-In order to avoid a pkgbuild error, the SoundCloud extension is removed from the app bundle.
-If a new package is created, the temporary files needed during packaging are deleted.</string>
+The major version and edition is specified through input variables (see the parent download recipe).
+In order to avoid pkgbuild errors, the SoundCloud extension is removed from the app bundle and
+the version number (from CFBundleShortVersionString) is simplified to eliminate parenthetical 
+build info (the homebysix-recipes repo is required).
+If a new package is created, the temporary files needed during packaging are deleted.
+
+</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.AbletonLive</string>
 	<key>Input</key>
@@ -49,6 +53,19 @@ If a new package is created, the temporary files needed during packaging are del
 					<string>%RECIPE_CACHE_DIR%/%NAME%/%dmg_found_filename%/Contents/App-Resources/Extensions/SoundCloud</string>
 				</array>
 			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Versioner</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_plist_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%/%dmg_found_filename%/Contents/Info.plist</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.homebysix.VersionSplitter/VersionSplitter</string>
 		</dict>
 		<dict>
 			<key>Processor</key>

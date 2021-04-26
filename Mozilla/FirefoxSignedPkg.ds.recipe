@@ -42,8 +42,6 @@ Input key:
                 <string>%pathname%</string>
                 <key>pkg_path</key>
                 <string>%DS_PKGS_PATH%/%NAME%-%version%.pkg</string>
-                <key>overwrite</key>
-                <true/>
             </dict>
         </dict>
     </array>

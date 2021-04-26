@@ -61,7 +61,9 @@ if you require older installers.
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>data-dl_title="Printer Driver&amp;nbsp;v[\d.]*([\s\w="]*-){1,}[\s\w="]*href="(?P&lt;url&gt;https://ftp.epson.com/drivers/[\w].*\.dmg)"</string>
+				<string>data-dl_title="Printer Driver&amp;nbsp;v[\d.]+[\s\w="-;]+href="(https://ftp.epson.com/drivers/[\w].*\.dmg)"</string>
+				<key>result_output_var_name</key>
+				<string>url</string>
 				<key>url</key>
 				<string>%SEARCH_URL%</string>
 			</dict>

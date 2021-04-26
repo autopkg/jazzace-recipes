@@ -3,24 +3,27 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the current version of Amadeus Pro and creates a pkg installer.</string>
+	<string>Installs the latest admin installer for Sassafras AllSight/LabSight/KeySight.</string>
 	<key>Identifier</key>
-	<string>com.github.jazzace.pkg.AmadeusPro</string>
+	<string>com.github.jazzace.install.sassafrasadmin</string>
 	<key>Input</key>
-	<dict/>
+	<dict>
+		<key>NAME</key>
+		<string>AllSight</string>
+	</dict>
 	<key>MinimumVersion</key>
-	<string>1.0.0</string>
+	<string>1.4</string>
 	<key>ParentRecipe</key>
-	<string>com.github.jazzace.download.AmadeusPro</string>
+	<string>com.github.jazzace.download.sassafrasadmin</string>
 	<key>Process</key>
 	<array>
 		<dict>
 			<key>Processor</key>
-			<string>AppPkgCreator</string>
+			<string>Installer</string>
 			<key>Arguments</key>
 			<dict>
-				<key>app_path</key>
-				<string>%RECIPE_CACHE_DIR%/%NAME%/*.app</string>
+				<key>pkg_path</key>
+				<string>%pathname%</string>
 			</dict>
 		</dict>
 	</array>

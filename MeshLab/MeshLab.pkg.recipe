@@ -3,8 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads MeshLab and creates a package installer for the app.
-Requires that you have Matt Hansen's (hansen-m) and Jesse Peterson's (jessepeterson) recipes in your repo.</string>
+	<string>Downloads the latest release of MeshLab and creates a package installer for the app.
+Requires the hansen-m-recipes repo.</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.MeshLab</string>
 	<key>Input</key>
@@ -18,6 +18,11 @@ Requires that you have Matt Hansen's (hansen-m) and Jesse Peterson's (jessepeter
 		<dict>
 			<key>Processor</key>
 			<string>AppPkgCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>version</key>
+				<string/>
+			</dict>
 		</dict>
 	</array>
 </dict>
