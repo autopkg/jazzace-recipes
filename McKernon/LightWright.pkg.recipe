@@ -3,7 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the current release version of Lightwright and then packages the Lightwright app.
+	<string>Downloads the current release version of Lightwright (John McKernon Software) and then 
+packages the Lightwright app.
 This recipe is based on the Version 6 app (now wrapped in a dmg).
 </string>
 	<key>Identifier</key>

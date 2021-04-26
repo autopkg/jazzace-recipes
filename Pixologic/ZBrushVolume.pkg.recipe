@@ -8,7 +8,6 @@ creates a package that leverages the silent install CLI method to automate insta
 postinstall script adds the volume licensing files (specific to your installation, provided by Pixologic) 
 and a modified DefaultZScript.txt file (e.g., to keep ZHomePage from starting at launch every time)
 to the correct locations in the application's directories.
-This version of the recipe supports ZBrush 2021.5 and later and requires the homebysix-recipes repo.
 
 Input Variables of note:
 • LIC_FILES_DIR is the path to the local *directory* that holds the volume licensing files
@@ -20,7 +19,7 @@ Input Variables of note:
 Once the input variables are set (likely in an override), your command to create the pkg will
 look something like this:
 
-    autopkg run ZBrushVolume.pkg -p ~/Downloads/ZBrush_2021.6_FL_Installer.dmg
+    autopkg run ZBrushVolume.pkg -p ~/Downloads/ZBrush_2020.1.3_FL_Installer.dmg
    
 (Substitute the actual path to your downloaded disk image.)</string>
 	<key>Identifier</key>
@@ -34,7 +33,7 @@ look something like this:
 		<key>ZSCRIPT_FILE</key>
 		<string>/path/to/DefaultZScript.txt</string>
 	</dict>
-	<key>MinimumVersion</key>
+	<key>MiniumumVersion</key>
 	<string>1.4</string>
 	<key>Process</key>
 	<array>
@@ -49,37 +48,6 @@ look something like this:
 			<dict>
 				<key>dmg_path</key>
 				<string>%PKG%</string>
-			</dict>
-			<key>Comment</key>
-			<string>The "version" that this processor extracts is the major version, 
-			which is used as the name of the parent folder in /Applications (e.g., 2021 FL).
-			The 2 FindAndReplace processor calls that follow extract the current version number 
-			from the installer app name (e.g., 2021.6) and store it in the variable "output_string".</string>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
-			<key>Arguments</key>
-			<dict>
-				<key>input_string</key>
-				<string>%app_name%</string>
-				<key>find</key>
-				<string>ZBrush_</string>
-				<key>replace</key>
-				<string></string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
-			<key>Arguments</key>
-			<dict>
-				<key>input_string</key>
-				<string>%output_string%</string>
-				<key>find</key>
-				<string>_FL_Installer.app</string>
-				<key>replace</key>
-				<string></string>
 			</dict>
 		</dict>
 		<dict>
@@ -165,26 +133,25 @@ look something like this:
 # • copies the .lic and .lib files needed to use the licence server to $liblicfolder
 # • copies a modified version of DefaultZScript.txt to $liblicfolder
 #
-# Assign the version number found on the parent folder in /Applications to vers:
+# Assign the version number to vers:
 vers="%version%"
 instpathroot="$3/private/tmp/zbrush"
 liblicfolder="$instpathroot/vl"
 # Main Install: (note that installer names sometimes change underscores to spaces and vice versa between versions; keep an eye out when updating)
-"${instpathroot}/%app_name%/Contents/MacOS/installbuilder.sh" --mode unattended
+"${instpathroot}/ZBrush_${vers}_Installer.app/Contents/MacOS/installbuilder.sh" --mode unattended
 #
 # Copy files to make Floating Licence work:
-cp $liblicfolder/*_1seat.lic "/Applications/ZBrush ${vers}/Licenses/"
-cp $liblicfolder/FloatingLicenseDLL.lib "/Applications/ZBrush ${vers}/ZData/ZPlugs64/RLM/"
+cp $liblicfolder/*_1seat.lic "/Applications/ZBrushOSX ${vers}/Licenses/"
+cp $liblicfolder/FloatingLicenseDLL.lib "/Applications/ZBrushOSX ${vers}/ZData/ZPlugs64/RLM/"
 # Copy fix to keep ZHomePage from starting at launch every time
-cp $liblicfolder/DefaultZScript.txt "/Applications/ZBrush ${vers}/ZScripts/"
+cp $liblicfolder/DefaultZScript.txt "/Applications/ZBrushOSX ${vers}/ZScripts/"
 # Get rid of the installer items if installation of main app confirmed:
-if [ -e "/Applications/ZBrush ${vers}/ZBrush.app" ] ; then
+if [ -e "/Applications/ZBrushOSX ${vers}/ZBrush.app" ] ; then
     rm -R "${instpathroot:?}"
 else
-    echo "The expected app path (/Applications/ZBrush ${vers}/ZBrush.app) was not found after the installer script finished."
     exit 1
 fi
-exit 0
+exit 0		## Success
 </string>
 				<key>file_mode</key>
 				<string>0755</string>
@@ -217,13 +184,13 @@ exit 0
 					<key>options</key>
 					<string>purge_ds_store</string>
 					<key>pkgname</key>
-					<string>%NAME%-%output_string%</string>
+					<string>%NAME%-%version%</string>
 					<key>pkgroot</key>
 					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
 					<key>scripts</key>
 					<string>%RECIPE_CACHE_DIR%/scripts</string>
 					<key>version</key>
-					<string>%output_string%</string>
+					<string>%version%</string>
 				</dict>
 			</dict>
 		</dict>

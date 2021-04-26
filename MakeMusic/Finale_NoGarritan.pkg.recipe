@@ -22,7 +22,7 @@ https://makemusic.zendesk.com/hc/en-us/articles/115007423647-Commands-to-silentl
 		<key>NAME</key>
 		<string>Finale</string>
 	</dict>
-	<key>MinimumVersion</key>
+	<key>MiniumumVersion</key>
 	<string>1.4</string>
 	<key>Process</key>
 	<array>

@@ -8,7 +8,7 @@
 	<string>com.github.jazzace.pkg.AmadeusPro</string>
 	<key>Input</key>
 	<dict/>
-	<key>MinimumVersion</key>
+	<key>MiniumumVersion</key>
 	<string>1.0.0</string>
 	<key>ParentRecipe</key>
 	<string>com.github.jazzace.download.AmadeusPro</string>

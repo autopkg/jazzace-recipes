@@ -6,7 +6,7 @@
 	<string>Based on a recipe by Tim Sutton for Version 9.</string>
 	<key>Description</key>
 	<string>Downloads the most recent version of Ableton Live based on the version and edition you specify.
-LIVE_VERS is the major version of Live (versions 9, 10, and 11 are currently supported).
+LIVE_VERS is the major version of Live. The two most recent versions are supported (currently 9 and 10).
 Possible values for EDITION are: trial, lite, intro, standard, and suite.</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.AbletonLive</string>
@@ -15,12 +15,12 @@ Possible values for EDITION are: trial, lite, intro, standard, and suite.</strin
 		<key>EDITION</key>
 		<string>lite</string>
 		<key>LIVE_VERS</key>
-		<string>11</string>
+		<string>10</string>
 		<key>NAME</key>
-		<string>Ableton Live 11 Lite</string>
+		<string>Ableton Live 10 Lite</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>1.0.0</string>
+	<string>0.3.1</string>
 	<key>Process</key>
 	<array>
 		<dict>
@@ -29,11 +29,9 @@ Possible values for EDITION are: trial, lite, intro, standard, and suite.</strin
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>h2[^1-9]*(%LIVE_VERS%(\.\d+)+)</string>
-				<key>result_output_var_name</key>
-				<string>long_version</string>
+				<string>The latest version of Live %LIVE_VERS% is Live (?P&lt;version&gt;%LIVE_VERS%(\.[\d]+)+)</string>
 				<key>url</key>
-				<string>https://www.ableton.com/en/release-notes/live-%LIVE_VERS%/</string>
+				<string>https://help.ableton.com/hc/en-us/articles/211934625-Latest-Live-Version</string>
 			</dict>
 		</dict>
 		<dict>
@@ -42,7 +40,7 @@ Possible values for EDITION are: trial, lite, intro, standard, and suite.</strin
 			<key>Arguments</key>
 			<dict>
 				<key>url</key>
-				<string>https://cdn-downloads.ableton.com/channels/%long_version%/ableton_live_%EDITION%_%long_version%_64.dmg</string>
+				<string>https://cdn2-downloads.ableton.com/channels/%version%/ableton_live_%EDITION%_%version%_64.dmg</string>
 			</dict>
 		</dict>
 		<dict>

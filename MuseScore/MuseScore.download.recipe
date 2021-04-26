@@ -12,16 +12,18 @@
 		<string>MuseScore 3</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>1.0.0</string>
+	<string>0.5.0</string>
 	<key>Process</key>
 	<array>
 		<dict>
 			<key>Processor</key>
-			<string>SparkleUpdateInfoProvider</string>
+			<string>GitHubReleasesInfoProvider</string>
 			<key>Arguments</key>
 			<dict>
-				<key>appcast_url</key>
-				<string>https://sparkle.musescore.org/stable/3/macos/appcast.xml</string>
+				<key>asset_regex</key>
+				<string>MuseScore-[\.\d]+\.dmg</string>
+				<key>github_repo</key>
+				<string>musescore/MuseScore</string>
 			</dict>
 		</dict>
 		<dict>
