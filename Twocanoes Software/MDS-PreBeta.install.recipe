@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Recipe description</string>
+	<string>Install the latest PreBeta version of MDS (a.k.a. Mac Deploy Stick)</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.install.MDSPreBeta</string>
 	<key>Input</key>
