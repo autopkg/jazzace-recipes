@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads latest driver for the Wacom Intuos Pro tablets and copies the package from the disk image,
+including a version number in the filename.</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.WacomIntuosProTabletDriver</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>WacomIntuosProDriver</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>2.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jps3.download.WacomIntuosProTabletDriver</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>PkgCopier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg</string>
+				<key>source_pkg</key>
+				<string>%pathname%/*.pkg</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
