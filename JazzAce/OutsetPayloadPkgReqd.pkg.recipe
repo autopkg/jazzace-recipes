@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Takes the file specified by the --pkg (or -p) run option and builds a package
+that will install the file to /usr/local/outset/%ACTION_TYPE%.
+
+This recipe requires the robperc-recipes repo.
+
+The pkg will be named using the payload's file name (up to the first period).
+
+This recipe assumes the item being passed (like a script) may not have a version number,
+so it assigns an ever-increasing number (based on the current time) as the version number.
+
+Suggested Usage:
+1.  Make an override for each type of Outset folder you wish to target. Name the override
+    to match the target folder — for example: 
+        autopkg make-override OutsetPayloadPkgReqd.pkg -n Outset-login-once.pkg
+2.  Change the value of ACTION_TYPE to match the target folder for that override.
+3.  Run the override with the --pkg option — for example:
+        autopkg run Outset-login-once.pkg --pkg /path/to/payload
+
+Input Variables:
+The legal values for ACTION_TYPE are the same as the folders within Outset's structure:
+	boot-every
+	boot-once
+	login-every
+	login-once
+	login-privileged-every
+	login-privileged-once
+	on-demand
+
+REVERSE_DOMAIN specifies what you would like the package identifier to begin with
+(it will be followed by a "." and the name of your payload file including extension).
+It is recommended that you change this value in your override to match your organization.
+</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.OutsetPayloadPkgReqd</string>
+	<key>Input</key>
+	<dict>
+		<key>ACTION_TYPE</key>
+		<string>login-once</string>
+		<key>REVERSE_DOMAIN</key>
+		<string>com.github.autopkg.outsetpayload</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>2.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>PackageRequired</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>string</key>
+				<string>%PKG%</string>
+				<key>delimiter</key>
+				<string>/</string>
+				<key>index</key>
+				<string>-1</string>
+			</dict>
+			<key>Comment</key>
+			<string>Use StringSplitter to extract the filename from the payload's path.
+			The first call extracts the filename with extension, which is stored in name_with_ext.
+			The second call strips everything from that filename after the first period
+			(that will strip the extension at the very least).</string>
+			<key>Processor</key>
+			<string>com.github.autopkg.robperc.recipes.Processors/StringSplitter</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>name_with_ext</key>
+				<string>%out_string%</string>
+				<key>string</key>
+				<string>%out_string%</string>
+				<key>delimiter</key>
+				<string>.</string>
+				<key>index</key>
+				<string>0</string>
+			</dict>
+			<key>Processor</key>
+			<string>com.github.autopkg.robperc.recipes.Processors/StringSplitter</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgdirs</key>
+				<dict>
+					<key>usr</key>
+					<string>0755</string>
+					<key>usr/local</key>
+					<string>0755</string>
+					<key>usr/local/outset</key>
+					<string>0755</string>
+					<key>usr/local/outset/tmp</key>
+					<string>0755</string>
+				</dict>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/pkgroot</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>FileMover</string>
+			<key>Arguments</key>
+			<dict>
+				<key>source</key>
+				<string>%RECIPE_CACHE_DIR%/pkgroot/usr/local/outset/tmp</string>
+				<key>target</key>
+				<string>%RECIPE_CACHE_DIR%/pkgroot/usr/local/outset/%ACTION_TYPE%</string>
+			</dict>
+			<key>Comment</key>
+			<string>PkgRootCreator does not support variable substitution in pkgdirs it creates,
+			so we are renaming tmp to the specified outset folder.</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/pkgroot/usr/local/outset/%ACTION_TYPE%/%name_with_ext%</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%PKG%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>VersionGenerator</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_request</key>
+				<dict>
+					<key>chown</key>
+					<array>
+						<dict>
+							<key>group</key>
+							<string>wheel</string>
+							<key>path</key>
+							<string>usr</string>
+							<key>user</key>
+							<string>root</string>
+							<key>mode</key>
+							<string>0755</string>
+						</dict>
+					</array>
+					<key>id</key>
+					<string>%REVERSE_DOMAIN%.%name_with_ext%</string>
+					<key>options</key>
+					<string>purge_ds_store</string>
+					<key>pkgdir</key>
+					<string>%RECIPE_CACHE_DIR%</string>
+				</dict>
+				<key>pkgname</key>
+				<string>%out_string%-%version%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PathDeleter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%RECIPE_CACHE_DIR%/pkgroot</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
