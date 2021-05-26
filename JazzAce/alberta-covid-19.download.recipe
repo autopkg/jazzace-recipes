@@ -89,7 +89,7 @@ Input Keys:
 			<key>Arguments</key>
 			<dict>
 				<key>url</key>
-				<string>https://www.alberta.ca/data/stats/zone-coverage.csv</string>
+				<string>https://www.alberta.ca/data/stats/lga-coverage.csv</string>
 			</dict>
 		</dict>
 		<dict>
