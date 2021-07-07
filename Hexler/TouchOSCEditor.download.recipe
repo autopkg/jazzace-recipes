@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest version of TouchOSC Editor.
+	<string>Downloads the latest version of TouchOSC Editor for TouchOSC Mk1.
 In order to check the Code Signature, the Zip archive is expanded.</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.TouchOSCEditor</string>
@@ -13,7 +13,7 @@ In order to check the Code Signature, the Zip archive is expanded.</string>
 		<string>TouchOSC Editor</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>0.2.9</string>
+	<string>1.4</string>
 	<key>Process</key>
 	<array>
 		<dict>
@@ -22,9 +22,11 @@ In order to check the Code Signature, the Zip archive is expanded.</string>
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>(?P&lt;uri&gt;/pub/touchosc/touchosc-editor-(?P&lt;version&gt;.*?)-macos\.zip)</string>
+				<string>(/pub/touchosc/touchosc-editor-(?P&lt;version&gt;.*?)-macos\.zip)</string>
+				<key>result_output_var_name</key>
+				<string>uri</string>
 				<key>url</key>
-				<string>https://hexler.net/products/touchosc</string>
+				<string>https://hexler.net/touchosc-mk1</string>
 			</dict>
 		</dict>
 		<dict>
