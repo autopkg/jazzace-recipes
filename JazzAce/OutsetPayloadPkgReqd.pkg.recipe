@@ -6,9 +6,10 @@
 	<string>Takes the file specified by the --pkg (or -p) run option and builds a package
 that will install the file to /usr/local/outset/%ACTION_TYPE%.
 
-This recipe requires the robperc-recipes repo.
+This recipe requires the robperc-recipes and homebysix-recipes repos.
 
-The pkg will be named using the payload's file name (up to the first period).
+The pkg will be named using the payload's file name (up to the first period) 
+with underscores and spaces removed.
 
 This recipe assumes the item being passed (like a script) may not have a version number,
 so it assigns an ever-increasing number (based on the current time) as the version number.
@@ -53,37 +54,63 @@ It is recommended that you change this value in your override to match your orga
 			<string>PackageRequired</string>
 		</dict>
 		<dict>
+			<key>Processor</key>
+			<string>com.github.autopkg.robperc.recipes.Processors/StringSplitter</string>
 			<key>Arguments</key>
 			<dict>
-				<key>string</key>
-				<string>%PKG%</string>
 				<key>delimiter</key>
 				<string>/</string>
 				<key>index</key>
 				<string>-1</string>
+				<key>string</key>
+				<string>%PKG%</string>
 			</dict>
 			<key>Comment</key>
 			<string>Use StringSplitter to extract the filename from the payload's path.
 			The first call extracts the filename with extension, which is stored in name_with_ext.
 			The second call strips everything from that filename after the first period
 			(that will strip the extension at the very least).</string>
-			<key>Processor</key>
-			<string>com.github.autopkg.robperc.recipes.Processors/StringSplitter</string>
 		</dict>
 		<dict>
+			<key>Processor</key>
+			<string>com.github.autopkg.robperc.recipes.Processors/StringSplitter</string>
 			<key>Arguments</key>
 			<dict>
-				<key>name_with_ext</key>
-				<string>%out_string%</string>
-				<key>string</key>
-				<string>%out_string%</string>
 				<key>delimiter</key>
 				<string>.</string>
 				<key>index</key>
 				<string>0</string>
+				<key>name_with_ext</key>
+				<string>%out_string%</string>
+				<key>string</key>
+				<string>%out_string%</string>
 			</dict>
+		</dict>
+		<dict>
 			<key>Processor</key>
-			<string>com.github.autopkg.robperc.recipes.Processors/StringSplitter</string>
+			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_string</key>
+				<string>%out_string%</string>
+				<key>find</key>
+				<string>_</string>
+				<key>replace</key>
+				<string></string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_string</key>
+				<string>%output_string%</string>
+				<key>find</key>
+				<string> </string>
+				<key>replace</key>
+				<string></string>
+			</dict>
 		</dict>
 		<dict>
 			<key>Processor</key>
@@ -148,16 +175,16 @@ It is recommended that you change this value in your override to match your orga
 						<dict>
 							<key>group</key>
 							<string>wheel</string>
+							<key>mode</key>
+							<string>0755</string>
 							<key>path</key>
 							<string>usr</string>
 							<key>user</key>
 							<string>root</string>
-							<key>mode</key>
-							<string>0755</string>
 						</dict>
 					</array>
 					<key>id</key>
-					<string>%REVERSE_DOMAIN%.%name_with_ext%</string>
+					<string>%REVERSE_DOMAIN%.%output_string%</string>
 					<key>options</key>
 					<string>purge_ds_store</string>
 					<key>pkgdir</key>
