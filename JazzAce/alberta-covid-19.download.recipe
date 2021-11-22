@@ -3,8 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the Alberta COVID-19 Data page daily and date stamps it using the date at the 
-top of the web page (the last date of full results).
+	<string>Downloads the Alberta COVID-19 Data page and date stamps it using the date at the 
+top of the web page (the last date of full results). Designed to run daily.
+This saves the web page and the following 4 data sets: Case, Summary, Geospatial, and Vaccine.
 Input Keys:
     SAVE_LOCATION is the path to the directory where the web page should be copied. The path must exist.
     PAGE_NAME_PREFIX is the text (if any) that will precede the datestamp in the (copied) filename.
@@ -76,7 +77,51 @@ Input Keys:
 			<key>Arguments</key>
 			<dict>
 				<key>destination_path</key>
-				<string>%SAVE_LOCATION%/%PAGE_NAME_PREFIX%%stats_date%.csv</string>
+				<string>%SAVE_LOCATION%/%PAGE_NAME_PREFIX%Cases %stats_date%.csv</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%pathname%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>https://www.alberta.ca/data/stats/covid-19-alberta-statistics-summary-data.csv</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%SAVE_LOCATION%/%PAGE_NAME_PREFIX%Vaccine %stats_date%.csv</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%pathname%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>https://www.alberta.ca/data/stats/covid-19-alberta-statistics-map-data.csv</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%SAVE_LOCATION%/%PAGE_NAME_PREFIX%Geospatial %stats_date%.csv</string>
 				<key>overwrite</key>
 				<true/>
 				<key>source_path</key>
@@ -98,7 +143,7 @@ Input Keys:
 			<key>Arguments</key>
 			<dict>
 				<key>destination_path</key>
-				<string>%SAVE_LOCATION%/%PAGE_NAME_PREFIX%vaccine %stats_date%.csv</string>
+				<string>%SAVE_LOCATION%/%PAGE_NAME_PREFIX%Vaccine %stats_date%.csv</string>
 				<key>overwrite</key>
 				<true/>
 				<key>source_path</key>
