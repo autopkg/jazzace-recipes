@@ -213,7 +213,7 @@ exit 0
 						</dict>
 					</array>
 					<key>id</key>
-					<string>%bundleid%custom</string>
+					<string>%bundleid%.%NAME%</string>
 					<key>options</key>
 					<string>purge_ds_store</string>
 					<key>pkgname</key>
