@@ -5,9 +5,9 @@
 	<key>Description</key>
 	<string>This recipe downloads the latest Vectorworks installer app and creates a package that leverages the silent install 
 CLI method to automate installation. Input variables are used to specify which major version of Vectorworks you are 
-packaging (e.g., 2021) and to customize the installation package with the recipe user's license information. 
-The pkg is named with the name and the version number (e.g., the installer for Vectorworks 2021 SP2 would be named 
-"Vectorworks-26.0.2"); if you want to include the year/major version in the pkg name, change the NAME variable accordingly.
+packaging (e.g., 2022) and to customize the installation package with the recipe user's license information. 
+The pkg is named with the name and the version number (e.g., the installer for Vectorworks 2022 SP2 would be named 
+"Vectorworks-27.0.2"); if you want to include the year/major version in the pkg name, change the NAME variable accordingly.
 Should the download not have changed, no processing is done; this is done to save redundant copying of the 2+ GB installer.
 If you need Vectorworks 2020, use the Vectorworks2020.pkg recipe.
 </string>
@@ -18,11 +18,7 @@ If you need Vectorworks 2020, use the Vectorworks2020.pkg recipe.
 		<key>NAME</key>
 		<string>Vectorworks</string>
 		<key>MAJOR_VERSION</key>
-		<string>2021</string>
-		<key>VW_USERNAME</key>
-		<string>Group or User Name</string>
-		<key>VW_COMPANY</key>
-		<string>Your Company</string>
+		<string>2022</string>
 		<key>VW_SERIAL_NO</key>
 		<string>GFXXXX-123456-ABCDEF-G7HI89</string>
 	</dict>
@@ -106,9 +102,8 @@ If you need Vectorworks 2020, use the Vectorworks2020.pkg recipe.
 vers="%MAJOR_VERSION%"
 serialno="%VW_SERIAL_NO%"
 vwipathroot="/private/tmp/vw"
-vwuser="%VW_USERNAME%"
-vwcompany="%VW_COMPANY%"
-"${vwipathroot}/Vectorworks ${vers} Installer.app/Contents/Resources/installer/Install Vectorworks${vers}.app/Contents/MacOS/installbuilder.sh" --mode unattended --unattendedmodeui none --Serial "${serialno}" --UserName "${vwuser}" --CompName "${vwcompany}" --installdir "/Applications/Vectorworks ${vers}"
+# Install Vectorworks
+"${vwipathroot}/Vectorworks ${vers} Installer.app/Contents/Resources/installer/Install Vectorworks${vers}.app/Contents/MacOS/installbuilder.sh" --mode unattended --unattendedmodeui none --Serial "${serialno}" --installdir "/Applications/Vectorworks ${vers}"
 # Check to verify app is in expected location; delete installer if app present
 if [ -e "/Applications/Vectorworks ${vers}/Vectorworks ${vers}.app" ]
 then
