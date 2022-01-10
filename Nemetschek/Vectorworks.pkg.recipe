@@ -15,10 +15,6 @@ If you need Vectorworks 2020, use the Vectorworks2020.pkg recipe.
 	<string>com.github.jazzace.pkg.vectorworks</string>
 	<key>Input</key>
 	<dict>
-		<key>NAME</key>
-		<string>Vectorworks</string>
-		<key>MAJOR_VERSION</key>
-		<string>2022</string>
 		<key>VW_SERIAL_NO</key>
 		<string>GFXXXX-123456-ABCDEF-G7HI89</string>
 	</dict>

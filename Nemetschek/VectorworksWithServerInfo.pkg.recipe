@@ -30,20 +30,12 @@ There are no external file dependencies for this recipe; it creates all the file
 		<string>1</string>
 		<key>MAIN_MODULE</key>
 		<string>designer</string>
-		<key>MAJOR_VERSION</key>
-		<string>2022</string>
-		<key>NAME</key>
-		<string>Vectorworks</string>
 		<key>SERVER</key>
 		<string>localhost</string>
-		<key>VW_COMPANY</key>
-		<string>Your Company</string>
 		<key>VW_SERIAL_NO</key>
 		<string>GFXXXX-123456-ABCDEF-G7HI89</string>
 		<key>VW_SERIES</key>
 		<string>G</string>
-		<key>VW_USERNAME</key>
-		<string>Group or User Name</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>1.4</string>
