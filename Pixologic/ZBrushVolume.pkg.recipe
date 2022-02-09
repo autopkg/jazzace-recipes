@@ -20,7 +20,7 @@ Input Variables of note:
 Once the input variables are set (likely in an override), your command to create the pkg will
 look something like this:
 
-    autopkg run ZBrushVolume.pkg -p ~/Downloads/ZBrush_2021.6_FL_Installer.dmg
+    autopkg run ZBrushVolume.pkg -p ~/Downloads/ZBrush_2022.0.5_FL_Installer.dmg
    
 (Substitute the actual path to your downloaded disk image.)</string>
 	<key>Identifier</key>
@@ -61,10 +61,10 @@ look something like this:
 			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
 			<key>Arguments</key>
 			<dict>
-				<key>input_string</key>
-				<string>%app_name%</string>
 				<key>find</key>
 				<string>ZBrush_</string>
+				<key>input_string</key>
+				<string>%app_name%</string>
 				<key>replace</key>
 				<string></string>
 			</dict>
@@ -74,10 +74,10 @@ look something like this:
 			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
 			<key>Arguments</key>
 			<dict>
-				<key>input_string</key>
-				<string>%output_string%</string>
 				<key>find</key>
 				<string>_FL_Installer.app</string>
+				<key>input_string</key>
+				<string>%output_string%</string>
 				<key>replace</key>
 				<string></string>
 			</dict>
@@ -165,10 +165,17 @@ look something like this:
 # • copies the .lic and .lib files needed to use the licence server to $liblicfolder
 # • copies a modified version of DefaultZScript.txt to $liblicfolder
 #
-# Assign the version number found on the parent folder in /Applications to vers:
+# Assign the version number found on the parent folder in /Applications to vers,
+# then extract just the year to yr
 vers="%version%"
+yr=${vers:0:4}
 instpathroot="$3/private/tmp/zbrush"
 liblicfolder="$instpathroot/vl"
+# Remove old install of same major version, if present, as per Pixologic recommendation:
+if [ -e "/Applications/ZBrush ${vers}/ZBrush.app" ] ; then
+    echo "Uninstalling an earlier version of ZBrush ${vers}..."
+    "/Applications/ZBrush ${vers}/Uninstall/Uninstall ZBrush ${yr}.app/Contents/MacOS/installbuilder.sh" --mode unattended
+fi
 # Main Install: (note that installer names sometimes change underscores to spaces and vice versa between versions; keep an eye out when updating)
 "${instpathroot}/%app_name%/Contents/MacOS/installbuilder.sh" --mode unattended
 #
