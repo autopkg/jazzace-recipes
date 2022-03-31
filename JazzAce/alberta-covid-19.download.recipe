@@ -99,7 +99,7 @@ Input Keys:
 			<key>Arguments</key>
 			<dict>
 				<key>destination_path</key>
-				<string>%SAVE_LOCATION%/%PAGE_NAME_PREFIX%Vaccine %stats_date%.csv</string>
+				<string>%SAVE_LOCATION%/%PAGE_NAME_PREFIX%Summary %stats_date%.csv</string>
 				<key>overwrite</key>
 				<true/>
 				<key>source_path</key>
