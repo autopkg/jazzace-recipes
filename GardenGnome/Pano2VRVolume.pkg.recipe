@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the latest version of Pano2VR and creates a package that deploys both the app
+and some preferred settings, particularly the license string. Details on how to obtain the license string
+are available in the FAQ (https://ggnome.com/faqs/?Display_FAQ=1900).
+
+The value of VERSION_CHECK and WELCOME_SCREEN should be set to either true or false (the string) depending on
+your preference.
+</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.Pano2VRvolume</string>
+	<key>Input</key>
+	<dict>
+		<key>LICENSE_STRING</key>
+		<string>copy from ~/Library/Preferences/com.gardengnomesoftware.pano2vr.plist on a configured Mac</string>
+		<key>VERSION_CHECK</key>
+		<string>false</string>
+		<key>WELCOME_SCREEN</key>
+		<string>false</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.4</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.download.Pano2VR</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgdirs</key>
+				<dict>
+					<key>Applications</key>
+					<string>0775</string>
+					<key>Library</key>
+					<string>0755</string>
+					<key>Library/Preferences</key>
+					<string>0755</string>
+				</dict>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>AppDmgVersioner</string>
+			<key>Arguments</key>
+			<dict>
+				<key>dmg_path</key>
+				<string>%pathname%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%pkgroot%/Applications/%app_name%</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%pathname%/*.app</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>FileCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>file_path</key>
+				<string>%pkgroot%/Library/Preferences/com.gardengnomesoftware.pano2vr.plist</string>
+				<key>file_content</key>
+				<string>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+	&lt;key&gt;general.welcomescreen&lt;/key&gt;
+	&lt;%WELCOME_SCREEN%/&gt;
+	&lt;key&gt;license.key_v6&lt;/key&gt;
+	&lt;string&gt;%LICENSE_STRING%&lt;/string&gt;
+	&lt;key&gt;versioncheck.enabled&lt;/key&gt;
+	&lt;%VERSION_CHECK%/&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;
+</string>
+				<key>file_mode</key>
+				<string>0644</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_request</key>
+				<dict>
+					<key>chown</key>
+					<array>
+						<dict>
+							<key>path</key>
+							<string>Applications</string>
+							<key>user</key>
+							<string>root</string>
+							<key>group</key>
+							<string>admin</string>
+						</dict>
+						<dict>
+							<key>path</key>
+							<string>Library</string>
+							<key>user</key>
+							<string>root</string>
+							<key>group</key>
+							<string>wheel</string>
+						</dict>
+						<dict>
+							<key>path</key>
+							<string>Library/Preferences</string>
+							<key>user</key>
+							<string>root</string>
+							<key>group</key>
+							<string>wheel</string>
+						</dict>
+						<dict>
+							<key>path</key>
+							<string>Library/Preferences/com.gardengnomesoftware.pano2vr.plist</string>
+							<key>user</key>
+							<string>root</string>
+							<key>group</key>
+							<string>wheel</string>
+						</dict>
+					</array>
+					<key>id</key>
+					<string>%bundleid%volume</string>
+					<key>options</key>
+					<string>purge_ds_store</string>
+					<key>pkgname</key>
+					<string>%NAME%-%version%</string>
+					<key>pkgroot</key>
+					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PathDeleter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
