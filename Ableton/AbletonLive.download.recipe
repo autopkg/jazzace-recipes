@@ -7,11 +7,16 @@
 	<key>Description</key>
 	<string>Downloads the most recent version of Ableton Live based on the version and edition you specify.
 LIVE_VERS is the major version of Live (versions 9, 10, and 11 are currently supported).
-Possible values for EDITION are: trial, lite, intro, standard, and suite.</string>
+Possible values for EDITION are: trial, lite, intro, standard, and suite.
+This recipe now supports Ableton's various ARCHITECTURE options.
+Valid options for Live 11 are "universal" and "intel". Earlier versions of Live may require "64".
+</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.AbletonLive</string>
 	<key>Input</key>
 	<dict>
+		<key>ARCHITECTURE</key>
+		<string>universal</string>
 		<key>EDITION</key>
 		<string>lite</string>
 		<key>LIVE_VERS</key>
@@ -42,7 +47,7 @@ Possible values for EDITION are: trial, lite, intro, standard, and suite.</strin
 			<key>Arguments</key>
 			<dict>
 				<key>url</key>
-				<string>https://cdn-downloads.ableton.com/channels/%long_version%/ableton_live_%EDITION%_%long_version%_64.dmg</string>
+				<string>https://cdn-downloads.ableton.com/channels/%long_version%/ableton_live_%EDITION%_%long_version%_%ARCHITECTURE%.dmg</string>
 			</dict>
 		</dict>
 		<dict>
