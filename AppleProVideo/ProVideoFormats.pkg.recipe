@@ -3,8 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads latest version of the Pro Video Formats (previously known as ProApps QuickTime Codecs)
-    provided by Apple for their pro apps and extracts the package from the dmg.
+	<string>Downloads latest version of the Pro Video Formats provided by Apple for their pro apps and 
+extracts the package from the dmg, renaming it with the version number added.
     
 This recipe suppresses unnecessary copying of the package using the "StopProcessingIf" 
 processor. This means that any recipe that uses this as a parent recipe could stop execution 
@@ -43,14 +43,12 @@ other than the default.
 		</dict>
 		<dict>
 			<key>Processor</key>
-			<string>Copier</string>
+			<string>PkgCopier</string>
 			<key>Arguments</key>
 			<dict>
-				<key>destination_path</key>
-				<string>%RECIPE_CACHE_DIR%/%NAME%.pkg</string>
-				<key>overwrite</key>
-				<true/>
-				<key>source_path</key>
+				<key>pkg_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg</string>
+				<key>source_pkg</key>
 				<string>%pathname%/*.pkg</string>
 			</dict>
 		</dict>
