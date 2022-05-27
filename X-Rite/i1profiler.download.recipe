@@ -23,21 +23,11 @@ of the pkg intaller inside the zip archive downloaded.</string>
 			<dict>
 				<key>appcast_url</key>
 				<string>https://downloads.xrite.com/Downloads/Autoupdate/i1profiler_mac_appcast.xml</string>
-				<key>curl_opts</key>
-				<array>
-					<string>--user-agent</string>
-					<string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15</string>
-				</array>
 			</dict>
 		</dict>
 		<dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>
-			<key>Arguments</key>
-			<dict>
-				<key>filename</key>
-				<string>%NAME%.zip</string>
-			</dict>
 		</dict>
 		<dict>
 			<key>Processor</key>

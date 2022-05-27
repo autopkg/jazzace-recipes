@@ -3,11 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the current release of i1Profiler and extracts the installation package.
-This recipe is a stub, as the updated parent recipe provides a pkg installer.
-If it is your process to add versioning to the filename of the pkg, you may wish to write
-your own pkg recipe that leverages the fact that the version number is returned by the
-SparkleUpdateInfoProvider processor in the download recipe (%version%).
+	<string>Downloads the current release of i1Profiler, extracts the installation package,
+and renames the package to include the version number.
 </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.i1profiler</string>
@@ -18,6 +15,29 @@ SparkleUpdateInfoProvider processor in the download recipe (%version%).
 	<key>ParentRecipe</key>
 	<string>com.github.jazzace.download.i1profiler</string>
 	<key>Process</key>
-	<array/>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>PkgCopier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg</string>
+				<key>source_pkg</key>
+				<string>%input_path%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PathDeleter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>
