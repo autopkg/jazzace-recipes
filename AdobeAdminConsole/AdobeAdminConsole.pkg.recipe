@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Adds version information to the pkg name of an Adobe Admin Console-generated pkg that
+you have already downloaded. This pkg is then suitable for uploading to your management system.
+NAME must match the name you supplied when you built the pkg in the Adobe Admin Console.
+Requires that the expanded archive with that NAME be located in ~/Downloads.
+For more details, see the ReadMe in this directory.
+The dataJAR-recipes repo is required.
+</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.AdobeAdminConsole</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>AdobeAdminConsoleDownloadName</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.dataJAR-recipes.munki.Adobe Lightroom Classic/AdobeAdminConsolePackagesPkgInfoCreator</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgCopier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg</string>
+				<key>source_pkg</key>
+				<string>%aacp_install_pkg_path%</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
