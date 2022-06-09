@@ -4,7 +4,10 @@
 <dict>
 	<key>Description</key>
 	<string>Downloads the latest version of the Epson Scanner Driver and Epson Scan Utility
-from Epson's site and extracts the package from the dmg.
+from Epson's site, extracts the package from the dmg, and adds version information to the filename.
+(The versioning assumes that Epson Scan 2 is part of the payload and is in the EpsonScan2_Standalone
+component within the distribution pkg.)
+
 Make separate overrides for each scanner driver you may want (make sure to change the
 value of the NAME input key). An override is required.
 
@@ -36,15 +39,55 @@ the package that this recipe creates.
 		</dict>
 		<dict>
 			<key>Processor</key>
-			<string>Copier</string>
+			<string>FlatPkgUnpacker</string>
 			<key>Arguments</key>
 			<dict>
 				<key>destination_path</key>
-				<string>%RECIPE_CACHE_DIR%/%NAME%.pkg</string>
-				<key>overwrite</key>
-				<true/>
-				<key>source_path</key>
+				<string>%RECIPE_CACHE_DIR%/scratch</string>
+				<key>flat_pkg_path</key>
 				<string>%pathname%/*.pkg</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgPayloadUnpacker</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/scratch/%NAME%</string>
+				<key>pkg_payload_path</key>
+				<string>%RECIPE_CACHE_DIR%/scratch/EpsonScan2_Standalone.pkg/payload</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Versioner</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_plist_path</key>
+				<string>%RECIPE_CACHE_DIR%/scratch/%NAME%/Applications/Epson Software/Epson Scan 2.app/Contents/Info.plist</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgCopier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg</string>
+				<key>source_pkg</key>
+				<string>%pathname%/*.pkg</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PathDeleter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%RECIPE_CACHE_DIR%/scratch</string>
+				</array>
 			</dict>
 		</dict>
 	</array>
