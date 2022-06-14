@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>This is a stub recipe to allow convenient shared access to the processors in this directory.</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.processors</string>
+	<key>Input</key>
+	<dict/>
+	<key>MinimumVersion</key>
+	<string>2.0</string>
+	<key>Process</key>
+	<array/>
+</dict>
+</plist>
