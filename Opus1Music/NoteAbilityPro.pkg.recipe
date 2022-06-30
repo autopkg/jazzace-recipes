@@ -3,10 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads latest version of NoteAbilityPro 3 and extracts the package installer.
+	<string>Downloads latest version of NoteAbilityPro 4 and extracts the package installer.
 If there is no new installer, the file will not be extracted from the archive.
-Since Version 2 was 32-bit, this recipe no longer supports it.
-Note that the app is unsigned by the developer (hence the lack of a CodeSignatureVerifier processor).
+This recipe only supports Version 4 as it is Universal and all previous versions are not being developed further.
 </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.NoteAbilityPro</string>
@@ -25,7 +24,7 @@ Note that the app is unsigned by the developer (hence the lack of a CodeSignatur
 			<key>Arguments</key>
 			<dict>
 				<key>url</key>
-				<string>https://opusonemusic.net/download/NoteAbilityPro.zip</string>
+				<string>https://opusonemusic.net/download/NoteAbilityPro4.zip</string>
 			</dict>
 		</dict>
 		<dict>
@@ -46,6 +45,21 @@ Note that the app is unsigned by the developer (hence the lack of a CodeSignatur
 				<string>%pathname%</string>
 				<key>purge_destination</key>
 				<true/>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>CodeSignatureVerifier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>expected_authority_names</key>
+				<array>
+					<string>Developer ID Installer: Keith Hamel (V23V4PU775)</string>
+					<string>Developer ID Certification Authority</string>
+					<string>Apple Root CA</string>
+				</array>
+				<key>input_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%/NoteAbilityPro*/*.pkg</string>
 			</dict>
 		</dict>
 	</array>
