@@ -3,26 +3,35 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest version of Amadeus Pro, packages it, then uploads the package to the Jamf Pro Server 
-and creates/updates the policy that deploys it. The POLICY_CATEGORY must exist on the Jamf Pro Server and the 
-scope must be specified in the POLICY_TEMPLATE.</string>
+	<string>Downloads the latest version of Amadeus Pro, packages it, then uploads the package to your 
+Jamf Pro Server/Distribution Point and creates/updates the policy that deploys it.
+
+The server/share details must be set using variables set in the environment or specified in your override
+(see https://github.com/grahampugh/jamf-upload/wiki/JamfUploader-AutoPkg-Processors).
+
+The grahampugh-recipes repo is required.
+
+Note that the (Package) CATEGORY, GROUP_NAME, and POLICY_CATEGORY specified by the Input variables 
+must each exist on the server, otherwise the recipe will fail. The value for SITE is 
+requested in the Input dictionary so that it may be used within the POLICY_TEMPLATE specified.
+</string>
 	<key>Identifier</key>
-	<string>com.github.jazzace.jamf.AmadeusPro</string>
+	<string>com.github.jazzace.jamf.AmadeusPro-latest</string>
 	<key>Input</key>
 	<dict>
 		<key>CATEGORY</key>
-		<string>Testing</string>
-		<key>NAME</key>
-		<string>Amadeus Pro</string>
+		<string>Visual &amp; Performing Arts</string>
 		<key>POLICY_CATEGORY</key>
-		<string>Testing</string>
+		<string>%CATEGORY%</string>
 		<key>POLICY_NAME</key>
-		<string>Install %NAME% Latest</string>
+		<string>%SITE% %NAME% Latest</string>
 		<key>POLICY_TEMPLATE</key>
-		<string>Policy-install-latest-scoped.xml</string>
+		<string>Policy-install-latest-site-all.xml</string>
+		<key>SITE</key>
+		<string>IAML</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>2.0.0</string>
+	<string>2.0</string>
 	<key>ParentRecipe</key>
 	<string>com.github.jazzace.pkg.AmadeusPro</string>
 	<key>Process</key>
