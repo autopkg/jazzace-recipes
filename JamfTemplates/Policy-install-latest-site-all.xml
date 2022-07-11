@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policy>
+    <general>
+        <name>%POLICY_NAME%</name>
+        <enabled>true</enabled>
+        <trigger_checkin>true</trigger_checkin>
+        <trigger_enrollment_complete>true</trigger_enrollment_complete>
+        <frequency>Once per computer</frequency>
+        <retry_event>check-in</retry_event>
+        <retry_attempts>2</retry_attempts>
+        <notify_on_each_failed_retry>false</notify_on_each_failed_retry>
+        <category>
+            <name>%POLICY_CATEGORY%</name>
+        </category>
+        <site>
+            <name>%SITE%</name>
+        </site>
+    </general>
+    <scope>
+        <all_computers>true</all_computers>
+    </scope>
+    <package_configuration>
+        <packages>
+            <size>1</size>
+            <package>
+                <name>%pkg_name%</name>
+                <action>Install</action>
+            </package>
+        </packages>
+    </package_configuration>
+    <self_service>
+        <use_for_self_service>false</use_for_self_service>
+    </self_service>
+</policy>
