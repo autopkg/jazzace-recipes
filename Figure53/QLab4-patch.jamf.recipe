@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>This recipe takes the QLab pkg installer, uploads the pkg to your Jamf Pro Server/Distribution Point 
+and creates/updates both the initial installation policy and the Patch policy.
+
+The server/share details must be set using variables set in the environment or specified in your override
+(see https://github.com/grahampugh/jamf-upload/wiki/JamfUploader-AutoPkg-Processors).
+
+The grahampugh-recipes repo is required.
+
+Note that the PATCH_SOFTWARE_TITLE specified in the Input variables must exist on the server, 
+otherwise the recipe will fail.
+</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.jamf.QLab4-patch</string>
+	<key>Input</key>
+	<dict>
+		<key>PATCH_POLICY_NAME</key>
+		<string>%SITE% %NAME% Latest</string>
+		<key>PATCH_POLICY_TEMPLATE</key>
+		<string>Patch-install-latest-group.xml</string>
+		<key>PATCH_SOFTWARE_TITLE</key>
+		<string>%SITE% %NAME%</string>
+		<key>POLICY_NAME</key>
+		<string>%SITE% %NAME%</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>2.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.jamf.QLab4-latest</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.grahampugh.jamf-upload.processors/JamfPatchUploader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>patch_name</key>
+				<string>%PATCH_POLICY_NAME%</string>
+				<key>patch_softwaretitle</key>
+				<string>%PATCH_SOFTWARE_TITLE%</string>
+				<key>patch_template</key>
+				<string>%PATCH_POLICY_TEMPLATE%</string>
+				<key>replace_patch</key>
+				<string>True</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
