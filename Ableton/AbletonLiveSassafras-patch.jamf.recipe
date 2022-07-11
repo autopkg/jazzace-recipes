@@ -11,17 +11,13 @@ The server/share details must be set using variables set in the environment or s
 
 The grahampugh-recipes repo is required.
 
-Note that the (Package) CATEGORY and PATCH_SOFTWARE_TITLE specified by the Input variables 
-must each exist on the server, otherwise the recipe will fail.
+Note that the PATCH_SOFTWARE_TITLE specified in the Input variables must exist on the server, 
+otherwise the recipe will fail.
 </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.jamf.AbletonLiveSassafras-patch</string>
 	<key>Input</key>
 	<dict>
-		<key>CATEGORY</key>
-		<string>Applications</string>
-		<key>GROUP_NAME</key>
-		<string>IAML Both Labs</string>
 		<key>PATCH_POLICY_NAME</key>
 		<string>%SITE% %NAME% Latest</string>
 		<key>PATCH_POLICY_TEMPLATE</key>
@@ -30,8 +26,6 @@ must each exist on the server, otherwise the recipe will fail.
 		<string>%SITE% %NAME%</string>
 		<key>POLICY_NAME</key>
 		<string>%SITE% %NAME%</string>
-		<key>SITE</key>
-		<string>IAML</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>2.0</string>
