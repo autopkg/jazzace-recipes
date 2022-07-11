@@ -17,23 +17,25 @@ Requires that you have Tim Sutton's recipes (timsutton-recipes) in your repo.</s
 	<array>
 		<dict>
 			<key>Processor</key>
-			<string>Versioner</string>
+			<string>AppPkgCreator</string>
 			<key>Arguments</key>
 			<dict>
-				<key>input_plist_path</key>
-				<string>%pathname%/Max.app/Contents/Info.plist</string>
-				<key>plist_version_key</key>
+				<key>version_key</key>
 				<string>CFBundleVersion</string>
 			</dict>
 		</dict>
 		<dict>
 			<key>Processor</key>
-			<string>AppPkgCreator</string>
+			<string>Versioner</string>
 			<key>Arguments</key>
 			<dict>
-				<key>version</key>
-				<string>%version%</string>
+				<key>input_plist_path</key>
+				<string>%pathname%/Max.app/Contents/Info.plist</string>
 			</dict>
+			<key>Comment</key>
+			<string>This is for the benefit of child recipes (like those that use the JamfPatchUploader 
+			shared processor) that need the full version with build number [i.e., #.#.# (11-hex-digits)].
+			AppPkgCreator won't build a package with parenthesis, so we use the shorter version there.</string>
 		</dict>
 	</array>
 </dict>
