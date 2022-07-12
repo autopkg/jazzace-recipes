@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policy>
+    <general>
+        <name>%policy_name%</name>
+        <enabled>true</enabled>
+        <trigger_checkin>true</trigger_checkin>
+        <trigger_enrollment_complete>true</trigger_enrollment_complete>
+        <frequency>Once per computer</frequency>
+        <retry_event>check-in</retry_event>
+        <retry_attempts>2</retry_attempts>
+        <notify_on_each_failed_retry>false</notify_on_each_failed_retry>
+        <category>
+            <name>%POLICY_CATEGORY%</name>
+        </category>
+        <site>
+            <name>%SITE%</name>
+        </site>
+    </general>
+    <scope>
+        <all_computers>true</all_computers>
+        <exclusions>
+<!--        <computers>
+                <computer>
+                    <name>IAML-HeadTech</name>
+                </computer>
+            </computers> -->
+            <computer_groups>
+                <computer_group>
+                    <name>IAML Hallway Stations</name>
+                </computer_group>
+            </computer_groups>
+        </exclusions>
+    </scope>
+    <package_configuration>
+        <packages>
+            <size>1</size>
+            <package>
+                <name>%pkg_name%</name>
+                <action>Install</action>
+            </package>
+        </packages>
+    </package_configuration>
+    <scripts>
+        <size>1</size>
+        <script>
+            <name>AllSightSetHost.sh</name>
+            <priority>After</priority>
+            <parameter4/>
+            <parameter5/>
+            <parameter6/>
+            <parameter7/>
+            <parameter8/>
+            <parameter9/>
+            <parameter10/>
+            <parameter11/>
+        </script>
+    </scripts>
+    <self_service>
+        <use_for_self_service>false</use_for_self_service>
+    </self_service>
+</policy>
