@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the latest version of the Finale full installer.
+Tested with Versions 26 and 27 (specify the major version you want in FINALE_VERS).
+</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.download.Finale26</string>
+	<key>Input</key>
+	<dict>
+		<key>FINALE_VERS</key>
+		<string>27</string>
+		<key>NAME</key>
+		<string>Finale</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.4</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>URLTextSearcher</string>
+			<key>Arguments</key>
+			<dict>
+				<key>re_pattern</key>
+				<string>https://makemusic-downloads.makemusic.com/Finale/(%FINALE_VERS%(\.\d+)+)/</string>
+				<key>result_output_var_name</key>
+				<string>version</string>
+				<key>url</key>
+				<string>https://downloads2.makemusic.com/xml/en/Finale%FINALE_VERS%Mac.xml</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>http://makemusic-downloads.makemusic.com/Finale/%version%/Mac/en-US/FinaleSetup.dmg</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>CodeSignatureVerifier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>expected_authority_names</key>
+				<array>
+					<string>Developer ID Installer: MakeMusic, Inc. (77WERABCRU)</string>
+					<string>Developer ID Certification Authority</string>
+					<string>Apple Root CA</string>
+				</array>
+				<key>input_path</key>
+				<string>%pathname%/*.pkg</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

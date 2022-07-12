@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Creates an installer pkg for Finale v.26 or later that installs properly using a management system
+and does not deploy Garritan Sounds.
+The file silentInstallerChoices.plist must be in the same directory as the recipe you are running
+(usually AutoPkg's RecipeOverrides directory). You can obtain a copy of the file from the same
+directory as this repo or linked on MakeMusic's Help Center article:
+
+https://makemusic.zendesk.com/hc/en-us/articles/115007423647-Commands-to-silently-install-Finale-unattended-installer-#installMac
+</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.Finale26nogarritan</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.download.Finale26</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>Finale</string>
+	</dict>
+	<key>MiniumumVersion</key>
+	<string>1.4</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>FlatPkgUnpacker</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/scratch/unpacked</string>
+				<key>flat_pkg_path</key>
+				<string>%pathname%/*.pkg</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>FileFinder</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pattern</key>
+				<string>%RECIPE_CACHE_DIR%/scratch/unpacked/Finale*.pkg</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgPayloadUnpacker</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/scratch/payload</string>
+				<key>pkg_payload_path</key>
+				<string>%found_filename%/Payload</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Versioner</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_plist_path</key>
+				<string>%RECIPE_CACHE_DIR%/scratch/payload/Applications/Finale.app/Contents/Info.plist</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgdirs</key>
+				<dict>
+					<key>private</key>
+					<string>0777</string>
+					<key>private/tmp</key>
+					<string>0777</string>
+					<key>private/tmp/finale</key>
+					<string>0777</string>
+				</dict>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgCopier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%pkgroot%/private/tmp/finale/Install Finale.pkg</string>
+				<key>source_pkg</key>
+				<string>%pathname%/Install Finale.pkg</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%pkgroot%/private/tmp/finale/silentInstallerChoices.plist</string>
+				<key>source_path</key>
+				<string>%RECIPE_DIR%/silentInstallerChoices.plist</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgdirs</key>
+				<dict/>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/scripts</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>FileCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>file_content</key>
+				<string>#!/bin/sh
+# Installs Finale v.%FINALE_VERS%. Assumes installer is already available in the path specified by $finpathroot.
+# Installer will be deleted upon completion.
+#
+# Set variables (constants) for script run
+finpathroot="/private/tmp/finale"
+installer -verbose -pkg "${finpathroot}/Install Finale.pkg" -target / -applyChoiceChangesXML "${finpathroot}/silentInstallerChoices.plist"
+# Check to verify app is in expected location; delete installer if app present
+if [ -e "/Applications/Finale.app" ]
+then
+    rm -Rf "${finpathroot}"
+    exit 0
+else
+    echo "Error in installing Finale; installer left in ${finpathroot}" &gt;&gt; /var/log/finale_install.log
+    exit 1
+fi
+</string>
+				<key>file_mode</key>
+				<string>0755</string>
+				<key>file_path</key>
+				<string>%RECIPE_CACHE_DIR%/scripts/postinstall</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_request</key>
+				<dict>
+					<key>chown</key>
+					<array>
+						<dict>
+							<key>group</key>
+							<string>admin</string>
+							<key>mode</key>
+							<string>0777</string>
+							<key>path</key>
+							<string>private/tmp/finale/</string>
+							<key>user</key>
+							<string>root</string>
+						</dict>
+					</array>
+					<key>id</key>
+					<string>com.makemusic.finale.%version%.custom</string>
+					<key>options</key>
+					<string>purge_ds_store</string>
+					<key>pkgname</key>
+					<string>%NAME%-%version%</string>
+					<key>pkgroot</key>
+					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+					<key>scripts</key>
+					<string>%RECIPE_CACHE_DIR%/scripts</string>
+					<key>version</key>
+					<string>%version%</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PathDeleter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+					<string>%RECIPE_CACHE_DIR%/scripts</string>
+					<string>%RECIPE_CACHE_DIR%/scratch</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
