@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the latest pkg installer for Sassafras Client (for AllSight or its siblings, formerly KeyServer),
+then uploads the package to the Jamf Pro Server and creates/updates the policy that deploys it.
+
+In order to customize the client to point to your site, you need to run a defaults command similar to:
+defaults write /Library/Preferences/com.sassafras.KeyAccess host sassafras.hostname.com
+In this recipe, it is assumed that this command is in a script on the server. The script name is
+specified by the SCRIPT_NAME input variable and will be run after the Client is installed.
+
+Because of the more complicated scoping in our deployment for this client, the scoping is done
+entirely in the template.
+
+The server/share details must be set using variables set in the environment or specified in your override
+(see https://github.com/grahampugh/jamf-upload/wiki/JamfUploader-AutoPkg-Processors).
+
+The grahampugh-recipes repo is required.
+
+Note that the (Package) CATEGORY and POLICY_CATEGORY specified by the Input variables 
+must each exist on the server, otherwise the recipe will fail. Values for SITE and SCRIPT_NAME are 
+requested in the Input dictionary so that they may be used within the POLICY_TEMPLATE specified.
+</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.jamf.SassafrasClient-latest</string>
+	<key>Input</key>
+	<dict>
+		<key>CATEGORY</key>
+		<string>Utilities</string>
+		<key>NAME</key>
+		<string>Sassafras AllSight Client</string>
+		<key>POLICY_CATEGORY</key>
+		<string>%CATEGORY%</string>
+		<key>POLICY_NAME</key>
+		<string>%SITE% %NAME% Latest</string>
+		<key>POLICY_TEMPLATE</key>
+		<string>Policy-install-latest-site-sassafras.xml</string>
+		<key>SCRIPT_NAME</key>
+		<string>AllSightSetHost.sh</string>
+		<key>SITE</key>
+		<string>IAML</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>2.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.download.sassafrasclient</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>StopProcessingIf</string>
+			<key>Arguments</key>
+			<dict>
+				<key>predicate</key>
+				<string>download_changed != True</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.grahampugh.jamf-upload.processors/JamfPackageUploader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_category</key>
+				<string>%CATEGORY%</string>
+				<key>replace_pkg</key>
+				<string>True</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>policy_name</key>
+				<string>%POLICY_NAME%</string>
+				<key>policy_template</key>
+				<string>%POLICY_TEMPLATE%</string>
+				<key>replace_policy</key>
+				<string>True</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
