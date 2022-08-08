@@ -36,7 +36,7 @@ class TextSearcher(Processor):
 
     input_variables = {
         "re_pattern": {
-            "description": "Regular expression (Python) to match against page.",
+            "description": "Regular expression (Python) to match against the text (text_in).",
             "required": True,
         },
         "text_in": {
