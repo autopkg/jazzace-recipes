@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Takes a Microsoft product package whose filename uses the format
+Microsoft_product_version#_Installer.pkg and places the version number in the variable "version"
+(for use in subsequent processor steps).
+See the download recipe for more information on how to use this set of recipes.</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.microsoftmacproductfwlink</string>
+	<key>Input</key>
+	<dict/>
+	<key>MinimumVersion</key>
+	<string>2.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.download.microsoftmacproductfwlink</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.jazzace.processors/TextSearcher</string>
+			<key>Arguments</key>
+			<dict>
+				<key>re_pattern</key>
+				<string>_([\d.]+)_</string>
+				<key>result_output_var_name</key>
+				<string>version</string>
+				<key>text_in</key>
+				<string>%pathname%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgCopier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg</string>
+				<key>source_pkg</key>
+				<string>%pathname%</string>
+			</dict>
+			<key>Comment</key>
+			<string>This works around a temporary (?) problem with the filename being supplied by the HTTP headers.</string>
+		</dict>
+	</array>
+</dict>
+</plist>
