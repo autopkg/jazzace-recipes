@@ -14,8 +14,7 @@ This recipe is designed to be used with an override or child recipe.
 The value of the FWLink number should be assigned to the input variable PRODUCTID in your override.
 Here are a few FWLink values that may be useful:
 
-525136 - Microsoft 365/Office 2019 Suite
-871743 - Office 2016 Suite
+525133 - Microsoft 365 for Mac/Office 2021/2019 for Mac
 2009112 - Microsoft 365 BusinessPro Suite (with Teams)
 869428 - Teams Standalone Installer
 525134 - Word 2019/365
