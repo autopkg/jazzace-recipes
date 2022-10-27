@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Download Processing and create a package.</string>
+	<string>Download Processing 3 and create a package.</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.processing</string>
 	<key>Input</key>

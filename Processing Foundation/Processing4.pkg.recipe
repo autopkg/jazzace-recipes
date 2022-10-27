@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the latest version of Processing 4 and creates a package installer.</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.processing4</string>
+	<key>Input</key>
+	<dict/>
+	<key>MinimumVersion</key>
+	<string>2.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.download.processing4</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>Versioner</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_plist_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%/Processing.app/Contents/Info.plist</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>AppPkgCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>app_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%/Processing.app</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
