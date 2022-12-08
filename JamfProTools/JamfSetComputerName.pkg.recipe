@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Create a pkg that runs the jamf setComputerName command using the info in the CSV file 
+at the path specified by CSV_PATH. The package ID will be constructed from the REVERSE_DOMAIN and 
+the NAME specified.</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.JamfSetComputerName</string>
+	<key>Input</key>
+	<dict>
+		<key>CSV_PATH</key>
+		<string>/Users/tech/Library/AutoPkg/Files/DeviceNames.csv</string>
+		<key>NAME</key>
+		<string>SetComputerName</string>
+		<key>REVERSE_DOMAIN</key>
+		<string>com.example.subdomain</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>2.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgdirs</key>
+				<dict/>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgdirs</key>
+				<dict/>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/scripts</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%pkgroot%/DeviceNames.csv</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%CSV_PATH%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>FileCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>file_path</key>
+				<string>%RECIPE_CACHE_DIR%/scripts/postinstall</string>
+				<key>file_content</key>
+				<string>#!/bin/sh
+# Uses Jamf setComputerName tool to set station name from the CSV included in the pkg
+PKGDIR=$(dirname "$0")
+NAMES_CSV="${PKGDIR}/DeviceNames.csv"
+/usr/local/jamf/bin/jamf setComputerName -fromFile "${NAMES_CSV}"
+# Be extra cautious by removing the CSV file from the temp install area
+rm "${NAMES_CSV}"
+</string>
+				<key>file_mode</key>
+				<string>0755</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.jazzace.processors/VersionGenerator</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_request</key>
+				<dict>
+					<key>id</key>
+					<string>%REVERSE_DOMAIN%.%NAME%</string>
+					<key>options</key>
+					<string>purge_ds_store</string>
+					<key>pkgname</key>
+					<string>%NAME%-%version%</string>
+					<key>pkgroot</key>
+					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+					<key>scripts</key>
+					<string>%RECIPE_CACHE_DIR%/scripts</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PathDeleter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+					<string>%RECIPE_CACHE_DIR%/scripts</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

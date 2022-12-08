@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>This recipe uploads the latest signed JamfSetComputerName pkg to your Jamf Pro Server/Distribution Point 
+using variables set in the environment.
+The grahampugh-recipes repo is required. 
+Note that the CATEGORY specified must exist on the server, otherwise the recipe will fail.
+(For further details on setting the server/share details, see https://github.com/grahampugh/jamf-upload/wiki/JamfUploader-AutoPkg-Processors.)
+</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.jamf.JamfSetComputerName-pkg-uploadonly</string>
+	<key>Input</key>
+	<dict>
+		<key>CATEGORY</key>
+		<string>Utilities</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>2.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.sign.JamfSetComputerName</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.grahampugh.jamf-upload.processors/JamfPackageUploader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_category</key>
+				<string>%CATEGORY%</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
