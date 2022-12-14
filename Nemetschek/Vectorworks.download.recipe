@@ -14,9 +14,9 @@ Note that this recipe only works for Vectorworks 2021 and later. (A separate rec
 		<key>COMPANY</key>
 		<string>vectorworks</string>
 		<key>DOWNLOAD_URL</key>
-		<string>https://release.vectorworks.net/latest/Vectorworks/2022-NNA-eng-mac</string>
+		<string>https://release.vectorworks.net/latest/Vectorworks/2023-NNA-eng-mac</string>
 		<key>MAJOR_VERSION</key>
-		<string>2022</string>
+		<string>2023</string>
 		<key>NAME</key>
 		<string>Vectorworks</string>
 	</dict>

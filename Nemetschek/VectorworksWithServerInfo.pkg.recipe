@@ -5,10 +5,13 @@
 	<key>Description</key>
 	<string>This recipe downloads the latest Vectorworks installer app and creates a package that leverages the silent install 
 CLI method to automate installation. Input variables are used to specify which major version of Vectorworks you are 
-packaging (e.g., 2022) and to customize the installation package with the recipe user's license information. 
-The pkg is named with the name and the version number (e.g., the installer for Vectorworks 2022 SP2 would be named 
-"Vectorworks-27.0.2"); if you want to include the year/major version in the pkg name, change the NAME variable accordingly.
+packaging (e.g., 2023) and to customize the installation package with the recipe user's license information. 
+The pkg is named with the name and the version number (e.g., the installer for Vectorworks 2023 SP2 would be named 
+"Vectorworks-28.0.2"); if you want to include the year/major version in the pkg name, change the NAME variable accordingly.
 Should the download not have changed, no processing is done; this is done to save redundant copying of the 2+ GB installer.
+
+Note: Due to a change in how the command line install (“silent install”) method works in Vectorworks 2023,
+you should use the previous version of this recipe if you need to package Vectorworks 2021 or 2022.
 
 This recipe differs from the regular Vectorworks.pkg recipe in that it aims to skip the initial Server dialogue box
 that appears when the user launches the app, providing the necessary settings in advance. 
@@ -184,14 +187,13 @@ cp "${vwldpathroot}/LoginDialog.xml" "$HOME/Library/Application Support/Vectorwo
 				<string>#!/bin/sh
 # Installs Vectorworks. Assumes installer is already available in the path specified by $vwipathroot.
 # Installer will be deleted upon completion.
-# Replaces LoginDialog.xml in the application bundle to automate connection to the server.
 #
 # Set variables (constants) for script run
 vers="%MAJOR_VERSION%"
 serialno="%VW_SERIAL_NO%"
 vwipathroot="/private/tmp/vw"
 # Install Vectorworks
-"${vwipathroot}/Vectorworks ${vers} Installer.app/Contents/Resources/installer/Install Vectorworks${vers}.app/Contents/MacOS/installbuilder.sh" --mode unattended --unattendedmodeui none --Serial "${serialno}" --installdir "/Applications/Vectorworks ${vers}"
+"${vwipathroot}/Vectorworks ${vers} Installer.app/Contents/Resources/installer/Install Vectorworks${vers}.app/Contents/MacOS/installbuilder.sh" --mode unattended --unattendedmodeui none --Serial "${serialno}" --installdir "/Applications/Vectorworks ${vers}" --LDFChoice licenseID
 # Check to verify app is in expected location; delete installer if app present
 if [ -e "/Applications/Vectorworks ${vers}/Vectorworks ${vers}.app" ]
 then
