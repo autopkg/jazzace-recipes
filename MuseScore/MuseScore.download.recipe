@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest version of MuseScore using the GitHub release info.</string>
+	<string>Downloads the latest version of MuseScore 4 (without Muse Hub).</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.MuseScore</string>
 	<key>Input</key>
 	<dict>
 		<key>NAME</key>
-		<string>MuseScore 3</string>
+		<string>MuseScore 4</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>1.0.0</string>
@@ -17,11 +17,15 @@
 	<array>
 		<dict>
 			<key>Processor</key>
-			<string>SparkleUpdateInfoProvider</string>
+			<string>URLTextSearcher</string>
 			<key>Arguments</key>
 			<dict>
-				<key>appcast_url</key>
-				<string>https://sparkle.musescore.org/stable/3/macos/appcast.xml</string>
+				<key>re_pattern</key>
+				<string>direct-download-link" href="(.*\.dmg)"</string>
+				<key>result_output_var_name</key>
+				<string>url</string>
+				<key>url</key>
+				<string>https://musescore.org/en/download/mac</string>
 			</dict>
 		</dict>
 		<dict>
