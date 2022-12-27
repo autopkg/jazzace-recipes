@@ -4,51 +4,47 @@
 <dict>
 	<key>Description</key>
 	<string>Takes the file specified by the --pkg (or -p) run option and builds a package
-that will install the file to /usr/local/outset/%ACTION_TYPE%.
-If you require that the payload be run on the next login of all accounts even if an earlier
-script/package of the same name has already been run, use the OutsetLoginOverridePkgReqd.pkg recipe.
+that will install the file to /usr/local/outset/%ACTION_TYPE%. An Outset login-once override 
+will be added to Outset’s preferences so that all users will run the updated version of the 
+file supplied on next login (see the Outset wiki for information on Outset login-once overrides: 
+https://github.com/chilcote/outset/wiki/ScriptOverrides).
 
 This recipe requires the robperc-recipes and homebysix-recipes repos.
 
 The pkg will be named using the payload’s file name (up to the first period). 
 Underscores and spaces are removed for the package ID.
 
-This recipe assumes the item being passed (like a script) may not have a version number,
+This recipe assumes the item being passed (usually a script) may not have a version number,
 so it assigns an ever-increasing number (based on the current time) as the version number.
 
 Suggested Usage:
-1.  Make an override for each type of Outset folder you wish to target. Name the override
+1.  Make a recipe override for each type of Outset folder you wish to target. Name the override
     to match the target folder — for example: 
-        autopkg make-override OutsetPayloadPkgReqd.pkg -n Outset-login-once.pkg
-2.  Change the value of ACTION_TYPE to match the target folder for that override.
+        autopkg make-override OutsetLoginOverridePkgReqd.pkg -n Outset-login-once-with-override.pkg
+2.  Change the value of ACTION_TYPE to match the target folder for that recipe override.
 3.  Run the override with the --pkg option — for example:
-        autopkg run Outset-login-once.pkg --pkg /path/to/payload
+        autopkg run Outset-login-once-with-override.pkg --pkg /path/to/payload
 
 Input Variables:
-The legal values for ACTION_TYPE are the same as the folders within Outset’s structure:
-	boot-every
-	boot-once
-	login-every
-	login-once
-	login-privileged-every
-	login-privileged-once
-	on-demand
+The value for ACTION_TYPE should be login-once or login-privileged-once as appropriate. 
+(If you want to deploy to another one of Outset’s folders, use the OutsetPayloadPkgReqd.pkg 
+recipe, as that recipe does not add a login-once override.)
 
 REVERSE_DOMAIN specifies what you would like the package identifier to begin with
 (it will be followed by a "." and the name of your payload file including extension).
 It is recommended that you change this value in your override to match your organization.
 </string>
 	<key>Identifier</key>
-	<string>com.github.jazzace.pkg.OutsetPayloadPkgReqd</string>
+	<string>com.github.jazzace.pkg.OutsetLoginOverridePkgReqd</string>
 	<key>Input</key>
 	<dict>
 		<key>ACTION_TYPE</key>
 		<string>login-once</string>
 		<key>REVERSE_DOMAIN</key>
-		<string>com.github.autopkg.outsetpayload</string>
+		<string>com.github.autopkg.outsetloginpayload</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>2.0</string>
+	<string>2.4.1</string>
 	<key>Process</key>
 	<array>
 		<dict>
@@ -93,10 +89,10 @@ It is recommended that you change this value in your override to match your orga
 			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
 			<key>Arguments</key>
 			<dict>
-				<key>input_string</key>
-				<string>%out_string%</string>
 				<key>find</key>
 				<string>_</string>
+				<key>input_string</key>
+				<string>%out_string%</string>
 				<key>replace</key>
 				<string></string>
 			</dict>
@@ -106,12 +102,23 @@ It is recommended that you change this value in your override to match your orga
 			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
 			<key>Arguments</key>
 			<dict>
-				<key>input_string</key>
-				<string>%output_string%</string>
 				<key>find</key>
 				<string> </string>
+				<key>input_string</key>
+				<string>%output_string%</string>
 				<key>replace</key>
 				<string></string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgdirs</key>
+				<dict/>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/scripts</string>
 			</dict>
 		</dict>
 		<dict>
@@ -167,6 +174,22 @@ It is recommended that you change this value in your override to match your orga
 		</dict>
 		<dict>
 			<key>Processor</key>
+			<string>FileCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>file_content</key>
+				<string>#!/bin/sh
+# Add a login-once override to force all users to run the updated script/pkg on next login
+/usr/local/outset/outset --add-override "/usr/local/outset/%ACTION_TYPE%/%name_with_ext%"
+</string>
+				<key>file_mode</key>
+				<string>0755</string>
+				<key>file_path</key>
+				<string>%RECIPE_CACHE_DIR%/scripts/postinstall</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
 			<string>PkgCreator</string>
 			<key>Arguments</key>
 			<dict>
@@ -191,6 +214,8 @@ It is recommended that you change this value in your override to match your orga
 					<string>purge_ds_store</string>
 					<key>pkgdir</key>
 					<string>%RECIPE_CACHE_DIR%</string>
+					<key>scripts</key>
+					<string>%RECIPE_CACHE_DIR%/scripts</string>
 				</dict>
 				<key>pkgname</key>
 				<string>%out_string%-%version%</string>
@@ -204,6 +229,7 @@ It is recommended that you change this value in your override to match your orga
 				<key>path_list</key>
 				<array>
 					<string>%RECIPE_CACHE_DIR%/payload</string>
+					<string>%RECIPE_CACHE_DIR%/scripts</string>
 				</array>
 			</dict>
 		</dict>
