@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Takes the file specified by the --pkg (or -p) run option and builds a package for use with outset
+that has a Login-Once override, then uploads the pkg to your Jamf Pro Server/Distribution Point and 
+creates/updates the policy that deploys it. 
+Note that the policy will be named after the payload name (usually a script) preceded by the SITE name and
+followed by Latest (e.g., SiteName MyGreatScript Latest). If you are not using Jamf Pro Sites or
+want a different name, you should copy this recipe and change the policy_name argument to suit your needs.
+
+The server/share details must be set using variables set in the environment or specified in your override
+(see https://github.com/grahampugh/jamf-upload/wiki/JamfUploader-AutoPkg-Processors).
+
+The following repos are required: grahampugh-recipes, robperc-recipes, and homebysix-recipes
+
+Note that the (Package) CATEGORY, GROUP_NAME, and POLICY_CATEGORY specified by the Input variables 
+must each exist on the server, otherwise the recipe will fail. Values for SITE and GROUP_NAME are 
+requested in the Input dictionary so that they may be used within the POLICY_TEMPLATE specified.
+</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.jamf.OutsetLoginOverridePkgReqd-latest</string>
+	<key>Input</key>
+	<dict>
+		<key>CATEGORY</key>
+		<string>Applications</string>
+		<key>GROUP_NAME</key>
+		<string>Smart_or_Static_Group_Name</string>
+		<key>POLICY_CATEGORY</key>
+		<string>%CATEGORY%</string>
+		<key>POLICY_TEMPLATE</key>
+		<string>Policy-install-latest-site-group-outset.xml</string>
+		<key>SITE</key>
+		<string>YourSite</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>2.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.pkg.OutsetLoginOverridePkgReqd</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.grahampugh.jamf-upload.processors/JamfPackageUploader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_category</key>
+				<string>%CATEGORY%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>StopProcessingIf</string>
+			<key>Arguments</key>
+			<dict>
+				<key>predicate</key>
+				<string>pkg_uploaded == False</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>policy_name</key>
+				<string>%SITE% %output_string% Latest</string>
+				<key>policy_template</key>
+				<string>%POLICY_TEMPLATE%</string>
+				<key>replace_policy</key>
+				<string>True</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
