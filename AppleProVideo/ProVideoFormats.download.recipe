@@ -4,21 +4,14 @@
 <dict>
 	<key>Description</key>
 	<string>Downloads the latest update of the Pro Video Formats provided by Apple for their pro apps.
-
-*** WARNING: If you are not running macOS Mojave 10.14.5 or later, you should manually download
-    Pro Video Formats 2.0.7, the terminal version for OS X 10.11:
-    https://support.apple.com/kb/DL1947
-    You can use the -p or --pkg option when running your child recipe to process the installer if desired
-    (e.g., to load version 2.0.7 into your management system). ***
     
-*** Note 1: This Recipe requires an external processor. You must have Nate Felton's recipe repo
-    available in your cache: com.github.autopkg.n8felton-recipes ***
-*** Note 2: The downloaded installer is an updater that requires that you have one of the following installed:
+Note 1: This recipe requires the n8felton-recipes repo.
+Note 2: The downloaded installer is an updater that requires that you have one of the following installed:
     * Final Cut Pro X
     * Compressor 4.1
     * Motion 4.0 or later
-    Having that software installed means you also agreed to the appropriate Software License Agreement(s).
-    Version 2.1 and later requires macOS 10.14.3 or later. ***    
+Having that software installed means you also agreed to the appropriate Software License Agreement(s).
+This recipe supports Version 2.1 and later (requires macOS 10.14.3 or later).
     </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.ProVideoFormats</string>
@@ -28,7 +21,7 @@
 		<string>ProVideoFormats</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>0.4.0</string>
+	<string>2.0</string>
 	<key>Process</key>
 	<array>
 		<dict>
@@ -55,7 +48,7 @@
 			<dict>
 				<key>expected_authority_names</key>
 				<array>
-					<string>Software Update</string>
+					<string>Development Update</string>
 					<string>Apple Software Update Certification Authority</string>
 					<string>Apple Root CA</string>
 				</array>
