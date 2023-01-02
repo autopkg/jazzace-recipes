@@ -24,7 +24,7 @@ requested in the Input dictionary so that they may be used within the POLICY_TEM
 	<key>Input</key>
 	<dict>
 		<key>CATEGORY</key>
-		<string>Applications</string>
+		<string>Utilities</string>
 		<key>GROUP_NAME</key>
 		<string>Smart_or_Static_Group_Name</string>
 		<key>POLICY_CATEGORY</key>
