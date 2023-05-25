@@ -30,6 +30,8 @@
 			<dict>
 				<key>app_path</key>
 				<string>%RECIPE_CACHE_DIR%/%NAME%/Processing.app</string>
+				<key>pkg_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%-%ARCHITECTURE%-%version%.pkg</string>
 			</dict>
 		</dict>
 	</array>
