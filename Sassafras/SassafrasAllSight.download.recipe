@@ -7,6 +7,8 @@
 
 INSTALLER_TYPE can have a value of client, admin, or server. You may create an override and set this value yourself,
 or you can use the SassafrasClient, SassafrasAdmin, and SassafrasServer recipes respectively as a convenience.
+
+The dataJAR-recipes repo is required.
 </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.sassafrasallsight</string>
@@ -23,11 +25,24 @@ or you can use the SassafrasClient, SassafrasAdmin, and SassafrasServer recipes 
 	<array>
 		<dict>
 			<key>Processor</key>
+			<string>com.github.dataJAR-recipes.Shared Processors/CaseChanger</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_string</key>
+				<string>%INSTALLER_TYPE%</string>
+				<key>installer_type_lower</key>
+				<string>%INSTALLER_TYPE%</string>
+				<key>wanted_case</key>
+				<string>capitalize</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
 			<string>URLDownloader</string>
 			<key>Arguments</key>
 			<dict>
 				<key>url</key>
-				<string>https://www.sassafras.com/software/release/current/Installers/macos/%INSTALLER_TYPE%/ksp-%INSTALLER_TYPE%.pkg</string>
+				<string>https://www.sassafras.com/software/release/current/Installers/MacOS/%changed_string%/ksp-%installer_type_lower%.pkg</string>
 			</dict>
 		</dict>
 		<dict>

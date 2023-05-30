@@ -5,7 +5,7 @@
 	<key>Description</key>
 	<string>Fetches the latest Sassafras K2 Mac installer for versions 7.0-7.6 specified by PRODUCT.
 
-For versions 7.7 and later, use the new SassafrasClient/Admin/Server recipes.
+For versions 7.9 and later, use the SassafrasClient/Admin/Server recipes.
 
 REVISION is the major version without a decimal, for example:
 7.0: 70
@@ -45,7 +45,7 @@ make an override for each and specify a unique identifier using the -n option
 			<key>Arguments</key>
 			<dict>
 				<key>warning_message</key>
-				<string>This recipe does not work with version 7.7 of the product or later — please use the new SassafrasAllSight recipes. Expect this recipe to be removed at a future date.</string>
+				<string>This recipe does not work with version 7.7 of the product or later — please use the SassafrasAllSight recipes. Expect this recipe to be removed at a future date.</string>
 			</dict>
 		</dict>
 		<dict>
