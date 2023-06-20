@@ -30,7 +30,7 @@ This recipe supports Version 2.1 and later (requires macOS 10.14.3 or later).
 			<key>Arguments</key>
 			<dict>
 				<key>ARTICLE_NUMBER</key>
-				<string>2050</string>
+				<string>2100</string>
 			</dict>
 		</dict>
 		<dict>
@@ -48,7 +48,7 @@ This recipe supports Version 2.1 and later (requires macOS 10.14.3 or later).
 			<dict>
 				<key>expected_authority_names</key>
 				<array>
-					<string>Development Update</string>
+					<string>Software Update</string>
 					<string>Apple Software Update Certification Authority</string>
 					<string>Apple Root CA</string>
 				</array>
