@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest version of KeyShot for macOS. Designed for Version 11.</string>
+	<string>Downloads the latest version of KeyShot for macOS.</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.keyshot</string>
 	<key>Input</key>
@@ -21,7 +21,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>https://download\.keyshot\.com/keyshot\d{4}/keyshot_mac64_[\d._]+\.pkg</string>
+				<string>(https://www\.keyshot\.com/download/\d{6}/\?tmstv=\d+)"&gt;KeyShot - macOS</string>
 				<key>result_output_var_name</key>
 				<string>url</string>
 				<key>url</key>
