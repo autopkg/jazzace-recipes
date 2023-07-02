@@ -3,29 +3,28 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest version of DiffusionBee and creates a package.
-If you wish for your package name to differentiate between the architecture variants,
-include that information in the NAME variable in your override.</string>
+	<string>This recipe downloads the Final Cut Pro Supplemental Content package installer and extracts it
+from the disk image (which then can be used to upload to Jamf Pro, for example).
+</string>
 	<key>Identifier</key>
-	<string>com.github.jazzace.pkg.DiffusionBee</string>
+	<string>com.github.jazzace.pkg.FCPContent</string>
 	<key>Input</key>
-	<dict>
-		<key>NAME</key>
-		<string>DiffusionBee</string>
-	</dict>
+	<dict/>
 	<key>MinimumVersion</key>
-	<string>1.0.0</string>
+	<string>2.0</string>
 	<key>ParentRecipe</key>
-	<string>com.github.jazzace.download.DiffusionBee</string>
+	<string>com.github.jazzace.download.FCPContent</string>
 	<key>Process</key>
 	<array>
 		<dict>
 			<key>Processor</key>
-			<string>AppPkgCreator</string>
+			<string>PkgCopier</string>
 			<key>Arguments</key>
 			<dict>
 				<key>pkg_path</key>
 				<string>%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg</string>
+				<key>source_pkg</key>
+				<string>%pathname%/*.pkg</string>
 			</dict>
 		</dict>
 	</array>

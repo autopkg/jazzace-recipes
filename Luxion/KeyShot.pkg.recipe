@@ -3,16 +3,12 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest version of the KeyShot package installer and gets the version number.
-This recipe is tested for KeyShot11. For future major releases, you will need to update the value
-for KS_VERSION.</string>
+	<string>Downloads the latest version of the KeyShot package installer and gets the version number
+without the build number (which is what Jamf Pro Patch Management requires).</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.keyshot</string>
 	<key>Input</key>
-	<dict>
-		<key>KS_VERSION</key>
-		<string>11</string>
-	</dict>
+	<dict/>
 	<key>MinimumVersion</key>
 	<string>2.0</string>
 	<key>ParentRecipe</key>
@@ -21,56 +17,15 @@ for KS_VERSION.</string>
 	<array>
 		<dict>
 			<key>Processor</key>
-			<string>FlatPkgUnpacker</string>
+			<string>com.github.jazzace.processors/TextSearcher</string>
 			<key>Arguments</key>
 			<dict>
-				<key>destination_path</key>
-				<string>%RECIPE_CACHE_DIR%/unpack</string>
-				<key>flat_pkg_path</key>
+				<key>re_pattern</key>
+				<string>keyshot_mac64_[\d.]+_(\d+\.\d+.\d+)\.\d+\.pkg</string>
+				<key>result_output_var_name</key>
+				<string>version</string>
+				<key>text_in</key>
 				<string>%pathname%</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>FileFinder</string>
-			<key>Arguments</key>
-			<dict>
-				<key>pattern</key>
-				<string>%RECIPE_CACHE_DIR%/unpack/*KeyShot_App/Payload</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>PkgPayloadUnpacker</string>
-			<key>Arguments</key>
-			<dict>
-				<key>destination_path</key>
-				<string>%RECIPE_CACHE_DIR%/payload</string>
-				<key>pkg_payload_path</key>
-				<string>%found_filename%</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>Versioner</string>
-			<key>Arguments</key>
-			<dict>
-				<key>input_plist_path</key>
-				<string>%RECIPE_CACHE_DIR%/payload/KeyShot%KS_VERSION%.app/Contents/Info.plist</string>
-				<key>plist_version_key</key>
-				<string>CFBundleVersion</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>PathDeleter</string>
-			<key>Arguments</key>
-			<dict>
-				<key>path_list</key>
-				<array>
-					<string>%RECIPE_CACHE_DIR%/unpack</string>
-					<string>%RECIPE_CACHE_DIR%/payload</string>
-				</array>
 			</dict>
 		</dict>
 	</array>
