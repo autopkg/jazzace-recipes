@@ -42,7 +42,7 @@ Input Keys:
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>last-updated\"&gt;([^&lt;]+)</string>
+				<string>goa-last-updated\" data-time-system=\"([\d-]{10})</string>
 				<key>result_output_var_name</key>
 				<string>stats_date</string>
 				<key>url</key>
@@ -56,28 +56,6 @@ Input Keys:
 			<dict>
 				<key>destination_path</key>
 				<string>%SAVE_LOCATION%/%PAGE_NAME_PREFIX%%stats_date%.html</string>
-				<key>overwrite</key>
-				<true/>
-				<key>source_path</key>
-				<string>%pathname%</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>URLDownloader</string>
-			<key>Arguments</key>
-			<dict>
-				<key>url</key>
-				<string>https://www.alberta.ca/data/stats/covid-19-alberta-statistics-data.csv</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>Copier</string>
-			<key>Arguments</key>
-			<dict>
-				<key>destination_path</key>
-				<string>%SAVE_LOCATION%/%PAGE_NAME_PREFIX%Cases %stats_date%.csv</string>
 				<key>overwrite</key>
 				<true/>
 				<key>source_path</key>
