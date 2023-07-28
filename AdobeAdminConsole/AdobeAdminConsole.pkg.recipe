@@ -24,6 +24,11 @@ The dataJAR-recipes repo is required.
 		<dict>
 			<key>Processor</key>
 			<string>com.github.dataJAR-recipes.munki.Adobe Lightroom Classic/AdobeAdminConsolePackagesPkgInfoCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>aacp_package_name</key>
+				<string>%NAME%</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>Processor</key>
