@@ -6,6 +6,8 @@
 	<string>Downloads the latest version of Pano2VR and creates a package.</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.Pano2VR</string>
+	<key>Input</key>
+	<dict/>
 	<key>MinimumVersion</key>
 	<string>1.4</string>
 	<key>ParentRecipe</key>
