@@ -4,20 +4,19 @@
 <dict>
 	<key>Description</key>
 	<string>Downloads the latest version of DiffusionBee. Since there are separate versions for
-Apple Silicon and Intel, you specify which one to download using the ARCH_HQ input variable.
+Apple Silicon and Intel, you specify which one to download using the ARCH input variable.
 Currently supported values are:
-arm64_MPS - Apple Silicon
-arm64_TF  - Apple Silicon High Quality version
-intel_MPS - Intel 64 Bit
+arm64 - macOS Apple Silicon
+Intel - macOS Intel 64 Bit
 </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.DiffusionBee</string>
 	<key>Input</key>
 	<dict>
+		<key>ARCH</key>
+		<string>arm64</string>
 		<key>NAME</key>
 		<string>DiffusionBee</string>
-		<key>ARCH_HQ</key>
-		<string>arm64_MPS</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>2.0</string>
@@ -29,7 +28,7 @@ intel_MPS - Intel 64 Bit
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>https://github.com/divamgupta/diffusionbee-stable-diffusion-ui/releases/download/[\d.]+/DiffusionBee-[\d.]+-%ARCH_HQ%[SDFP\d._]+\.dmg</string>
+				<string>https://github.com/divamgupta/diffusionbee-stable-diffusion-ui/releases/download/[\d.]+/DiffusionBee[-_]MPS[-_]%ARCH%[-_][\d.]+dmg</string>
 				<key>result_output_var_name</key>
 				<string>url</string>
 				<key>url</key>
@@ -52,7 +51,7 @@ intel_MPS - Intel 64 Bit
 				<key>input_path</key>
 				<string>%pathname%/DiffusionBee.app</string>
 				<key>requirement</key>
-				<string>identifier "com.linerai.liner" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "6QF6Z7X8UW"</string>
+				<string>identifier "com.diffusionbee.diffusionbee" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "6QF6Z7X8UW"</string>
 			</dict>
 		</dict>
 		<dict>
