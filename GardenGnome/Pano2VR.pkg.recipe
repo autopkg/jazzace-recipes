@@ -17,6 +17,13 @@
 		<dict>
 			<key>Processor</key>
 			<string>AppPkgCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>Comment</key>
+				<string>forces version gleaned from Sparkle feed, as app version currently includes a / and a build number</string>
+				<key>version</key>
+				<string>%version%</string>
+			</dict>
 		</dict>
 	</array>
 </dict>

@@ -7,6 +7,8 @@
 and some preferred settings, particularly the license string. Details on how to obtain the license string
 are available in the FAQ (https://ggnome.com/faqs/?Display_FAQ=1900).
 
+This version of the recipe supports Version 7.
+
 The value of VERSION_CHECK and WELCOME_SCREEN should be set to either true or false (the string) depending on
 your preference.
 </string>
@@ -56,6 +58,21 @@ your preference.
 		</dict>
 		<dict>
 			<key>Processor</key>
+			<string>com.github.jazzace.processors/TextSearcher</string>
+			<key>Arguments</key>
+			<dict>
+				<key>Comment</key>
+				<string>Strips / and build number from version number, if present</string>
+				<key>re_pattern</key>
+				<string>[\d.]+</string>
+				<key>result_output_var_name</key>
+				<string>version</string>
+				<key>text_in</key>
+				<string>%version%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
 			<string>Copier</string>
 			<key>Arguments</key>
 			<dict>
@@ -72,8 +89,6 @@ your preference.
 			<string>FileCreator</string>
 			<key>Arguments</key>
 			<dict>
-				<key>file_path</key>
-				<string>%pkgroot%/Library/Preferences/com.gardengnomesoftware.pano2vr.plist</string>
 				<key>file_content</key>
 				<string>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
@@ -81,7 +96,7 @@ your preference.
 &lt;dict&gt;
 	&lt;key&gt;general.welcomescreen&lt;/key&gt;
 	&lt;%WELCOME_SCREEN%/&gt;
-	&lt;key&gt;license.key_v6&lt;/key&gt;
+	&lt;key&gt;license.key_v7&lt;/key&gt;
 	&lt;string&gt;%LICENSE_STRING%&lt;/string&gt;
 	&lt;key&gt;versioncheck.enabled&lt;/key&gt;
 	&lt;%VERSION_CHECK%/&gt;
@@ -90,6 +105,8 @@ your preference.
 </string>
 				<key>file_mode</key>
 				<string>0644</string>
+				<key>file_path</key>
+				<string>%pkgroot%/Library/Preferences/com.gardengnomesoftware.pano2vr.plist</string>
 			</dict>
 		</dict>
 		<dict>
@@ -102,36 +119,36 @@ your preference.
 					<key>chown</key>
 					<array>
 						<dict>
+							<key>group</key>
+							<string>admin</string>
 							<key>path</key>
 							<string>Applications</string>
 							<key>user</key>
 							<string>root</string>
-							<key>group</key>
-							<string>admin</string>
 						</dict>
 						<dict>
+							<key>group</key>
+							<string>wheel</string>
 							<key>path</key>
 							<string>Library</string>
 							<key>user</key>
 							<string>root</string>
-							<key>group</key>
-							<string>wheel</string>
 						</dict>
 						<dict>
+							<key>group</key>
+							<string>wheel</string>
 							<key>path</key>
 							<string>Library/Preferences</string>
 							<key>user</key>
 							<string>root</string>
-							<key>group</key>
-							<string>wheel</string>
 						</dict>
 						<dict>
+							<key>group</key>
+							<string>wheel</string>
 							<key>path</key>
 							<string>Library/Preferences/com.gardengnomesoftware.pano2vr.plist</string>
 							<key>user</key>
 							<string>root</string>
-							<key>group</key>
-							<string>wheel</string>
 						</dict>
 					</array>
 					<key>id</key>
