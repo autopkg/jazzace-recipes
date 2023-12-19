@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>This takes the GoPro FX reframe plug in pkg you have already downloaded, uploads it to your Jamf Pro Server/Distribution Point 
+and creates/updates the policy that deploys it.
+
+To run this recipe, you must supply the location to the pkg you downloaded from 
+https://community.gopro.com/t5/en/GoPro-FX-Reframe/ta-p/412890. For example:
+
+    autopkg run GoProFXReframe-latest.jamf -p /path/to/GoPro-FX-Reframe-Plugin-1.4.1.266.pkg
+
+The server/share details must be set using variables set in the environment or specified in your override
+(see https://github.com/grahampugh/jamf-upload/wiki/JamfUploader-AutoPkg-Processors).
+
+The grahampugh-recipes repo is required.
+
+Note that the (Package) CATEGORY, GROUP_NAME, and POLICY_CATEGORY specified by the Input variables 
+must each exist on the server, otherwise the recipe will fail. Values for SITE and GROUP_NAME are 
+requested in the Input dictionary so that they may be used within the POLICY_TEMPLATE specified.
+</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.jamf.GoProFXReframe-latest</string>
+	<key>Input</key>
+	<dict>
+		<key>CATEGORY</key>
+		<string>Adobe</string>
+		<key>GROUP_NAME</key>
+		<string>Smart_or_Static_Group_Name</string>
+		<key>NAME</key>
+		<string>GoPro FX reframe plugin</string>
+		<key>POLICY_CATEGORY</key>
+		<string>%CATEGORY%</string>
+		<key>POLICY_NAME</key>
+		<string>%SITE% %NAME% Latest</string>
+		<key>POLICY_TEMPLATE</key>
+		<string>Policy-install-latest-site-group.xml</string>
+		<key>SITE</key>
+		<string>YourSite</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>2.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>PackageRequired</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.jazzace.processors/TextSearcher</string>
+			<key>Arguments</key>
+			<dict>
+				<key>re_pattern</key>
+				<string>([\d.]+)\.pkg</string>
+				<key>result_output_var_name</key>
+				<string>version</string>
+				<key>text_in</key>
+				<string>%PKG%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.grahampugh.jamf-upload.processors/JamfPackageUploader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_category</key>
+				<string>%CATEGORY%</string>
+				<key>pkg_path</key>
+				<string>%PKG%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>StopProcessingIf</string>
+			<key>Arguments</key>
+			<dict>
+				<key>predicate</key>
+				<string>pkg_uploaded == False</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>policy_name</key>
+				<string>%POLICY_NAME%</string>
+				<key>policy_template</key>
+				<string>%POLICY_TEMPLATE%</string>
+				<key>replace_policy</key>
+				<string>True</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
