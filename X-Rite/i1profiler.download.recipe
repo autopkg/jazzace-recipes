@@ -4,7 +4,10 @@
 <dict>
 	<key>Description</key>
 	<string>Downloads the current release version of i1 Profiler and verifies the code signature
-of the pkg intaller inside the zip archive downloaded.</string>
+of the pkg intaller inside the zip archive downloaded.
+
+Requires the homebysix-recipes repo.
+</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.i1profiler</string>
 	<key>Input</key>
@@ -27,7 +30,25 @@ of the pkg intaller inside the zip archive downloaded.</string>
 		</dict>
 		<dict>
 			<key>Processor</key>
+			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
+			<key>Arguments</key>
+			<dict>
+				<key>find</key>
+				<string>http:</string>
+				<key>input_string</key>
+				<string>%url%</string>
+				<key>replace</key>
+				<string>https:</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
 			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>%output_string%</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>Processor</key>
