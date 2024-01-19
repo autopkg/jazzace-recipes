@@ -17,18 +17,30 @@ installer therein.</string>
 	<string>1.0.0</string>
 	<key>Process</key>
 	<array>
-		<dict>
-			<key>Processor</key>
-			<string>SparkleUpdateInfoProvider</string>
-			<key>Arguments</key>
-			<dict>
-				<key>appcast_url</key>
-				<string>https://downloads.xrite.com/downloads/AutoUpdate/DellCalibrationSolution/dell_mac_appcast.xml</string>
-			</dict>
-		</dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLTextSearcher</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>https://www.dell.com/support/home/en-ca/drivers/driversdetails?driverid=64r33</string>
+                <key>re_pattern</key>
+                <string>a href=(https://dl\.dell\.com/.+/Dell_Mac_(?P&lt;version&gt;[\d.]+)_[\d]+\.zip)</string>
+                <key>result_output_var_name</key>
+                <string>url</string>
+            </dict>
+        </dict>
 		<dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+                <key>request_headers</key>
+                <dict>
+                    <key>user-agent</key>
+                    <string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3 Safari/605.1.15</string>
+                </dict>
+            </dict>
 		</dict>
 		<dict>
 			<key>Processor</key>
@@ -59,7 +71,7 @@ installer therein.</string>
 					<string>Apple Root CA</string>
 				</array>
 				<key>input_path</key>
-				<string>%RECIPE_CACHE_DIR%/%NAME%/Dell*.pkg</string>
+				<string>%RECIPE_CACHE_DIR%/%NAME%/Dell_*/*.pkg</string>
 			</dict>
 		</dict>
 	</array>
