@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe downloads NoteAbility Pro, packages it, then uploads the pkg to your Jamf Pro Server/Distribution Point 
+	<string>This recipe downloads the NoteAbility Pro package installer, then uploads the pkg to your Jamf Pro Server/Distribution Point 
 and creates/updates the policy that deploys it.
 
 The server/share details must be set using variables set in the environment or specified in your override
@@ -38,13 +38,22 @@ requested in the Input dictionary so that it may be used within the POLICY_TEMPL
 	<array>
 		<dict>
 			<key>Processor</key>
+			<string>FileFinder</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pattern</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%/NoteAbilityPro*/*.pkg</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
 			<string>com.github.grahampugh.jamf-upload.processors/JamfPackageUploader</string>
 			<key>Arguments</key>
 			<dict>
 				<key>pkg_category</key>
 				<string>%CATEGORY%</string>
 				<key>pkg_path</key>
-				<string>%matched_input_path%</string>
+				<string>%found_filename%</string>
 			</dict>
 		</dict>
 		<dict>
