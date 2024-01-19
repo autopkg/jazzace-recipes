@@ -3,19 +3,24 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest version of the Epson product driver from Epson's site.
-These will generally be drivers for professional printers and the like not included in
-the drivers supplied by Apple.
-Make separate overrides for each device driver you may want. An override is required.
+	<string>Downloads the latest version of the Epson SureColor P700/P900 driver from Epson's site.
+For other Epson drivers, use the EpsonProDriver.download recipe.
+An override is required.
 
 IMPORTANT:
-This recipe requires that you find the support page for your product and copy that URL for 
-use as the base string for the SEARCH_URL key in your override. In order for the recipe to 
-work, the target OS must be explicitly specified in the URL.
+This recipe requires that you find the support page for the SureColor P800 (yes, not the P700 or P900)
+and copy that URL for use as the base string for the P800_SEARCH_URL key in your override.
+This is because Epson no longer reveals the driver download alone for the P700 or P900 on their 
+support website, even though their app-based installer downloads it. The driver is the same for
+both printers, so this recipe uses known patterns to grab the P800 driver download path and 
+modify it to point to the P700/P900 driver download.
+ 
+In order for the recipe to work, the target OS must be explicitly specified in the P800_SEARCH_URL. 
+The Epson Canada URL for the P800 is supplied as the default.
 
 Recommended Procedure for Creating URL:
 1. Go to the Epson site for your country.
-2. Find the support page for your Epson device.
+2. Find the support page for the Epson SureColor P800.
 3. The support page will attempt to determine your current OS version and will display that 
 in a pop-up menu on the page. If that is OS you are targeting for deployment, temporarily 
 change the value in that popup menu to any other OS, wait a second (enough for the page to 
@@ -23,35 +28,24 @@ quickly reload), and then change to the OS you are targeting for deployment. If 
 targeting a different OS, then directly change the OS in the popup menu. 
 4. Copy the URL.
 5. Create an override of this recipe (or edit an existing override).
-6. In the Input section, paste the URL that you copied earlier into the string for SEARCH_URL.
+6. In the Input section, paste the URL that you copied earlier into the string for P800_SEARCH_URL.
 7. Check the URL you just pasted. Confirm that it ends with something that looks like 
 the following: 
     ?review-filter=macOS+13.x
 (substituting the number of the major macOS version as appropriate).
 You can append this string if it is not present. 
-
-For example, the URL for the Epson Stylus Pro 3880 fetched from the Canadian Epson site with 
-macOS Ventura as the deployment OS is:
-
-   https://epson.ca/Support/Printers/Professional-Imaging-Printers/Epson-Stylus-Pro-Series/Epson-Stylus-Pro-3880/s/SPT_CA61201-VM?review-filter=macOS+13.x
-
-(The US URL is the same, except it is .com instead of .ca. Only the Canadian and US sites 
-have been tested.)
-
-This recipe uses Epson's new code signing authority. Turn off code signature verification
-if you require older installers.
 </string>
 	<key>Identifier</key>
-	<string>com.github.jazzace.download.EpsonProDrivers</string>
+	<string>com.github.jazzace.download.EpsonSCP900Driver</string>
 	<key>Input</key>
 	<dict>
 		<key>NAME</key>
-		<string>Epson Stylus Pro</string>
-		<key>SEARCH_URL</key>
-		<string>https://www.epson.com/Support/override/this</string>
+		<string>Epson SureColor P900</string>
+		<key>P800_SEARCH_URL</key>
+		<string>https://epson.ca/Support/Printers/Single-Function-Inkjet-Printers/SureColor-Series/Epson-SureColor-P800/s/SPT_SCP800SE?review-filter=macOS+13.x</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>1.0.0</string>
+	<string>2.0.0</string>
 	<key>Process</key>
 	<array>
 		<dict>
@@ -64,12 +58,30 @@ if you require older installers.
 				<key>result_output_var_name</key>
 				<string>url</string>
 				<key>url</key>
-				<string>%SEARCH_URL%</string>
+				<string>%P800_SEARCH_URL%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
+			<key>Arguments</key>
+			<dict>
+				<key>find</key>
+				<string>P800</string>
+				<key>input_string</key>
+				<string>%url%</string>
+				<key>replace</key>
+				<string>P700_P900</string>
 			</dict>
 		</dict>
 		<dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>%output_string%</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>Processor</key>
