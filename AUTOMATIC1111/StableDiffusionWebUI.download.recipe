@@ -22,7 +22,7 @@ AUTOMATIC1111 GitHub project. No code signature is possible, hence its omission.
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>/AUTOMATIC1111/stable-diffusion-webui/releases/tag/v([\d.]+)</string>
+				<string>/AUTOMATIC1111/stable-diffusion-webui/releases/tag/v([\d.]+)"</string>
 				<key>result_output_var_name</key>
 				<string>version</string>
 				<key>url</key>
