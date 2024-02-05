@@ -5,23 +5,27 @@
 	<key>Description</key>
 	<string>This recipe downloads the latest Vectorworks installer app and creates a package that leverages the silent install 
 CLI method to automate installation. Input variables are used to specify which major version of Vectorworks you are 
-packaging (e.g., 2023) and to customize the installation package with the recipe user's license information. 
-The pkg is named with the name and the version number (e.g., the installer for Vectorworks 2023 SP2 would be named 
-"Vectorworks-28.0.2"); if you want to include the year/major version in the pkg name, change the NAME variable accordingly.
+packaging (e.g., 2024) and to customize the installation package with the recipe user's license information. 
+The pkg is named with the name and the version number (e.g., the installer for Vectorworks 2024 SP2 would be named 
+"Vectorworks-29.0.2"); if you want to include the year/major version in the pkg name, change the NAME variable accordingly.
 Should the download not have changed, no processing is done; this is done to save redundant copying of the 2+ GB installer.
 
-Note: Due to a change in how the command line install (“silent install”) method works in Vectorworks 2023,
+Note: Due to a change in how the command line install (“silent install”) method works starting in Vectorworks 2023,
 you should use the previous version of this recipe if you need to package Vectorworks 2021 or 2022.
 
 This recipe differs from the regular Vectorworks.pkg recipe in that it aims to skip the initial Server dialogue box
-that appears when the user launches the app, providing the necessary settings in advance. 
+that appears when the user launches the app, providing the necessary settings in advance.
+ 
+It also lets you set how you manage automatic updates. Set AUTO_UPDATES to 2 to turn auto updates off.
+(The default set by Vectorworks is 0, which is Weekly. If you want Monthly, use 1.)
+
 This requires that you supply as input variables:
 • the Series (VW_SERIES, usually set to G),
 • whether you want Vectorworks to AutoFind the server (AUTOFIND_SERVER, set to 0 or 1),
 • the address of the server (AUTOFIND_SERVER, set to localhost if you chose to AutoFind,
   set to the IP address or DNS name of the server otherwise), and
 • the identifier for the main module licensed (MAIN_MODULE, which will be designer for academic users).
-This recipe creates a LoginDialog.xml file with your settings and leverages Outset (https://github.com/chilcote/outset)
+This recipe creates a LoginDialog.xml file with your settings and leverages Outset (https://github.com/macadmins/outset)
 to copy the file into the correct location in each user's account when they login.
 There are no external file dependencies for this recipe; it creates all the files it needs during the recipe run.
 </string>
@@ -31,6 +35,8 @@ There are no external file dependencies for this recipe; it creates all the file
 	<dict>
 		<key>AUTOFIND_SERVER</key>
 		<string>1</string>
+		<key>AUTO_UPDATES</key>
+		<string>2</string>
 		<key>MAIN_MODULE</key>
 		<string>designer</string>
 		<key>SERVER</key>
@@ -198,10 +204,24 @@ vwipathroot="/private/tmp/vw"
 if [ -e "/Applications/Vectorworks ${vers}/Vectorworks ${vers}.app" ]
 then
     rm -Rf "${vwipathroot}/Vectorworks ${vers} Installer.app"
-    exit 0
 else
     echo "Error in installing Vectorworks ${vers}; installer left in ${vwipathroot}" &gt;&gt; /var/log/vw_install.log
     exit 1
+fi
+# Sets the preference for the Auto Update Check for Vectorworks once it is installed.
+# It does this by modifying the /Applications/Vectorworks 20##/Settings/VectorWorks Preferences.xml file,
+# which is copied to the user’s Library on first launch of Vectorworks within that account.
+if [ -e "/Applications/Vectorworks ${vers}/Settings/VectorWorks Preferences.xml" ]; then
+    sed -i '.bak' 's/autoUpdateFrequency&gt;0/autoUpdateFrequency&gt;%AUTO_UPDATES%/' "/Applications/Vectorworks ${vers}/Settings/VectorWorks Preferences.xml"
+    if [ -e "/Applications/Vectorworks ${vers}/Settings/VectorWorks Preferences.xml.bak" ]; then
+        echo "Vectorworks ${vers} Auto Update Check set to ."
+    else
+        echo "Modification of Vectorworks ${vers} settings failed."
+        exit 3
+    fi
+else
+    echo "Vectorworks ${vers} does not appear to be fully installed. Exiting…"
+    exit 2
 fi
 </string>
 				<key>file_mode</key>
