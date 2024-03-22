@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the latest release of customdisplayprofiles for the architecture specified
+by ARCHITECTURE (intel or applesilicon) and then creates a package with it and other tools stored 
+locally:
+- a complied version of brightness (github.com/nriley/brightness);
+- login-every scripts for Outset (github.com/macadmins/outset, installed separately) to set the
+  calibration profile (iaml_configure_display_profiles.sh, located at OUTSET_PROFILES_PATH) and 
+  brightness (SetCalibratedBrightness.sh, located at OUTSET_BRIGHTNESS_PATH);
+- Drop Calibration Profile Here app (located at DROPLET_PATH) that is used to set the profile 
+  and brightness after calibration via the GUI.
+I have hardcoded the target filenames for everything except customdisplayprofiles. If you want to
+do something similar but instead use the filename of the file, see look inside the JazzAce folder 
+in my jazzace-recipes repo for an example of using StringSplitter to grab the filename from the pathname.
+</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.DisplayCalibrationSupportFiles</string>
+	<key>Input</key>
+	<dict>
+		<key>BRIGHTNESS_PATH</key>
+		<string>/Volumes/AutoPkgLibrary/AutoPkg/Files/brightness</string>
+		<key>BUNDLE_ID</key>
+		<string>ca.ucalgary.ffa.iaml.displaycalibrationsupportfiles</string>
+		<key>DROPLET_PATH</key>
+		<string>/Volumes/AutoPkgLibrary/AutoPkg/Files/Drop Calibration Profile Here.app</string>
+		<key>OUTSET_BRIGHTNESS_PATH</key>
+		<string>/Volumes/AutoPkgLibrary/AutoPkg/Files/SetCalibratedBrightness.sh</string>
+		<key>OUTSET_PROFILES_PATH</key>
+		<string>/Volumes/AutoPkgLibrary/AutoPkg/Files/iaml_configure_display_profiles.sh</string>
+		<key>PKG_NAME</key>
+		<string>Display Calibration Support Files</string>
+		<key>PKG_VERSION</key>
+		<string>2.0</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.download.customdisplayprofiles</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgdirs</key>
+				<dict>
+					<key>Applications</key>
+					<string>0775</string>
+					<key>Applications/Utilities</key>
+					<string>0755</string>
+					<key>usr</key>
+					<string>0755</string>
+					<key>usr/local</key>
+					<string>0755</string>
+					<key>usr/local/bin</key>
+					<string>0755</string>
+					<key>usr/local/outset</key>
+					<string>0755</string>
+					<key>usr/local/outset/login-every</key>
+					<string>0755</string>
+				</dict>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/payload</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%pkgroot%/usr/local/bin/%NAME%</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%pathname%</string>
+			</dict>
+			<key>Comment</key>
+			<string>Copies customdisplayprofiles from parent and renames it to NAME (normally customdisplayprofiles,
+			which strips the architecture from the executable name)</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%pkgroot%/usr/local/bin/brightness</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%BRIGHTNESS_PATH%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%pkgroot%/Applications/Utilities/Drop Calibration Profiles Here.app</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%DROPLET_PATH%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%pkgroot%/usr/local/outset/login-every/SetCalibratedBrightness.sh</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%OUTSET_BRIGHTNESS_PATH%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%pkgroot%/usr/local/outset/login-every/iaml_configure_display_profiles.sh</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%OUTSET_PROFILES_PATH%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_request</key>
+				<dict>
+					<key>chown</key>
+					<array>
+						<dict>
+							<key>group</key>
+							<string>admin</string>
+							<key>mode</key>
+							<string>0775</string>
+							<key>path</key>
+							<string>Applications</string>
+							<key>user</key>
+							<string>root</string>
+						</dict>
+						<dict>
+							<key>group</key>
+							<string>wheel</string>
+							<key>mode</key>
+							<string>0755</string>
+							<key>path</key>
+							<string>Applications/Utilities</string>
+							<key>user</key>
+							<string>root</string>
+						</dict>
+						<dict>
+							<key>group</key>
+							<string>wheel</string>
+							<key>mode</key>
+							<string>0755</string>
+							<key>path</key>
+							<string>usr</string>
+							<key>user</key>
+							<string>root</string>
+						</dict>
+						<dict>
+							<key>group</key>
+							<string>wheel</string>
+							<key>mode</key>
+							<string>0755</string>
+							<key>path</key>
+							<string>usr/local/outset/login-every/SetCalibratedBrightness.sh</string>
+							<key>user</key>
+							<string>root</string>
+						</dict>
+						<dict>
+							<key>group</key>
+							<string>wheel</string>
+							<key>mode</key>
+							<string>0755</string>
+							<key>path</key>
+							<string>usr/local/outset/login-every/iaml_configure_display_profiles.sh</string>
+							<key>user</key>
+							<string>root</string>
+						</dict>
+						<dict>
+							<key>group</key>
+							<string>wheel</string>
+							<key>mode</key>
+							<string>0755</string>
+							<key>path</key>
+							<string>usr/local/bin/brightness</string>
+							<key>user</key>
+							<string>root</string>
+						</dict>
+						<dict>
+							<key>group</key>
+							<string>wheel</string>
+							<key>mode</key>
+							<string>0755</string>
+							<key>path</key>
+							<string>usr/local/bin/%NAME%</string>
+							<key>user</key>
+							<string>root</string>
+						</dict>
+					</array>
+					<key>id</key>
+					<string>%BUNDLE_ID%</string>
+					<key>options</key>
+					<string>purge_ds_store</string>
+					<key>pkgname</key>
+					<string>%PKG_NAME%-%PKG_VERSION%</string>
+					<key>pkgroot</key>
+					<string>%RECIPE_CACHE_DIR%/payload</string>
+					<key>version</key>
+					<string>%PKG_VERSION%</string>
+				</dict>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
