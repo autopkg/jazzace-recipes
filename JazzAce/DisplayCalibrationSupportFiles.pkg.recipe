@@ -102,7 +102,7 @@ in my jazzace-recipes repo for an example of using StringSplitter to grab the fi
 			<key>Arguments</key>
 			<dict>
 				<key>destination_path</key>
-				<string>%pkgroot%/Applications/Utilities/Drop Calibration Profiles Here.app</string>
+				<string>%pkgroot%/Applications/Utilities/Drop Calibration Profile Here.app</string>
 				<key>overwrite</key>
 				<true/>
 				<key>source_path</key>
