@@ -28,7 +28,7 @@ requested in the Input dictionary so that they may be used within the POLICY_TEM
 		<key>POLICY_CATEGORY</key>
 		<string>%CATEGORY%</string>
 		<key>POLICY_NAME</key>
-		<string>%SITE% %NAME% Latest</string>
+		<string>%SITE% %PKG_NAME% Latest</string>
 		<key>POLICY_TEMPLATE</key>
 		<string>Policy-install-latest-site-group.xml</string>
 		<key>SITE</key>
