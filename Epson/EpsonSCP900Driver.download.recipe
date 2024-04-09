@@ -5,7 +5,8 @@
 	<key>Description</key>
 	<string>Downloads the latest version of the Epson SureColor P700/P900 driver from Epson's site.
 For other Epson drivers, use the EpsonProDriver.download recipe.
-An override is required.
+
+An override is required. The homebysix-recipes repo is also required.
 
 IMPORTANT:
 This recipe requires that you find the support page for the SureColor P800 (yes, not the P700 or P900)
