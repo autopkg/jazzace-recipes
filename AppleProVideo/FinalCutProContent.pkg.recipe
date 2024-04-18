@@ -3,17 +3,22 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe downloads the Final Cut Pro Supplemental Content package installer and extracts it
-from the disk image (which then can be used to upload to Jamf Pro, for example).
+	<string>This recipe downloads the Final Cut Pro Content package installer and extracts it
+from the disk image, renaming it NAME-version.pkg (specify NAME in the Input Variables),
 </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.FCPContent</string>
 	<key>Input</key>
-	<dict/>
+	<dict>
+		<key>ARTICLE_NUMBER</key>
+		<string>106574</string>
+		<key>NAME</key>
+		<string>FCPContent</string>
+	</dict>
 	<key>MinimumVersion</key>
 	<string>2.0</string>
 	<key>ParentRecipe</key>
-	<string>com.github.jazzace.download.FCPContent</string>
+	<string>com.github.jazzace.download.AppleSupportContent</string>
 	<key>Process</key>
 	<array>
 		<dict>

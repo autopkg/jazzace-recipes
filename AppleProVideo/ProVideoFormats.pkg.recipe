@@ -5,42 +5,28 @@
 	<key>Description</key>
 	<string>Downloads latest version of the Pro Video Formats provided by Apple for their pro apps and 
 extracts the package from the dmg, renaming it with the version number added.
-    
-This recipe suppresses unnecessary copying of the package using the "StopProcessingIf" 
-processor. This means that any recipe that uses this as a parent recipe could stop execution 
-before reaching the child. You may need to remove the cache for the recipe in question and 
-start again if you manually delete or move the package that this recipe creates.
 
-*** Note 1: This Recipe requires an external processor. You must have Nate Felton's recipe repo
-    available in your cache: com.github.autopkg.n8felton-recipes ***
-*** Note 2: The pkg installer is an updater that requires that you have one of the following installed:
-    * Final Cut Pro 7 or later (including X)
-    * Compressor 3.5 or later
-    * Motion 4.0 or later
-    Having that software installed means you also agreed to the appropriate Software License Agreement(s). ***    
-
-The NAME input key is specified in the parent recipe. Use an override if you want something
-other than the default.
-</string>
+*** Note: The pkg installer is an updater that requires that you have one of the following installed:
+    * Final Cut Pro
+    * Compressor
+    * Motion
+Having that software installed means you also agreed to the appropriate Software License Agreement(s).
+    </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.ProVideoFormats</string>
 	<key>Input</key>
-	<dict/>
+	<dict>
+		<key>ARTICLE_NUMBER</key>
+		<string>106526</string>
+		<key>NAME</key>
+		<string>ProVideoFormats</string>
+	</dict>
 	<key>MinimumVersion</key>
-	<string>0.4.0</string>
+	<string>2.0</string>
 	<key>ParentRecipe</key>
-	<string>com.github.jazzace.download.ProVideoFormats</string>
+	<string>com.github.jazzace.download.AppleSupportContent</string>
 	<key>Process</key>
 	<array>
-		<dict>
-			<key>Processor</key>
-			<string>StopProcessingIf</string>
-			<key>Arguments</key>
-			<dict>
-				<key>predicate</key>
-				<string>download_changed == FALSE</string>
-			</dict>
-		</dict>
 		<dict>
 			<key>Processor</key>
 			<string>PkgCopier</string>

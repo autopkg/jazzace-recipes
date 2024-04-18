@@ -3,59 +3,26 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest update of the Pro Video Formats provided by Apple for their pro apps.
+	<string>Downloads the latest version of the Pro Video Formats provided by Apple for their pro apps.
     
-Note 1: This recipe requires the n8felton-recipes repo.
-Note 2: The downloaded installer is an updater that requires that you have one of the following installed:
-    * Final Cut Pro X
-    * Compressor 4.1
-    * Motion 4.0 or later
+Note: The downloaded installer is an updater that requires that you have one of the following installed:
+    * Final Cut Pro
+    * Compressor
+    * Motion
 Having that software installed means you also agreed to the appropriate Software License Agreement(s).
-This recipe supports Version 2.1 and later (requires macOS 10.14.3 or later).
     </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.ProVideoFormats</string>
 	<key>Input</key>
 	<dict>
+		<key>ARTICLE_NUMBER</key>
+		<string>106526</string>
 		<key>NAME</key>
 		<string>ProVideoFormats</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>2.0</string>
-	<key>Process</key>
-	<array>
-		<dict>
-			<key>Processor</key>
-			<string>com.github.n8felton.shared/AppleSupportDownloadInfoProvider</string>
-			<key>Arguments</key>
-			<dict>
-				<key>ARTICLE_NUMBER</key>
-				<string>2100</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>URLDownloader</string>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>EndOfCheckPhase</string>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>CodeSignatureVerifier</string>
-			<key>Arguments</key>
-			<dict>
-				<key>expected_authority_names</key>
-				<array>
-					<string>Software Update</string>
-					<string>Apple Software Update Certification Authority</string>
-					<string>Apple Root CA</string>
-				</array>
-				<key>input_path</key>
-				<string>%pathname%/ProVideoFormats.pkg</string>
-			</dict>
-		</dict>
-	</array>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.download.AppleSupportContent</string>
 </dict>
 </plist>

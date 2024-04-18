@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Given a support documentation article number (based on the early 2024 reorganization),
+download the content linked on that page to the Download button.
+This is functionally meant to replace Nate Felton’s AppleSupportDownloadInfoProvider processor
+(n8felton-recipes) for the previous organizational structure of those support pages.</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.download.AppleSupportContent</string>
+	<key>Input</key>
+	<dict>
+		<key>ARTICLE_NUMBER</key>
+		<string>106574</string>
+		<key>NAME</key>
+		<string>AppleSupportContent</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>URLTextSearcher</string>
+			<key>Arguments</key>
+			<dict>
+				<key>re_pattern</key>
+				<string>title[^\d]+(\d+(\.\d+){1,3})</string>
+				<key>result_output_var_name</key>
+				<string>version</string>
+				<key>url</key>
+				<string>https://support.apple.com/%ARTICLE_NUMBER%</string>
+			</dict>
+			<key>Comment</key>
+			<string>Collects the version number from the title, like Nate’s processor did.</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLTextSearcher</string>
+			<key>Arguments</key>
+			<dict>
+				<key>re_pattern</key>
+				<string>href="([^"]+)\"&gt;Download</string>
+				<key>result_output_var_name</key>
+				<string>url</string>
+				<key>url</key>
+				<string>https://support.apple.com/%ARTICLE_NUMBER%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>CodeSignatureVerifier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>expected_authority_names</key>
+				<array>
+					<string>Software Update</string>
+					<string>Apple Software Update Certification Authority</string>
+					<string>Apple Root CA</string>
+				</array>
+				<key>input_path</key>
+				<string>%pathname%/*.pkg</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
