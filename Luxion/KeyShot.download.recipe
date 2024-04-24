@@ -3,13 +3,28 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest version of KeyShot for macOS.</string>
+	<string>Downloads the latest version of a particular major version of KeyShot for macOS.
+The recipe user must determine the product download number (six digits) and set that as
+the value of PRODUCT_ID in the Input dictionary. That will be found at the end of the 
+download link within your account. Based on what is known at the time of this writing,
+the following PRODUCT_IDs match the versions listed:
+
+370762 - 2024 (13)
+357619 - 2023 (12)
+354524 - 11
+350990 - 10
+
+You could also create an override of this recipe to download the KeyShot Content pkg installer
+using the same principles.
+</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.keyshot</string>
 	<key>Input</key>
 	<dict>
 		<key>NAME</key>
 		<string>KeyShot</string>
+		<key>PRODUCT_ID</key>
+		<string>370762</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>2.0</string>
@@ -17,24 +32,13 @@
 	<array>
 		<dict>
 			<key>Processor</key>
-			<string>URLTextSearcher</string>
-			<key>Arguments</key>
-			<dict>
-				<key>re_pattern</key>
-				<string>(https://www\.keyshot\.com/download/\d{6}/\?tmstv=\d+)"&gt;KeyShot - macOS</string>
-				<key>result_output_var_name</key>
-				<string>url</string>
-				<key>url</key>
-				<string>https://www.keyshot.com/resources/downloads/</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
 			<string>URLDownloader</string>
 			<key>Arguments</key>
 			<dict>
 				<key>prefetch_filename</key>
 				<true/>
+				<key>url</key>
+				<string>https://www.keyshot.com/download/%PRODUCT_ID%/</string>
 			</dict>
 		</dict>
 		<dict>
