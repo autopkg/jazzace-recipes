@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Adds version information to the pkg name of an Adobe Admin Console-generated flat pkg 
+that you have already downloaded. This pkg is then suitable for uploading to your management system.
+(If you are still using bundle-style packages, use the AdobeAdminConsole.pkg recipe instead.)
+
+You must supply the full path to the Adobe flat package on your system. There are two ways
+to do this:
+1. In the Input dictionary of your override, specify the full path as the value for PKG.
+   (Note: Relative paths like ~/Downloads/AdobePackage.pkg will not work.)
+2. Run the recipe/override with the -p (or --pkg) argument and the full path to the package
+   (e.g., autopkg run AdobeAdminConsoleFlat.pkg -p /path/to/AdobePackage.pkg).
+  
+Method 1 allows you to create an override for every title you deploy (in the same manner as the 
+AdobeAdminConsole.pkg recipe did, but with more flexibility on package location and naming).
+
+The name of the copied package will be NAME-version.pkg where NAME is whatever you specify in the NAME 
+Input variable and version is what the recipe determines is the version number of the release. 
+This differs from the previous AdobeAdminConsole.pkg recipe in which the NAME variable had to match 
+what you called the package when you downloaded it from the console.
+</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.AdobeAdminConsoleFlat</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>CopiedAdobePackageName</string>
+		<key>PKG</key>
+		<string></string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>PackageRequired</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>FlatPkgUnpacker</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/scratch</string>
+				<key>flat_pkg_path</key>
+				<string>%PKG%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLTextSearcher</string>
+			<key>Arguments</key>
+			<dict>
+				<key>re_pattern</key>
+				<string>Creative Cloud \([\d.]+\)&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;[A-Za-z\s]+\(([\d.]+)\)</string>
+				<key>result_output_var_name</key>
+				<string>version</string>
+				<key>url</key>
+				<string>file:///%RECIPE_CACHE_DIR%/scratch/Distribution</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgCopier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg</string>
+				<key>source_pkg</key>
+				<string>%flat_pkg_path%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PathDeleter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%RECIPE_CACHE_DIR%/scratch</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
