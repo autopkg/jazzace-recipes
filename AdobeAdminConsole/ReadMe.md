@@ -1,6 +1,22 @@
 # AdobeAdminConsole Recipes
 
-The AdobeAdminConsole.pkg recipe leverages the [AdobeAdminConsolePackagesPkgInfoCreator](https://github.com/autopkg/dataJAR-recipes/blob/master/Adobe%20Admin%20Console%20Packages/AdobeAdminConsolePackagesPkgInfoCreator.py) custom processor from dataJAR to extract version information from an Adobe pkg installer and then add that version information to the pkg name. This makes it suitable for many more AutoPkg workflows than just the munki-related ones that the dataJAR recipes support.
+All the pkg recipes in this folder assume that you have built a package with one app (and the Creative Cloud Desktop app) using the [Adobe Admin Console](https://adminconsole.adobe.com).
+
+## Flat Package
+As of macOS Sequoia, you must use flat packages for deployment (they also work on earlier versions of macOS). Adobe now has an option to build flat, unsigned packages and the Admin Console does so by default. You use the **AdobeAdminConsoleFlat** recipe(s) for flat packages.
+
+The Input variables for the AdobeAdminConsoleFlat.pkg recipe are NAME (which will be used when renaming the package to NAME-version.pkg) and PKG (the _full_ path to the Adobe flat package on your system).
+
+There are two ways to use this recipe (or related child recipe):
+1. Create an override of AdobeAdminConsoleFlat.pkg for every title you deploy (e.g., `autopkg make-override AdobeAdminConsoleFlat.pkg -n AdobePhotoshopFlat.pkg`) and set the Input variables in your override to the values needed for that title.
+2. Make a single override (or use the recipe without an override — _not_ recommended) and specify the Input variables at the command line at runtime (e.g., `autopkg run AdobeAdminConsoleFlat.pkg -p /path/to/AdobePackage.pkg -k NAME='Adobe Photoshop'`).
+
+If you consistently download your Adobe packages to the same location (e.g., the user’s Downloads folder), Method 1 works well (and is similar to the Component Package method you may have used before). Use Method 2 if you need more flexibility or if you rarely run this recipe.
+
+This pkg recipe differs from the AdobeAdminConsole.pkg recipe in which the NAME variable had to match what you called the package when you downloaded it from the console.
+
+## Component Package
+If you still use component packages (macOS Sonoma and earlier), use the **AdobeAdminConsole** recipe(s). The .pkg recipe leverages the [AdobeAdminConsolePackagesPkgInfoCreator](https://github.com/autopkg/dataJAR-recipes/blob/master/Adobe%20Admin%20Console%20Packages/AdobeAdminConsolePackagesPkgInfoCreator.py) custom processor from dataJAR to extract version information from an Adobe pkg installer and then add that version information to the pkg name. This makes it suitable for many more AutoPkg workflows than just the munki-related ones that the dataJAR recipes support.
 
 The AdobeAdminConsolePackagesPkgInfoCreator processor does have some dependencies. The following workflow will ensure that you have met all the requirements of the processor.
 
