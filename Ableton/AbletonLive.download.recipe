@@ -6,10 +6,10 @@
 	<string>Based on a recipe by Tim Sutton for Version 9.</string>
 	<key>Description</key>
 	<string>Downloads the most recent version of Ableton Live based on the version and edition you specify.
-LIVE_VERS is the major version of Live (versions 9, 10, and 11 are currently supported).
+LIVE_VERS is the major version of Live (9 or later).
 Possible values for EDITION are: trial, lite, intro, standard, and suite.
 This recipe now supports Ableton's various ARCHITECTURE options.
-Valid options for Live 11 are "universal" and "intel". Earlier versions of Live may require "64".
+Valid options for Live 11 and later are "universal" and "intel"; earlier versions require "64".
 </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.AbletonLive</string>

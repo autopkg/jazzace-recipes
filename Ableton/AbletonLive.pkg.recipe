@@ -5,11 +5,10 @@
 	<key>Description</key>
 	<string>Downloads the most recent version of Ableton Live and creates an installer package.
 The major version and edition is specified through input variables (see the parent download recipe).
-In order to avoid pkgbuild errors, the SoundCloud extension is removed from the app bundle and
-the version number (from CFBundleShortVersionString) is simplified to eliminate parenthetical 
-build info (the homebysix-recipes repo is required).
+In order to avoid pkgbuild errors, the version number (from CFBundleShortVersionString) is simplified 
+to eliminate parenthetical build info (the homebysix-recipes repo is required).
 If a new package is created, the temporary files needed during packaging are deleted.
-
+If you are using Live 9 or earlier, please use the previous version of this recipe.
 </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.AbletonLive</string>
@@ -41,17 +40,6 @@ If a new package is created, the temporary files needed during packaging are del
 				<true/>
 				<key>source_path</key>
 				<string>%pathname%/%dmg_found_filename%</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>PathDeleter</string>
-			<key>Arguments</key>
-			<dict>
-				<key>path_list</key>
-				<array>
-					<string>%RECIPE_CACHE_DIR%/%NAME%/%dmg_found_filename%/Contents/App-Resources/Extensions/SoundCloud</string>
-				</array>
 			</dict>
 		</dict>
 		<dict>
