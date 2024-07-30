@@ -8,7 +8,8 @@ and, if it has updated, copies it to the designated directory as HTML, marked wi
 (ISO 8601 date format).
 
 Input Keys:
-    ARTICLE is the Apple Support Article number, usually two letters (HT) and six digits.
+    ARTICLE is the Apple Support Article number. This is often just six digits, although certain pages
+        still use the two letters (HT) plus six digits format (w.g., Apple security releases).
     LANG is the language and country descriptor, consisting of two letters for the language, a dash, and 
         two letters for the country (e.g., en-us). Many will want to force the US version in order to get
         the earliest indication of a change. 
@@ -19,7 +20,7 @@ Input Keys:
 	<key>Input</key>
 	<dict>
 		<key>ARTICLE</key>
-		<string>HT208020</string>
+		<string>HT201222</string>
 		<key>LANG</key>
 		<string>en-us</string>
 		<key>SAVE_LOCATION</key>
@@ -57,7 +58,7 @@ Input Keys:
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>time dateTime=(?P&lt;pubdate&gt;[0-9-]*)</string>
+				<string>publish_date: "(?P&lt;MM&gt;\d\d)(?P&lt;DD&gt;\d\d)(?P&lt;YYYY&gt;\d{4})"</string>
 				<key>url</key>
 				<string>file://%RECIPE_CACHE_DIR%/downloads/%ARTICLE%</string>
 			</dict>
@@ -68,7 +69,7 @@ Input Keys:
 			<key>Arguments</key>
 			<dict>
 				<key>destination_path</key>
-				<string>%SAVE_LOCATION%/%ARTICLE%_%LANG%_%pubdate%.html</string>
+				<string>%SAVE_LOCATION%/%ARTICLE%_%LANG%_%YYYY%-%MM%-%DD%.html</string>
 				<key>overwrite</key>
 				<true/>
 				<key>source_path</key>
