@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Creates a package that installs a file at /Library/Preferences/com.wacomtablet.defaults.xml 
+to enable Enterprise settings for the Wacom tablet driver.
+(This suppresses autolaunching of Wacom Experience Program and Wacom Center.)
+
+Use your own org information to set the PACKAGE_BUNDLE_ID in your override.
+
+This file is not expected to change, so the version is set to 1.0, 
+but you may change this in your override or using the -k option at runtime.
+</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.WacomEnterpriseSettings</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>WacomEnterpriseSettings</string>
+		<key>PACKAGE_BUNDLE_ID</key>
+		<string>org.yourorg.wacomenterprisesettings</string>
+		<key>version</key>
+		<string>1.0</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>2.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgdirs</key>
+				<dict>
+					<key>Library</key>
+					<string>0777</string>
+					<key>Library/Preferences</key>
+					<string>0777</string>
+				</dict>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>FileCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>file_content</key>
+				<string>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;!--Author: Wacom Co.,Ltd.--&gt;
+&lt;root&gt;
+	&lt;!-- Set Enterprise Mode --&gt;
+	&lt;OperatingMode&gt;Enterprise&lt;/OperatingMode&gt;
+&lt;/root&gt;</string>
+				<key>file_mode</key>
+				<string>0755</string>
+				<key>file_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%/Library/Preferences/com.wacomtablet.defaults.xml</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_request</key>
+				<dict>
+					<key>chown</key>
+					<array>
+						<dict>
+							<key>group</key>
+							<string>admin</string>
+							<key>mode</key>
+							<string>0755</string>
+							<key>path</key>
+							<string>Library/Preferences/com.wacomtablet.defaults.xml</string>
+							<key>user</key>
+							<string>root</string>
+						</dict>
+					</array>
+					<key>id</key>
+					<string>%PACKAGE_BUNDLE_ID%</string>
+					<key>options</key>
+					<string>purge_ds_store</string>
+					<key>pkgname</key>
+					<string>%NAME%-%version%</string>
+					<key>pkgroot</key>
+					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PathDeleter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
