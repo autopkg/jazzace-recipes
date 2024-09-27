@@ -2,18 +2,27 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Description</key>
+	<string>This recipe downloads ZBrush for Maxon, packages it, then uploads the pkg to your Jamf Pro Server/Distribution Point 
+and creates/updates the policy that deploys it.
+
+The server/share details must be set using variables set in the environment or specified in your override
+(see https://github.com/grahampugh/jamf-upload/wiki/JamfUploader-AutoPkg-Processors).
+
+The grahampugh-recipes repo is required.
+
+Note that the (Package) CATEGORY, GROUP_NAME, and POLICY_CATEGORY specified by the Input variables 
+must each exist on the server, otherwise the recipe will fail. Values for SITE and GROUP_NAME are 
+requested in the Input dictionary so that they may be used within the POLICY_TEMPLATE specified.
+</string>
 	<key>Identifier</key>
-	<string>local.jamf.ZBrushMaxon-latest</string>
+	<string>com.github.jazzace.jamf.zbrushmaxon-latest</string>
 	<key>Input</key>
 	<dict>
-		<key>BUNDLE_ID</key>
-		<string>net.maxon.appinstaller.zbrush</string>
 		<key>CATEGORY</key>
-		<string>Visual &amp; Performing Arts</string>
+		<string>Applications</string>
 		<key>GROUP_NAME</key>
-		<string>IAML Student Stations</string>
-		<key>NAME</key>
-		<string>ZBrush</string>
+		<string>Smart_or_Static_Group_Name</string>
 		<key>POLICY_CATEGORY</key>
 		<string>%CATEGORY%</string>
 		<key>POLICY_NAME</key>
@@ -21,61 +30,45 @@
 		<key>POLICY_TEMPLATE</key>
 		<string>Policy-install-latest-site-group.xml</string>
 		<key>SITE</key>
-		<string>IAML</string>
+		<string>YourSite</string>
 	</dict>
+	<key>MinimumVersion</key>
+	<string>2.0</string>
 	<key>ParentRecipe</key>
-	<string>com.github.jazzace.jamf.zbrushmaxon-latest</string>
-	<key>ParentRecipeTrustInfo</key>
-	<dict>
-		<key>non_core_processors</key>
+	<string>com.github.jazzace.pkg.zbrushmaxon</string>
+	<key>Process</key>
+	<array>
 		<dict>
-			<key>com.github.grahampugh.jamf-upload.processors/JamfPackageUploader</key>
+			<key>Processor</key>
+			<string>com.github.grahampugh.jamf-upload.processors/JamfPackageUploader</string>
+			<key>Arguments</key>
 			<dict>
-				<key>git_hash</key>
-				<string>febfabb5d43579197a98dd738b85840321c2a369</string>
-				<key>path</key>
-				<string>/Volumes/AutoPkgLibrary/AutoPkg/RecipeRepos/com.github.autopkg.grahampugh-recipes/JamfUploaderProcessors/JamfPackageUploader.py</string>
-				<key>sha256_hash</key>
-				<string>0ca85d733b101e1b48b0e8fb67aff136d50ca347bf3b951238809e3a20120f95</string>
-			</dict>
-			<key>com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader</key>
-			<dict>
-				<key>git_hash</key>
-				<string>febfabb5d43579197a98dd738b85840321c2a369</string>
-				<key>path</key>
-				<string>/Volumes/AutoPkgLibrary/AutoPkg/RecipeRepos/com.github.autopkg.grahampugh-recipes/JamfUploaderProcessors/JamfPolicyUploader.py</string>
-				<key>sha256_hash</key>
-				<string>5d6715bfe85efbb3034ed36c27da2114742235232c0c156343fd70fc63d3d124</string>
+				<key>pkg_category</key>
+				<string>%CATEGORY%</string>
 			</dict>
 		</dict>
-		<key>parent_recipes</key>
 		<dict>
-			<key>com.github.jazzace.download.zbrushmaxon</key>
+			<key>Processor</key>
+			<string>StopProcessingIf</string>
+			<key>Arguments</key>
 			<dict>
-				<key>git_hash</key>
-				<string>0fc2ded54919edd3e28892be3193942d9acec325</string>
-				<key>path</key>
-				<string>/Volumes/AutoPkgLibrary/AutoPkg/RecipeRepos/com.github.autopkg.jazzace-recipes/Maxon/ZBrushMaxon.download.recipe</string>
-				<key>sha256_hash</key>
-				<string>c6ce57319df90fe0b7a87f3fc830ecdc412ba1ae0563c7d89cfd442c3c6cafe4</string>
-			</dict>
-			<key>com.github.jazzace.jamf.zbrushmaxon-latest</key>
-			<dict>
-				<key>path</key>
-				<string>/Volumes/AutoPkgLibrary/AutoPkg/Testing/ZBrushMaxon-latest.jamf.recipe</string>
-				<key>sha256_hash</key>
-				<string>82f3a57595e0445beb5effdf3586ea14c6a7ca9728cb43fb4386fcc31228352a</string>
-			</dict>
-			<key>com.github.jazzace.pkg.zbrushmaxon</key>
-			<dict>
-				<key>git_hash</key>
-				<string>0fc2ded54919edd3e28892be3193942d9acec325</string>
-				<key>path</key>
-				<string>/Volumes/AutoPkgLibrary/AutoPkg/RecipeRepos/com.github.autopkg.jazzace-recipes/Maxon/ZBrushMaxon.pkg.recipe</string>
-				<key>sha256_hash</key>
-				<string>7b1368786dc2f1b14d26e2bbad0a3079fe02686d0c94f9971b2f9d5ae83837fa</string>
+				<key>predicate</key>
+				<string>pkg_uploaded == False</string>
 			</dict>
 		</dict>
-	</dict>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>policy_name</key>
+				<string>%POLICY_NAME%</string>
+				<key>policy_template</key>
+				<string>%POLICY_TEMPLATE%</string>
+				<key>replace_policy</key>
+				<string>True</string>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>
