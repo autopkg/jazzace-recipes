@@ -6,9 +6,9 @@
 	<string>Downloads the latest version of the major version of Vectorworks specified via Input Variable.
 Please use the child recipe for your version of Vectorworks to avoid problems with 
 Code Signature changes and download links.
-Note that this recipe only works for Vectorworks 2021 and later. (A separate recipe is available for 2020.)</string>
+Note that this recipe only works for Vectorworks 2021 through 2024.</string>
 	<key>Identifier</key>
-	<string>com.github.jazzace.download.vectorworks</string>
+	<string>com.github.jazzace.download.vectorworks2024</string>
 	<key>Input</key>
 	<dict>
 		<key>COMPANY</key>
@@ -24,17 +24,6 @@ Note that this recipe only works for Vectorworks 2021 and later. (A separate rec
 	<string>1.4.0</string>
 	<key>Process</key>
 	<array>
-		<dict>
-			<key>Processor</key>
-			<string>DeprecationWarning</string>
-			<key>Arguments</key>
-			<dict>
-				<key>warning_message</key>
-				<string>This recipe will be changed to support only Vectorworks 2025 and later 
-due to a change in the Installer method. If you need to work with Vectorworks 2024,
-please migrate to the Vectorworks2024 series of recipes instead.</string>
-			</dict>
-		</dict>
 		<dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>
