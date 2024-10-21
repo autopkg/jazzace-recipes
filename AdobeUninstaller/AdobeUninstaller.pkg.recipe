@@ -3,27 +3,18 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the AdobeUninstall tool and packages it for deployment to /usr/local/bin.
-Does not build a package if the download is unchanged.</string>
+	<string>Downloads the AdobeUninstall tool, versions it, and packages it for deployment to /usr/local/bin.
+This recipe requires the homebysix-recipes repo.</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.AdobeUninstaller</string>
 	<key>Input</key>
 	<dict/>
-	<key>ParentRecipe</key>
-	<string>com.github.jazzace.download.AdobeUninstaller</string>
 	<key>MinimumVersion</key>
 	<string>2.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.download.AdobeUninstaller</string>
 	<key>Process</key>
 	<array>
-		<dict>
-			<key>Processor</key>
-			<string>StopProcessingIf</string>
-			<key>Arguments</key>
-			<dict>
-				<key>predicate</key>
-				<string>download_changed == FALSE</string>
-			</dict>
-		</dict>
 		<dict>
 			<key>Processor</key>
 			<string>PkgRootCreator</string>
@@ -57,7 +48,25 @@ Does not build a package if the download is unchanged.</string>
 		</dict>
 		<dict>
 			<key>Processor</key>
-			<string>com.github.jazzace.processors/VersionGenerator</string>
+			<string>com.github.homebysix.BinaryFileVersioner/BinaryFileVersioner</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_file_path</key>
+				<string>%pkgroot%/usr/local/bin/AdobeUninstaller</string>
+				<key>plist_version_key</key>
+				<string>CFBundleVersion</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.homebysix.VersionSplitter/VersionSplitter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>split_on</key>
+				<string>,</string>
+			</dict>
+			<key>Comment</key>
+			<string>Strips the copyright notice to make the version number usable in building the package.</string>
 		</dict>
 		<dict>
 			<key>Processor</key>
@@ -69,44 +78,44 @@ Does not build a package if the download is unchanged.</string>
 					<key>chown</key>
 					<array>
 						<dict>
+							<key>group</key>
+							<string>wheel</string>
+							<key>mode</key>
+							<string>0755</string>
 							<key>path</key>
 							<string>usr</string>
 							<key>user</key>
 							<string>root</string>
+						</dict>
+						<dict>
 							<key>group</key>
 							<string>wheel</string>
 							<key>mode</key>
 							<string>0755</string>
-						</dict>
-						<dict>
 							<key>path</key>
 							<string>usr/local</string>
 							<key>user</key>
 							<string>root</string>
+						</dict>
+						<dict>
 							<key>group</key>
 							<string>wheel</string>
 							<key>mode</key>
 							<string>0755</string>
-						</dict>
-						<dict>
 							<key>path</key>
 							<string>usr/local/bin</string>
 							<key>user</key>
 							<string>root</string>
+						</dict>
+						<dict>
 							<key>group</key>
 							<string>wheel</string>
 							<key>mode</key>
 							<string>0755</string>
-						</dict>
-						<dict>
 							<key>path</key>
 							<string>usr/local/bin/AdobeUninstaller</string>
 							<key>user</key>
 							<string>root</string>
-							<key>group</key>
-							<string>wheel</string>
-							<key>mode</key>
-							<string>0755</string>
 						</dict>
 					</array>
 					<key>id</key>
