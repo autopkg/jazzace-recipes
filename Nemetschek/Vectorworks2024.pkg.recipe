@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe downloads the latest Vectorworks installer app and creates a package that leverages the silent install 
+	<string>This recipe downloads the latest Vectorworks 2023 or 2024 installer app and creates a package that leverages the silent install 
 CLI method to automate installation. Input variables are used to specify which major version of Vectorworks you are 
 packaging (e.g., 2024) and to customize the installation package with the recipe user's license information. 
 The pkg is named with the name and the version number (e.g., the installer for Vectorworks 2024 SP2 would be named 
@@ -11,8 +11,8 @@ The pkg is named with the name and the version number (e.g., the installer for V
 Should the download not have changed, no processing is done; this is done to save redundant copying of the 2+ GB installer.
 
 Note: Due to a change in how the command line install (“silent install”) method works in Vectorworks 2023 and 2024,
-you should use the previous version of this recipe if you need to package Vectorworks 2021 or 2022.
-If you need Vectorworks 2020, use the Vectorworks2020.pkg recipe.
+use the following past build of this recipe if you need to package Vectorworks 2021 or 2022:
+https://github.com/autopkg/jazzace-recipes/blob/5cee14647e8a2016ffa98103b30820b9cf4d4133/Nemetschek/Vectorworks.pkg.recipe
 </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.vectorworks2024</string>
