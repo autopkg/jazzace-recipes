@@ -12,6 +12,9 @@ The easiest way to obtain a properly formatted LoginDialog.xml file is to launch
 manually adjust the settings (including Do Not Show At Startup) in the GUI, click Login, then
 Quit. You will find the file at ~/Library/Application Support/Vectorworks/20##/Settings/SeriesG/
 (substituting your Major Version for 20## and Series for G, which you then use as input variables).
+
+Most users will find it easier to use one of the "WithServer" recipes, which build the LoginDialog.xml
+file automatically based on the input variables in the recipe.
 </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.vectorworkslogin</string>

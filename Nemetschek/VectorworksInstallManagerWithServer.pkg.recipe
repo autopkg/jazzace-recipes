@@ -3,20 +3,22 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe downloads the latest Vectorworks installer app and creates a package that leverages the silent install 
-CLI method to automate installation. Input variables are used to specify which major version of Vectorworks you are 
-packaging (e.g., 2024) and to customize the installation package with the recipe user's license information. 
-The pkg is named with the name and the version number (e.g., the installer for Vectorworks 2024 SP2 would be named 
-"Vectorworks-29.0.2"); if you want to include the year/major version in the pkg name, change the NAME variable accordingly.
-Should the download not have changed, no processing is done; this is done to save redundant copying of the 2+ GB installer.
+	<string>This recipe downloads the latest Vectorworks Install Manager app (2025 or later) and creates a package that 
+runs the Vectorworks Install Manager via shell script. This recipe differs from the VectorworksInstallManager.pkg 
+recipe in that it aims to skip the initial Server dialogue box that appears when the user launches the app, 
+providing the necessary settings in advance.
 
-Note: Due to a change in how the command line install (“silent install”) method works starting in Vectorworks 2023,
-you should use the previous version of this recipe if you need to package Vectorworks 2021 or 2022.
+This recipe uses Vectorworks Install Manager’s capability to download the installer (.vwim) at runtime.
 
-This recipe differs from the regular Vectorworks.pkg recipe in that it aims to skip the initial Server dialogue box
-that appears when the user launches the app, providing the necessary settings in advance.
- 
-It also lets you set how you manage automatic updates. Set AUTO_UPDATES to 2 to turn auto updates off.
+Input variables are used to specify which major version of Vectorworks you are installing (e.g., 2025) and 
+to customize the installation package with the recipe user’s license information.
+You must also specify the numerical values for the USER_ID and GROUP_ID to be used for the install.
+The defaults are 0 and 80 respectively (root and admin).
+
+The pkg is named with the NAME and the version number of Vectorworks Install Manager; if you want to include the year/major version 
+in the pkg name, change the NAME variable accordingly.
+
+This recipe also lets you set how you manage automatic updates. Set AUTO_UPDATES to 2 to turn auto updates off.
 (The default set by Vectorworks is 0, which is Weekly. If you want Monthly, use 1.)
 
 This requires that you supply as input variables:
@@ -28,19 +30,29 @@ This requires that you supply as input variables:
 This recipe creates a LoginDialog.xml file with your settings and leverages Outset (https://github.com/macadmins/outset)
 to copy the file into the correct location in each user's account when they login.
 There are no external file dependencies for this recipe; it creates all the files it needs during the recipe run.
+
+Note: This recipe only works with Vectorworks 2025 (and later). Use VectorworksWithServer2024.pkg for Vectorworks 2023 or 2024.
 </string>
 	<key>Identifier</key>
-	<string>com.github.jazzace.pkg.vectorworkswithserverinfo</string>
+	<string>com.github.jazzace.pkg.vectorworksinstallmgrwithserver</string>
 	<key>Input</key>
 	<dict>
 		<key>AUTOFIND_SERVER</key>
 		<string>1</string>
 		<key>AUTO_UPDATES</key>
 		<string>2</string>
+		<key>BUNDLE_ID</key>
+		<string>net.vectorworks.pkg.vectorworks%MAJOR_VERSION%andserverviainstallmanager</string>
+		<key>GROUP_ID</key>
+		<string>80</string>
 		<key>MAIN_MODULE</key>
 		<string>designer</string>
+		<key>NAME</key>
+		<string>Vectorworks Install Manager</string>
 		<key>SERVER</key>
 		<string>localhost</string>
+		<key>USER_ID</key>
+		<string>0</string>
 		<key>VW_SERIAL_NO</key>
 		<string>GFXXXX-123456-ABCDEF-G7HI89</string>
 		<key>VW_SERIES</key>
@@ -49,16 +61,16 @@ There are no external file dependencies for this recipe; it creates all the file
 	<key>MinimumVersion</key>
 	<string>1.4</string>
 	<key>ParentRecipe</key>
-	<string>com.github.jazzace.download.vectorworks</string>
+	<string>com.github.jazzace.download.vectorworksinstallmanager</string>
 	<key>Process</key>
 	<array>
 		<dict>
 			<key>Processor</key>
-			<string>StopProcessingIf</string>
+			<string>Versioner</string>
 			<key>Arguments</key>
 			<dict>
-				<key>predicate</key>
-				<string>download_changed == FALSE</string>
+				<key>input_plist_path</key>
+				<string>%RECIPE_CACHE_DIR%/Unarchived/Vectorworks %MAJOR_VERSION% Install Manager.app/Contents/Info.plist</string>
 			</dict>
 		</dict>
 		<dict>
@@ -68,12 +80,6 @@ There are no external file dependencies for this recipe; it creates all the file
 			<dict>
 				<key>pkgdirs</key>
 				<dict>
-					<key>private</key>
-					<string>0777</string>
-					<key>private/tmp</key>
-					<string>0777</string>
-					<key>private/tmp/vw</key>
-					<string>0777</string>
 					<key>usr</key>
 					<string>0755</string>
 					<key>usr/local</key>
@@ -86,29 +92,7 @@ There are no external file dependencies for this recipe; it creates all the file
 					<string>0755</string>
 				</dict>
 				<key>pkgroot</key>
-				<string>%RECIPE_CACHE_DIR%/%NAME%</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>Copier</string>
-			<key>Arguments</key>
-			<dict>
-				<key>destination_path</key>
-				<string>%pkgroot%/private/tmp/vw/Vectorworks %MAJOR_VERSION% Installer.app</string>
-				<key>overwrite</key>
-				<true/>
-				<key>source_path</key>
-				<string>%pathname%/Vectorworks %MAJOR_VERSION% Installer.app</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>AppDmgVersioner</string>
-			<key>Arguments</key>
-			<dict>
-				<key>dmg_path</key>
-				<string>%pathname%</string>
+				<string>%RECIPE_CACHE_DIR%/payload</string>
 			</dict>
 		</dict>
 		<dict>
@@ -186,42 +170,34 @@ cp "${vwldpathroot}/LoginDialog.xml" "$HOME/Library/Application Support/Vectorwo
 		</dict>
 		<dict>
 			<key>Processor</key>
+			<string>FileMover</string>
+			<key>Arguments</key>
+			<dict>
+				<key>source</key>
+				<string>%RECIPE_CACHE_DIR%/Unarchived/Vectorworks %MAJOR_VERSION% Install Manager.app</string>
+				<key>target</key>
+				<string>%RECIPE_CACHE_DIR%/scripts/Vectorworks %MAJOR_VERSION% Install Manager.app</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
 			<string>FileCreator</string>
 			<key>Arguments</key>
 			<dict>
 				<key>file_content</key>
 				<string>#!/bin/sh
-# Installs Vectorworks. Assumes installer is already available in the path specified by $vwipathroot.
-# Installer will be deleted upon completion.
+# Installs Vectorworks using the Vectorworks Install Manager, which downloads the needed content at install time.
+# The Vectorworks Install Manager is located in the same folder as the scripts.
 #
 # Set variables (constants) for script run
 vers="%MAJOR_VERSION%"
-serialno="%VW_SERIAL_NO%"
-vwipathroot="/private/tmp/vw"
-# Install Vectorworks
-"${vwipathroot}/Vectorworks ${vers} Installer.app/Contents/Resources/installer/Install Vectorworks${vers}.app/Contents/MacOS/installbuilder.sh" --mode unattended --unattendedmodeui none --Serial "${serialno}" --installdir "/Applications/Vectorworks ${vers}" --LDFChoice licenseID
-# Check to verify app is in expected location; delete installer if app present
-if [ -e "/Applications/Vectorworks ${vers}/Vectorworks ${vers}.app" ]
-then
-    rm -Rf "${vwipathroot}/Vectorworks ${vers} Installer.app"
-else
-    echo "Error in installing Vectorworks ${vers}; installer left in ${vwipathroot}" &gt;&gt; /var/log/vw_install.log
+vwipathroot="$(dirname $0)"
+# Install Vectorworks by downloading on the fly
+"${vwipathroot}/Vectorworks ${vers} Install Manager.app/Contents/Resources/cli.sh" install --installdir "/Applications/Vectorworks ${vers}" --serial %VW_SERIAL_NO% --uid %USER_ID% --gid %GROUP_ID%
+# Check to verify app is in expected location; report error if not
+if [ ! -e "/Applications/Vectorworks ${vers}/Vectorworks ${vers}.app" ]; then
+    echo "Error in installing Vectorworks ${vers}" &gt;&gt; /var/log/vw_install.log
     exit 1
-fi
-# Sets the preference for the Auto Update Check for Vectorworks once it is installed.
-# It does this by modifying the /Applications/Vectorworks 20##/Settings/VectorWorks Preferences.xml file,
-# which is copied to the user’s Library on first launch of Vectorworks within that account.
-if [ -e "/Applications/Vectorworks ${vers}/Settings/VectorWorks Preferences.xml" ]; then
-    sed -i '.bak' 's/autoUpdateFrequency&gt;0/autoUpdateFrequency&gt;%AUTO_UPDATES%/' "/Applications/Vectorworks ${vers}/Settings/VectorWorks Preferences.xml"
-    if [ -e "/Applications/Vectorworks ${vers}/Settings/VectorWorks Preferences.xml.bak" ]; then
-        echo "Vectorworks ${vers} Auto Update Check set to ."
-    else
-        echo "Modification of Vectorworks ${vers} settings failed."
-        exit 3
-    fi
-else
-    echo "Vectorworks ${vers} does not appear to be fully installed. Exiting…"
-    exit 2
 fi
 </string>
 				<key>file_mode</key>
@@ -239,16 +215,6 @@ fi
 				<dict>
 					<key>chown</key>
 					<array>
-						<dict>
-							<key>group</key>
-							<string>admin</string>
-							<key>mode</key>
-							<string>0777</string>
-							<key>path</key>
-							<string>private/tmp/vw/</string>
-							<key>user</key>
-							<string>root</string>
-						</dict>
 						<dict>
 							<key>group</key>
 							<string>admin</string>
@@ -271,13 +237,13 @@ fi
 						</dict>
 					</array>
 					<key>id</key>
-					<string>%bundleid%custom</string>
+					<string>%BUNDLE_ID%</string>
 					<key>options</key>
 					<string>purge_ds_store</string>
 					<key>pkgname</key>
 					<string>%NAME%-%version%</string>
 					<key>pkgroot</key>
-					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+					<string>%RECIPE_CACHE_DIR%/payload</string>
 					<key>scripts</key>
 					<string>%RECIPE_CACHE_DIR%/scripts</string>
 					<key>version</key>
@@ -292,8 +258,9 @@ fi
 			<dict>
 				<key>path_list</key>
 				<array>
-					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+					<string>%RECIPE_CACHE_DIR%/payload</string>
 					<string>%RECIPE_CACHE_DIR%/scripts</string>
+					<string>%RECIPE_CACHE_DIR%/Unarchived</string>
 				</array>
 			</dict>
 		</dict>

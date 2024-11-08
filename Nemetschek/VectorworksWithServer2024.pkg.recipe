@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>This recipe downloads the latest Vectorworks 2023 or 2024 installer app and creates a package that leverages the silent install 
+CLI method to automate installation. Input variables are used to specify which major version of Vectorworks you are 
+packaging (2023 or 2024) and to customize the installation package with the recipe user's license information. 
+The pkg is named with the name and the version number (e.g., the installer for Vectorworks 2024 SP7 would be named 
+"Vectorworks-29.0.7"); if you want to include the year/major version in the pkg name, change the NAME variable accordingly.
+Should the download not have changed, no processing is done; this is done to save redundant copying of the 2+ GB installer.
+
+Note: For Vectorworks 2025 or later, use the VectorworksInstallManagerWithServer.pkg recipe.
+
+This recipe differs from the regular Vectorworks2024.pkg recipe in that it aims to skip the initial Server dialogue box
+that appears when the user launches the app, providing the necessary settings in advance.
+ 
+It also lets you set how you manage automatic updates. Set AUTO_UPDATES to 2 to turn auto updates off.
+(The default set by Vectorworks is 0, which is Weekly. If you want Monthly, use 1.)
+
+This requires that you supply as input variables:
+• the Series (VW_SERIES, usually set to G),
+• whether you want Vectorworks to AutoFind the server (AUTOFIND_SERVER, set to 0 or 1),
+• the address of the server (AUTOFIND_SERVER, set to localhost if you chose to AutoFind,
+  set to the IP address or DNS name of the server otherwise), and
+• the identifier for the main module licensed (MAIN_MODULE, which will be designer for academic users).
+This recipe creates a LoginDialog.xml file with your settings and leverages Outset (https://github.com/macadmins/outset)
+to copy the file into the correct location in each user's account when they login.
+There are no external file dependencies for this recipe; it creates all the files it needs during the recipe run.
+</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.vectorworkswithserverinfo</string>
+	<key>Input</key>
+	<dict>
+		<key>AUTOFIND_SERVER</key>
+		<string>1</string>
+		<key>AUTO_UPDATES</key>
+		<string>2</string>
+		<key>MAIN_MODULE</key>
+		<string>designer</string>
+		<key>SERVER</key>
+		<string>localhost</string>
+		<key>VW_SERIAL_NO</key>
+		<string>GFXXXX-123456-ABCDEF-G7HI89</string>
+		<key>VW_SERIES</key>
+		<string>G</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.4</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.download.vectorworks2024</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>StopProcessingIf</string>
+			<key>Arguments</key>
+			<dict>
+				<key>predicate</key>
+				<string>MAJOR_VERSION == "2025"</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>StopProcessingIf</string>
+			<key>Arguments</key>
+			<dict>
+				<key>predicate</key>
+				<string>download_changed == FALSE</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgdirs</key>
+				<dict>
+					<key>private</key>
+					<string>0777</string>
+					<key>private/tmp</key>
+					<string>0777</string>
+					<key>private/tmp/vw</key>
+					<string>0777</string>
+					<key>usr</key>
+					<string>0755</string>
+					<key>usr/local</key>
+					<string>0755</string>
+					<key>usr/local/outset</key>
+					<string>0755</string>
+					<key>usr/local/outset/files</key>
+					<string>0755</string>
+					<key>usr/local/outset/login-once</key>
+					<string>0755</string>
+				</dict>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%pkgroot%/private/tmp/vw/Vectorworks %MAJOR_VERSION% Installer.app</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%pathname%/Vectorworks %MAJOR_VERSION% Installer.app</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>AppDmgVersioner</string>
+			<key>Arguments</key>
+			<dict>
+				<key>dmg_path</key>
+				<string>%pathname%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>FileCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>file_content</key>
+				<string>#!/bin/sh
+# Establishes user settings for the login server (using LoginDialog.xml)
+# to automate connection upon launching Vectorworks.
+#
+# Set variables (constants) for script run
+vers="%MAJOR_VERSION%"
+vwseries="%VW_SERIES%"
+vwldpathroot="/usr/local/outset/files"
+vwldtarget="$HOME/Library/Application Support/Vectorworks/${vers}/Settings/Series${vwseries}"
+# Ensure the target folder for the settings exists
+if ! [ -d "${vwldtarget}" ]
+then
+    mkdir -p "$HOME/Library/Application Support/Vectorworks/${vers}/Settings/Series${vwseries}"
+fi
+# Copy the XML settings file to the needed location in the user's account
+cp "${vwldpathroot}/LoginDialog.xml" "$HOME/Library/Application Support/Vectorworks/${vers}/Settings/Series${vwseries}/"
+</string>
+				<key>file_mode</key>
+				<string>0755</string>
+				<key>file_path</key>
+				<string>%pkgroot%/usr/local/outset/login-once/vw%MAJOR_VERSION%_server_for_outset.sh</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>FileCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>file_content</key>
+				<string>&lt;?xml version="1.0" encoding="UTF-8" standalone="no" ?&gt;
+&lt;LoginDialog&gt;
+
+  &lt;Days&gt;1&lt;/Days&gt;
+
+  &lt;AutoFindServer&gt;%AUTOFIND_SERVER%&lt;/AutoFindServer&gt;
+
+  &lt;AutoFindMaxTime&gt;1&lt;/AutoFindMaxTime&gt;
+
+  &lt;DontShowAtStartup&gt;1&lt;/DontShowAtStartup&gt;
+
+  &lt;Servers&gt;
+    &lt;Server&gt;%SERVER%:5053&lt;/Server&gt;
+  &lt;/Servers&gt;
+
+  &lt;Modules&gt;
+    &lt;MainModule&gt;%MAIN_MODULE%&lt;/MainModule&gt;
+  &lt;/Modules&gt;
+
+&lt;/LoginDialog&gt;
+</string>
+				<key>file_mode</key>
+				<string>0755</string>
+				<key>file_path</key>
+				<string>%pkgroot%/usr/local/outset/files/LoginDialog.xml</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgdirs</key>
+				<dict/>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/scripts</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>FileCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>file_content</key>
+				<string>#!/bin/sh
+# Installs Vectorworks. Assumes installer is already available in the path specified by $vwipathroot.
+# Installer will be deleted upon completion.
+#
+# Set variables (constants) for script run
+vers="%MAJOR_VERSION%"
+serialno="%VW_SERIAL_NO%"
+vwipathroot="/private/tmp/vw"
+# Install Vectorworks
+"${vwipathroot}/Vectorworks ${vers} Installer.app/Contents/Resources/installer/Install Vectorworks${vers}.app/Contents/MacOS/installbuilder.sh" --mode unattended --unattendedmodeui none --Serial "${serialno}" --installdir "/Applications/Vectorworks ${vers}" --LDFChoice licenseID
+# Check to verify app is in expected location; delete installer if app present
+if [ -e "/Applications/Vectorworks ${vers}/Vectorworks ${vers}.app" ]
+then
+    rm -Rf "${vwipathroot}/Vectorworks ${vers} Installer.app"
+else
+    echo "Error in installing Vectorworks ${vers}; installer left in ${vwipathroot}" &gt;&gt; /var/log/vw_install.log
+    exit 1
+fi
+# Sets the preference for the Auto Update Check for Vectorworks once it is installed.
+# It does this by modifying the /Applications/Vectorworks 20##/Settings/VectorWorks Preferences.xml file,
+# which is copied to the user’s Library on first launch of Vectorworks within that account.
+if [ -e "/Applications/Vectorworks ${vers}/Settings/VectorWorks Preferences.xml" ]; then
+    sed -i '.bak' 's/autoUpdateFrequency&gt;0/autoUpdateFrequency&gt;%AUTO_UPDATES%/' "/Applications/Vectorworks ${vers}/Settings/VectorWorks Preferences.xml"
+    if [ -e "/Applications/Vectorworks ${vers}/Settings/VectorWorks Preferences.xml.bak" ]; then
+        echo "Vectorworks ${vers} Auto Update Check set to ."
+    else
+        echo "Modification of Vectorworks ${vers} settings failed."
+        exit 3
+    fi
+else
+    echo "Vectorworks ${vers} does not appear to be fully installed. Exiting…"
+    exit 2
+fi
+</string>
+				<key>file_mode</key>
+				<string>0755</string>
+				<key>file_path</key>
+				<string>%RECIPE_CACHE_DIR%/scripts/postinstall</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_request</key>
+				<dict>
+					<key>chown</key>
+					<array>
+						<dict>
+							<key>group</key>
+							<string>admin</string>
+							<key>mode</key>
+							<string>0777</string>
+							<key>path</key>
+							<string>private/tmp/vw/</string>
+							<key>user</key>
+							<string>root</string>
+						</dict>
+						<dict>
+							<key>group</key>
+							<string>admin</string>
+							<key>mode</key>
+							<string>0775</string>
+							<key>path</key>
+							<string>usr/local/outset/files/LoginDialog.xml</string>
+							<key>user</key>
+							<string>root</string>
+						</dict>
+						<dict>
+							<key>group</key>
+							<string>wheel</string>
+							<key>mode</key>
+							<string>0755</string>
+							<key>path</key>
+							<string>usr/local/outset/login-once/vw%MAJOR_VERSION%_server_for_outset.sh</string>
+							<key>user</key>
+							<string>root</string>
+						</dict>
+					</array>
+					<key>id</key>
+					<string>%bundleid%custom</string>
+					<key>options</key>
+					<string>purge_ds_store</string>
+					<key>pkgname</key>
+					<string>%NAME%-%version%</string>
+					<key>pkgroot</key>
+					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+					<key>scripts</key>
+					<string>%RECIPE_CACHE_DIR%/scripts</string>
+					<key>version</key>
+					<string>%version%</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PathDeleter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+					<string>%RECIPE_CACHE_DIR%/scripts</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
