@@ -82,10 +82,10 @@ fi
 # Main Install: (note that installer names sometimes change underscores to spaces and vice versa between versions; keep an eye out when updating)
 "${instpathroot}/%app_name%/Contents/MacOS/installbuilder.sh" --mode unattended
 # Confirm successful installation for logs:
-if [ -e "/Applications/ZBrush ${yr}/ZBrush.app" ] ; then
+if [ -e "/Applications/Maxon ZBrush ${yr}/ZBrush.app" ] ; then
     echo "ZBrush ${yr} was successfully installed."
 else
-    echo "The expected app path (/Applications/ZBrush ${yr}/ZBrush.app) was not found after the installer script finished."
+    echo "The expected app path (/Applications/Maxon ZBrush ${yr}/ZBrush.app) was not found after the installer script finished."
     exit 1
 fi
 exit 0
