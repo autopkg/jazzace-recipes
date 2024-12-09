@@ -28,6 +28,16 @@ the package that this recipe creates.
 	<array>
 		<dict>
 			<key>Processor</key>
+			<string>DeprecationWarning</string>
+			<key>Arguments</key>
+			<dict>
+				<key>warning_message</key>
+				<string>This recipe will be replaced by one that includes pkg versioning in the near future.
+	If you wish to have a pkg recipe that does not version the pkg, use the .ds recipe instead.</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
 			<string>StopProcessingIf</string>
 			<key>Arguments</key>
 			<dict>
