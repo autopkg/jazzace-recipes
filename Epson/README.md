@@ -11,22 +11,18 @@ Recommended Procedure for Creating URL:
 4. Copy the URL.
 5. Create an override of this recipe (or edit an existing override).
 6. In the Input section, paste the URL that you copied earlier into the string for SEARCH_URL.
-7. Check the URL you just pasted. Confirm that it ends with one of the following strings (substituting the number of the OS as appropriate). You can append this string if it is not present. 
+7. Check the URL you just pasted. Confirm that it ends with something that looks like the following: 
+    ?review-filter=macOS+15.x
+(substituting the number of the major macOS version as appropriate). You can append this string if it is not present. 
 
-For macOS 10.12 and later:     `?review-filter=macOS+10.12.x`
-For OS X 10.11.x and earlier:  `?review-filter=Mac+OS+X+10.11.x`
-
-For example, the URL for the Epson SureColor P9000 fetched from the Canadian Epson site with macOS Catalina as the deployment OS is:
+For example, the URL for the Epson SureColor P9000 fetched from the Canadian Epson site with macOS Sequoia as the deployment OS is:
 ````
-	https://epson.ca/Support/Printers/Professional-Imaging-Printers/SureColor-Series/Epson-SureColor-P9000-Standard-Edition/s/SPT_SCP9000SE?review-filter=macOS+10.15.x
+	https://epson.ca/Support/Printers/Professional-Imaging-Printers/SureColor-Series/Epson-SureColor-P9000-Standard-Edition/s/SPT_SCP9000SE?review-filter=macOS+15.x
 ````
 (The US URL is the same, except it is .com instead of .ca. Only the Canadian and US sites have been tested.)
 
 When Epson was using separate code signing authorities for older and new products, it was
 necessary to have separate recipes (EpsonProDrivers and EpsonSureColorDrivers). Now that 
-Epson is using the same authority for all new releases, the EpsonSureColorDrivers.download recipe has been turned into a stub recipe that points to EpsonProDrivers.download.
+Epson is using the same authority for all new releases, the EpsonSureColorDrivers.download recipe has been turned into a stub recipe that points to EpsonProDrivers.download. It will be removed at a future date.
 
-If you are creating a new override, use the EpsonProDrivers series of recipes.
-
-If you encounter a product still using the previous code signing authority, you will need
-to turn off code signature verification when you run that recipe.
+As well, if you need to extract the pkg from the disk image and rename it without a version number included, use the .ds recipe, as the EpsonProDrivers.pkg and EpsonProDriversVersioned.pkg recipes will be merged in the near future to only support versioned packages.
