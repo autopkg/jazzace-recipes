@@ -76,8 +76,8 @@ yr=${vers:0:4}
 instpathroot="$(dirname $0)"
 # Remove old install of same major version, if present, as per previous Pixologic recommendation:
 if [ -e "/Applications/Maxon ZBrush ${yr}/ZBrush.app" ] ; then
-    echo "Uninstalling an earlier version of ZBrush ${vers}..."
-    "/Applications/Maxon ZBrush ${yr}/Uninstall/Uninstall ZBrush ${yr}.app/Contents/MacOS/installbuilder.sh" --mode unattended
+    echo "Uninstalling an earlier version of ZBrush ${yr}..."
+    "/Applications/Maxon ZBrush ${yr}/Uninstall/Uninstall Maxon ZBrush.app/Contents/MacOS/installbuilder.sh" --mode unattended
 fi
 # Main Install: (note that installer names sometimes change underscores to spaces and vice versa between versions; keep an eye out when updating)
 "${instpathroot}/%app_name%/Contents/MacOS/installbuilder.sh" --mode unattended
