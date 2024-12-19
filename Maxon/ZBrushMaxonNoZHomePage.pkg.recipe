@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>This recipe takes the ZBrush installer app from Maxon and creates a package that leverages 
+the silent install CLI method to automate installation. This also replaces the DefaultZScript.txt file
+in order to suppress the automatic launching of ZHomePage when opening ZBrush.
+
+You may set a different Bundle ID for your package by changing the BUNDLE_ID Input variable.
+
+This recipe requires version 2024.1.0 or newer (of ZBrush and the Maxon App).
+</string>
+	<key>Identifier</key>
+	<string>com.github.jazzace.pkg.zbrushmaxonnozhomepage</string>
+	<key>Input</key>
+	<dict>
+		<key>BUNDLE_ID</key>
+		<string>net.maxon.appinstaller.zbrush</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>2.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.download.zbrushmaxon</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.jazzace.processors/TextSearcher</string>
+			<key>Arguments</key>
+			<dict>
+				<key>re_pattern</key>
+				<string>(\d+)\.</string>
+				<key>result_output_var_name</key>
+				<string>major_version</string>
+				<key>text_in</key>
+				<string>%version%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgdirs</key>
+				<dict>
+					<key>Applications</key>
+					<string>0775</string>
+					<key>Applications/Maxon ZBrush</key>
+					<string>0777</string>
+					<key>Applications/Maxon ZBrush/ZScripts</key>
+					<string>0777</string>
+				</dict>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/payload</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>FileMover</string>
+			<key>Arguments</key>
+			<dict>
+				<key>source</key>
+				<string>%RECIPE_CACHE_DIR%/payload/Applications/Maxon ZBrush</string>
+				<key>target</key>
+				<string>%RECIPE_CACHE_DIR%/payload/Applications/Maxon ZBrush %major_version%</string>
+			</dict>
+			<key>Comment</key>
+			<string>PkgRootCreator does not support variable substitution in pkgdirs it creates,
+			so we are renaming Maxon ZBrush to add the major version/year.</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>FileCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>file_content</key>
+				<string>//startup
+
+[If,[MemGetSize,startup_mem],		
+    // do nothing
+	,	// else
+	[MVarDef,startup_mem,1,0]		
+]
+
+
+[pd]
+ </string>
+				<key>file_mode</key>
+				<string>0777</string>
+				<key>file_path</key>
+				<string>%RECIPE_CACHE_DIR%/payload/Applications/Maxon ZBrush %major_version%/ZScripts/DefaultZScript.txt</string>
+			</dict>
+			<key>Comment</key>
+			<string>Replaces the startup script with one that does not auto-launch ZHomePage</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgdirs</key>
+				<dict/>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/scripts</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/scripts/%app_name%</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%pathname%/%app_name%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>FileCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>file_content</key>
+				<string>#!/bin/sh
+# Installs ZBrush using its command line mode.
+# The Bitrock installer app is placed within the package beside this script (dirname $0)
+#
+# Assign the version number found on the parent folder in /Applications to vers,
+# then extract just the year to yr
+vers="%version%"
+yr="%major_version%"
+# Find Installer within package
+instpathroot="$(dirname $0)"
+# Remove old install of same major version, if present, as per previous Pixologic recommendation:
+if [ -e "/Applications/Maxon ZBrush ${yr}/ZBrush.app" ] ; then
+    echo "Uninstalling an earlier version of ZBrush ${yr}..."
+    "/Applications/Maxon ZBrush ${yr}/Uninstall/Uninstall Maxon ZBrush.app/Contents/MacOS/installbuilder.sh" --mode unattended
+fi
+# Main Install: (note that installer names sometimes change underscores to spaces and vice versa between versions; keep an eye out when updating)
+"${instpathroot}/%app_name%/Contents/MacOS/installbuilder.sh" --mode unattended
+# Confirm successful installation for logs:
+if [ -e "/Applications/Maxon ZBrush ${yr}/ZBrush.app" ] ; then
+    echo "ZBrush ${yr} was successfully installed."
+else
+    echo "The expected app path (/Applications/Maxon ZBrush ${yr}/ZBrush.app) was not found after the installer script finished."
+    exit 1
+fi
+exit 0
+</string>
+				<key>file_mode</key>
+				<string>0755</string>
+				<key>file_path</key>
+				<string>%RECIPE_CACHE_DIR%/scripts/preinstall</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_request</key>
+				<dict>
+					<key>chown</key>
+					<array>
+						<dict>
+							<key>group</key>
+							<string>wheel</string>
+							<key>path</key>
+							<string>Applications</string>
+							<key>user</key>
+							<string>root</string>
+						</dict>
+						<dict>
+							<key>group</key>
+							<string>wheel</string>
+							<key>path</key>
+							<string>Applications/Maxon ZBrush %major_version%</string>
+							<key>user</key>
+							<string>root</string>
+						</dict>
+						<dict>
+							<key>group</key>
+							<string>wheel</string>
+							<key>path</key>
+							<string>Applications/Maxon ZBrush %major_version%/ZScripts</string>
+							<key>user</key>
+							<string>root</string>
+						</dict>
+						<dict>
+							<key>group</key>
+							<string>wheel</string>
+							<key>path</key>
+							<string>Applications/Maxon ZBrush %major_version%/ZScripts/DefaultZScript.txt</string>
+							<key>user</key>
+							<string>root</string>
+						</dict>
+					</array>
+					<key>id</key>
+					<string>%BUNDLE_ID%</string>
+					<key>options</key>
+					<string>purge_ds_store</string>
+					<key>pkgname</key>
+					<string>%NAME%-%version%</string>
+					<key>pkgroot</key>
+					<string>%RECIPE_CACHE_DIR%/payload</string>
+					<key>scripts</key>
+					<string>%RECIPE_CACHE_DIR%/scripts</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PathDeleter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%RECIPE_CACHE_DIR%/payload</string>
+					<string>%RECIPE_CACHE_DIR%/scripts</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
