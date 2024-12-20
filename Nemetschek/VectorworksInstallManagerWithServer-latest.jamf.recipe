@@ -3,10 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe downloads Vectorworks, packages the proprietary installer as well as the info for your server, 
+	<string>This recipe downloads Vectorworks Install Manager (2025 or later), packages the proprietary installer as well as the info for your server, 
 then uploads the pkg to your Jamf Pro Server/Distribution Point and creates/updates the policy that deploys it.
+Details are available in the VectorworksInstallManagerWithServer.pkg recipe.
 
-The server/share details must be set using variables set in the environment or specified in your override
+If you wish to change the policy even if the package has not changed, set UPDATE_PREDICATE to FALSEPREDICATE
+(you can do this in the override or by using the -k/--key argument at runtime).
+
+The Jamf Pro server/share details must be set using variables set in the environment or specified in your override
 (see https://github.com/grahampugh/jamf-upload/wiki/JamfUploader-AutoPkg-Processors).
 
 The grahampugh-recipes repo is required.
@@ -16,13 +20,13 @@ must each exist on the server, otherwise the recipe will fail. Values for SITE a
 requested in the Input dictionary so that they may be used within the POLICY_TEMPLATE specified.
 </string>
 	<key>Identifier</key>
-	<string>com.github.jazzace.jamf.vectorworkswithserverinfo-latest</string>
+	<string>com.github.jazzace.jamf.vectorworksinstallmgrwithserver-latest</string>
 	<key>Input</key>
 	<dict>
 		<key>CATEGORY</key>
 		<string>Visual &amp; Performing Arts</string>
 		<key>GROUP_NAME</key>
-		<string>IAML Both Labs</string>
+		<string>IAML All Student Stations</string>
 		<key>POLICY_CATEGORY</key>
 		<string>%CATEGORY%</string>
 		<key>POLICY_NAME</key>
@@ -31,11 +35,13 @@ requested in the Input dictionary so that they may be used within the POLICY_TEM
 		<string>Policy-install-latest-site-group.xml</string>
 		<key>SITE</key>
 		<string>IAML</string>
+		<key>UPDATE_PREDICATE</key>
+		<string>pkg_uploaded == False</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>2.0</string>
 	<key>ParentRecipe</key>
-	<string>com.github.jazzace.pkg.vectorworkswithserverinfo</string>
+	<string>com.github.jazzace.pkg.vectorworksinstallmgrwithserver</string>
 	<key>Process</key>
 	<array>
 		<dict>
@@ -53,7 +59,7 @@ requested in the Input dictionary so that they may be used within the POLICY_TEM
 			<key>Arguments</key>
 			<dict>
 				<key>predicate</key>
-				<string>pkg_uploaded == False</string>
+				<string>%UPDATE_PREDICATE%</string>
 			</dict>
 		</dict>
 		<dict>
