@@ -5,6 +5,9 @@
 	<key>Description</key>
 	<string>Downloads the current release version of Lightwright and then packages the Lightwright app.
 This recipe is based on the Version 6 app (now wrapped in a dmg).
+Note: The version number is included in the app name as of 6.0.51. This recipe renames the app bundle
+to the value of NAME. To be consistent with earlier versions (and to overwrite them upon deployment),
+set NAME to Lightwright 6.
 </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.lightwright</string>
@@ -18,7 +21,25 @@ This recipe is based on the Version 6 app (now wrapped in a dmg).
 	<array>
 		<dict>
 			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/renamed-app/%NAME%.app</string>
+				<key>overwrite</key>
+				<true/>
+				<key>source_path</key>
+				<string>%pathname%/*.app</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
 			<string>AppPkgCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>app_path</key>
+				<string>%destination_path%</string>
+			</dict>
 		</dict>
 	</array>
 </dict>
