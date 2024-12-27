@@ -35,8 +35,8 @@ using the same principles.
 			<string>URLDownloader</string>
 			<key>Arguments</key>
 			<dict>
-				<key>prefetch_filename</key>
-				<true/>
+				<key>filename</key>
+				<string>%NAME%.pkg</string>
 				<key>url</key>
 				<string>https://www.keyshot.com/download/%PRODUCT_ID%/</string>
 			</dict>
