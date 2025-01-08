@@ -17,6 +17,10 @@ class VectorworksUpdateDownloader(Processor):
 
     description = __doc__
     input_variables = {
+        "major_version": {
+            "required": True,
+            "description": "Major version of Vectoworks i.e. 2025.",
+        },
         "install_manager_path": {
             "required": True,
             "description": "Path to the install manager app.",
@@ -50,7 +54,7 @@ class VectorworksUpdateDownloader(Processor):
             update_target_version = "Update" + high_version
             self.output("Found update target %s" % update_target_version)
 
-            update_dir = self.env["RECIPE_CACHE_DIR"] + "/Update"
+            update_dir = self.env["RECIPE_CACHE_DIR"] + "/Update/" + self.env["major_version"]
             update_download_command = [downloader_cli,
                         'download',
                         '--target',

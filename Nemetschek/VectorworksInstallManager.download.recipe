@@ -66,6 +66,8 @@ Note that this recipe only works for Vectorworks 2025 and later (use Vectorworks
 			<dict>
 				<key>install_manager_path</key>
 				<string>%RECIPE_CACHE_DIR%/Unarchived/Vectorworks %MAJOR_VERSION% Install Manager.app</string>
+				<key>major_version</key>
+				<string>%MAJOR_VERSION%</string>
 			</dict>
 		</dict>
 	</array>
