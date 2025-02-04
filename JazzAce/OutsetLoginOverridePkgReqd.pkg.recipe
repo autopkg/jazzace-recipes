@@ -7,14 +7,14 @@
 that will install the file to /usr/local/outset/%ACTION_TYPE%. An Outset login-once override 
 will be added to Outset’s preferences so that all users will run the updated version of the 
 file supplied on next login (see the Outset wiki for information on Outset login-once overrides: 
-https://github.com/chilcote/outset/wiki/ScriptOverrides).
+https://github.com/macadmins/outset/wiki/ScriptOverrides).
 
-This recipe requires the robperc-recipes and homebysix-recipes repos.
+This recipe requires the homebysix-recipes repo.
 
 The pkg will be named using the payload’s file name (up to the first period). 
 Underscores and spaces are removed for the package ID.
 
-This recipe assumes the item being passed (usually a script) may not have a version number,
+This recipe assumes the item being passed (like a script) may not have a version number,
 so it assigns an ever-increasing number (based on the current time) as the version number.
 
 Suggested Usage:
@@ -53,35 +53,33 @@ It is recommended that you change this value in your override to match your orga
 		</dict>
 		<dict>
 			<key>Processor</key>
-			<string>com.github.autopkg.robperc.recipes.Processors/StringSplitter</string>
+			<string>com.github.jazzace.processors/TextSearcher</string>
 			<key>Arguments</key>
 			<dict>
-				<key>delimiter</key>
-				<string>/</string>
-				<key>index</key>
-				<string>-1</string>
-				<key>string</key>
+				<key>re_pattern</key>
+				<string>([^/]+)$</string>
+				<key>result_output_var_name</key>
+				<string>name_with_ext</string>
+				<key>text_in</key>
 				<string>%PKG%</string>
 			</dict>
 			<key>Comment</key>
-			<string>Use StringSplitter to extract the filename from the payload's path.
+			<string>Use TextSearcher to extract the filename from the payload's path.
 			The first call extracts the filename with extension, which is stored in name_with_ext.
-			The second call strips everything from that filename after the first period
+			The second call strips everything from that filename after the first period, if it exists
 			(that will strip the extension at the very least).</string>
 		</dict>
 		<dict>
 			<key>Processor</key>
-			<string>com.github.autopkg.robperc.recipes.Processors/StringSplitter</string>
+			<string>com.github.jazzace.processors/TextSearcher</string>
 			<key>Arguments</key>
 			<dict>
-				<key>delimiter</key>
-				<string>.</string>
-				<key>index</key>
-				<string>0</string>
-				<key>name_with_ext</key>
-				<string>%out_string%</string>
-				<key>string</key>
-				<string>%out_string%</string>
+				<key>re_pattern</key>
+				<string>([^.\n]+)\.{0,1}</string>
+				<key>result_output_var_name</key>
+				<string>name_no_ext</string>
+				<key>text_in</key>
+				<string>%name_with_ext%</string>
 			</dict>
 		</dict>
 		<dict>
@@ -89,10 +87,10 @@ It is recommended that you change this value in your override to match your orga
 			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
 			<key>Arguments</key>
 			<dict>
+				<key>input_string</key>
+				<string>%name_no_ext%</string>
 				<key>find</key>
 				<string>_</string>
-				<key>input_string</key>
-				<string>%out_string%</string>
 				<key>replace</key>
 				<string></string>
 			</dict>
@@ -170,7 +168,7 @@ It is recommended that you change this value in your override to match your orga
 		</dict>
 		<dict>
 			<key>Processor</key>
-			<string>VersionGenerator</string>
+			<string>com.github.jazzace.processors/VersionGenerator</string>
 		</dict>
 		<dict>
 			<key>Processor</key>
@@ -218,7 +216,7 @@ It is recommended that you change this value in your override to match your orga
 					<string>%RECIPE_CACHE_DIR%/scripts</string>
 				</dict>
 				<key>pkgname</key>
-				<string>%out_string%-%version%</string>
+				<string>%name_no_ext%-%version%</string>
 			</dict>
 		</dict>
 		<dict>

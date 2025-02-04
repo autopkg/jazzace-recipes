@@ -8,7 +8,7 @@ that will install the file to /usr/local/outset/%ACTION_TYPE%.
 If you require that the payload be run on the next login of all accounts even if an earlier
 script/package of the same name has already been run, use the OutsetLoginOverridePkgReqd.pkg recipe.
 
-This recipe requires the robperc-recipes and homebysix-recipes repos.
+This recipe requires the homebysix-recipes repo.
 
 The pkg will be named using the payload’s file name (up to the first period). 
 Underscores and spaces are removed for the package ID.
@@ -17,10 +17,10 @@ This recipe assumes the item being passed (like a script) may not have a version
 so it assigns an ever-increasing number (based on the current time) as the version number.
 
 Suggested Usage:
-1.  Make an override for each type of Outset folder you wish to target. Name the override
+1.  Make a recipe override for each type of Outset folder you wish to target. Name the override
     to match the target folder — for example: 
         autopkg make-override OutsetPayloadPkgReqd.pkg -n Outset-login-once.pkg
-2.  Change the value of ACTION_TYPE to match the target folder for that override.
+2.  Change the value of ACTION_TYPE to match the target folder for that recipe override.
 3.  Run the override with the --pkg option — for example:
         autopkg run Outset-login-once.pkg --pkg /path/to/payload
 
@@ -57,35 +57,33 @@ It is recommended that you change this value in your override to match your orga
 		</dict>
 		<dict>
 			<key>Processor</key>
-			<string>com.github.autopkg.robperc.recipes.Processors/StringSplitter</string>
+			<string>com.github.jazzace.processors/TextSearcher</string>
 			<key>Arguments</key>
 			<dict>
-				<key>delimiter</key>
-				<string>/</string>
-				<key>index</key>
-				<string>-1</string>
-				<key>string</key>
+				<key>re_pattern</key>
+				<string>([^/]+)$</string>
+				<key>result_output_var_name</key>
+				<string>name_with_ext</string>
+				<key>text_in</key>
 				<string>%PKG%</string>
 			</dict>
 			<key>Comment</key>
-			<string>Use StringSplitter to extract the filename from the payload's path.
+			<string>Use TextSearcher to extract the filename from the payload's path.
 			The first call extracts the filename with extension, which is stored in name_with_ext.
-			The second call strips everything from that filename after the first period
+			The second call strips everything from that filename after the first period, if it exists
 			(that will strip the extension at the very least).</string>
 		</dict>
 		<dict>
 			<key>Processor</key>
-			<string>com.github.autopkg.robperc.recipes.Processors/StringSplitter</string>
+			<string>com.github.jazzace.processors/TextSearcher</string>
 			<key>Arguments</key>
 			<dict>
-				<key>delimiter</key>
-				<string>.</string>
-				<key>index</key>
-				<string>0</string>
-				<key>name_with_ext</key>
-				<string>%out_string%</string>
-				<key>string</key>
-				<string>%out_string%</string>
+				<key>re_pattern</key>
+				<string>([^.\n]+)\.{0,1}</string>
+				<key>result_output_var_name</key>
+				<string>name_no_ext</string>
+				<key>text_in</key>
+				<string>%name_with_ext%</string>
 			</dict>
 		</dict>
 		<dict>
@@ -93,10 +91,10 @@ It is recommended that you change this value in your override to match your orga
 			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
 			<key>Arguments</key>
 			<dict>
-				<key>input_string</key>
-				<string>%out_string%</string>
 				<key>find</key>
 				<string>_</string>
+				<key>input_string</key>
+				<string>%name_no_ext%</string>
 				<key>replace</key>
 				<string></string>
 			</dict>
@@ -106,10 +104,10 @@ It is recommended that you change this value in your override to match your orga
 			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
 			<key>Arguments</key>
 			<dict>
-				<key>input_string</key>
-				<string>%output_string%</string>
 				<key>find</key>
 				<string> </string>
+				<key>input_string</key>
+				<string>%output_string%</string>
 				<key>replace</key>
 				<string></string>
 			</dict>
@@ -163,7 +161,7 @@ It is recommended that you change this value in your override to match your orga
 		</dict>
 		<dict>
 			<key>Processor</key>
-			<string>VersionGenerator</string>
+			<string>com.github.jazzace.processors/VersionGenerator</string>
 		</dict>
 		<dict>
 			<key>Processor</key>
@@ -193,7 +191,7 @@ It is recommended that you change this value in your override to match your orga
 					<string>%RECIPE_CACHE_DIR%</string>
 				</dict>
 				<key>pkgname</key>
-				<string>%out_string%-%version%</string>
+				<string>%name_no_ext%-%version%</string>
 			</dict>
 		</dict>
 		<dict>
