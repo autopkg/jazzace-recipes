@@ -6,7 +6,9 @@
 	<string>Given a support documentation article number (based on the early 2024 reorganization),
 download the content linked on that page to the Download button.
 This is functionally meant to replace Nate Felton’s AppleSupportDownloadInfoProvider processor
-(n8felton-recipes) for the previous organizational structure of those support pages.</string>
+(n8felton-recipes) for the previous organizational structure of those support pages.
+
+The homebysix-recipes repo is required (to work around when a download string has a trailing space in it).</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.AppleSupportContent</string>
 	<key>Input</key>
@@ -50,7 +52,25 @@ This is functionally meant to replace Nate Felton’s AppleSupportDownloadInfoPr
 		</dict>
 		<dict>
 			<key>Processor</key>
+			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
+			<key>Arguments</key>
+			<dict>
+				<key>find</key>
+				<string> </string>
+				<key>input_string</key>
+				<string>%url%</string>
+				<key>replace</key>
+				<string></string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
 			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>%output_string%</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>Processor</key>
