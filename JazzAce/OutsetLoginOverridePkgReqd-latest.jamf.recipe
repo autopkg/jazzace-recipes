@@ -4,8 +4,8 @@
 <dict>
 	<key>Description</key>
 	<string>Takes the file specified by the --pkg (or -p) run option and builds a package for use with outset
-that has a Login-Once override, then uploads the pkg to your Jamf Pro Server/Distribution Point and 
-creates/updates the policy that deploys it. 
+that has a Login-Once override, then uploads the pkg to your Jamf Pro Server/Distribution Point and
+creates/updates the policy that deploys it.
 Note that the policy will be named after the payload name (usually a script) preceded by the SITE name and
 followed by Latest (e.g., SiteName MyGreatScript Latest). If you are not using Jamf Pro Sites or
 want a different name, you should copy this recipe and change the policy_name argument to suit your needs.
@@ -15,8 +15,8 @@ The server/share details must be set using variables set in the environment or s
 
 The following repos are required: grahampugh-recipes, robperc-recipes, and homebysix-recipes
 
-Note that the (Package) CATEGORY, GROUP_NAME, and POLICY_CATEGORY specified by the Input variables 
-must each exist on the server, otherwise the recipe will fail. Values for SITE and GROUP_NAME are 
+Note that the (Package) CATEGORY, GROUP_NAME, and POLICY_CATEGORY specified by the Input variables
+must each exist on the server, otherwise the recipe will fail. Values for SITE and GROUP_NAME are
 requested in the Input dictionary so that they may be used within the POLICY_TEMPLATE specified.
 </string>
 	<key>Identifier</key>

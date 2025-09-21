@@ -3,29 +3,29 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-<!-- Use this template to take any parent .pkg recipe and copy the package that it generates 
+<!-- Use this template to take any parent .pkg recipe and copy the package that it generates
 (or extracts) to a local path of your choosing. The .ds family of recipes were developed
-with users of DeployStudio in mind so that you could copy a generated .pkg to the Packages folder 
-inside your DeployStudio repository and set a name of your choosing that would be constant — 
-by keeping the package name the same, your DeployStudio workflows would not care that the package 
+with users of DeployStudio in mind so that you could copy a generated .pkg to the Packages folder
+inside your DeployStudio repository and set a name of your choosing that would be constant —
+by keeping the package name the same, your DeployStudio workflows would not care that the package
 contents may have changed, hence the default choice of using the app name for the package name.
-It should be noted, however, that you can use .ds recipes to simply add a copy operation to 
-the end of any suitable recipe chain. You could use this for any packages you might want to 
+It should be noted, however, that you can use .ds recipes to simply add a copy operation to
+the end of any suitable recipe chain. You could use this for any packages you might want to
 deploy with MDS (MacDeployStick), for example.
-Because this has the power to (and is designed to) overwrite items in a deployment repo, it is 
-strongly recommended that parent recipes called by this template are well-vetted, particularly 
+Because this has the power to (and is designed to) overwrite items in a deployment repo, it is
+strongly recommended that parent recipes called by this template are well-vetted, particularly
 through the use of Code Signature Verification (CodeSignatureVerifier processor) and by running
-with Trust Info verification set to block recipes that fail verification (for details, see 
+with Trust Info verification set to block recipes that fail verification (for details, see
 https://github.com/autopkg/autopkg/wiki/AutoPkg-and-recipe-parent-trust-info).
 
 Use of this template:
-You need to change ____ (to the core recipe name), yourgithubusername in the recipe Identifier, 
+You need to change ____ (to the core recipe name), yourgithubusername in the recipe Identifier,
 and parentgithubusername in the ParentRecipe author.
 
 Alternative .ds Recipe Development:
 Recipe Robot has incorporated this template into its recipe generator:
 https://github.com/homebysix/recipe-robot  -->
-	<string>Downloads the latest version of ____, packages it, and then copies the package to 
+	<string>Downloads the latest version of ____, packages it, and then copies the package to
 a local path of your choosing.
 Input keys:
 - DS_PKGS_PATH is the destination path for the copy. A trailing slash is not required/desired.
@@ -54,7 +54,7 @@ Input keys:
 			<key>Arguments</key>
 			<dict>
 				<key>predicate</key>
-<!-- Depending on the processor in the parent recipe, either download_changed (returned by URLDownloader) 
+<!-- Depending on the processor in the parent recipe, either download_changed (returned by URLDownloader)
 or new_package_request (returned by PkgCreator and AppPkgCreator) will be used to the left of the ==. -->
 				<string>new_package_request == FALSE</string>
 			</dict>
@@ -70,7 +70,7 @@ or new_package_request (returned by PkgCreator and AppPkgCreator) will be used t
 				<true/>
 				<key>source_path</key>
 <!-- If you created the pkg using [App]PkgCreator, use %pkg_path% for the source_path.
-If you extracted an existing pkg (e.g., using Unarchiver), the conventional source_path 
+If you extracted an existing pkg (e.g., using Unarchiver), the conventional source_path
 would be %RECIPE_CACHE_DIR%/%NAME%/*.pkg -->
 				<string>%pkg_path%</string>
 			</dict>

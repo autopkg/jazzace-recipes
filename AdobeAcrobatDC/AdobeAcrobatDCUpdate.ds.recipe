@@ -12,7 +12,7 @@ Input keys:
   It defaults to %NAME% (just the app name).
 Note: You must use an override if you wish to specify which stream of Acrobat DC — Classic or Continuous — is downloaded.
 Set MAJOR_VERSION to "Acrobat2015" to download the 'Classic Track' updates for acrobat DC instead of the Continuous track
-("AcrobatDC"). 
+("AcrobatDC").
 </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.ds.AdobeAcrobatDCUpdate</string>

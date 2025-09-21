@@ -3,8 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe downloads Blender (with the architecture specified by ARCHITECTURE), 
-packages it, then uploads the pkg to your Jamf Pro Server/Distribution Point, 
+	<string>This recipe downloads Blender (with the architecture specified by ARCHITECTURE),
+packages it, then uploads the pkg to your Jamf Pro Server/Distribution Point,
 creates/updates the related policy, and flushes the Policy Log to deploy it.
 
 Because Blender has released separate installers for Intel and Apple Silicon, you will need

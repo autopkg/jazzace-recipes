@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the Alberta COVID-19 Data page and date stamps it using the date at the 
+	<string>Downloads the Alberta COVID-19 Data page and date stamps it using the date at the
 top of the web page (the last date of full results). Designed to run daily.
 This saves the web page and the following 4 data sets: Case, Summary, Geospatial, and Vaccine.
 Input Keys:

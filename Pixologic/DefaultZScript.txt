@@ -1,11 +1,10 @@
 //startup
 
-[If,[MemGetSize,startup_mem],		
+[If,[MemGetSize,startup_mem],
     // do nothing
 	,	// else
-	[MVarDef,startup_mem,1,0]		
+	[MVarDef,startup_mem,1,0]
 ]
 
 
 [pd]
- 

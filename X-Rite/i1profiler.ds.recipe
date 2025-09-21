@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads latest version of i1 Profiler, extracts the package, 
+	<string>Downloads latest version of i1 Profiler, extracts the package,
 and then copies the package to a local path of your choosing.
 
 Input keys:

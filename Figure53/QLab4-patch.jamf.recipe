@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe takes the QLab pkg installer, uploads the pkg to your Jamf Pro Server/Distribution Point 
+	<string>This recipe takes the QLab pkg installer, uploads the pkg to your Jamf Pro Server/Distribution Point
 and creates/updates both the initial installation policy and the Patch policy.
 
 The server/share details must be set using variables set in the environment or specified in your override
@@ -11,7 +11,7 @@ The server/share details must be set using variables set in the environment or s
 
 The grahampugh-recipes repo is required.
 
-Note that the PATCH_SOFTWARE_TITLE specified in the Input variables must exist on the server, 
+Note that the PATCH_SOFTWARE_TITLE specified in the Input variables must exist on the server,
 otherwise the recipe will fail.
 </string>
 	<key>Identifier</key>

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe takes the ZBrush installer app from Maxon and creates a package that leverages 
+	<string>This recipe takes the ZBrush installer app from Maxon and creates a package that leverages
 the silent install CLI method to automate installation. This also replaces the DefaultZScript.txt file
 in order to suppress the automatic launching of ZHomePage when opening ZBrush.
 
@@ -77,10 +77,10 @@ This recipe requires version 2024.1.0 or newer (of ZBrush and the Maxon App).
 				<key>file_content</key>
 				<string>//startup
 
-[If,[MemGetSize,startup_mem],		
+[If,[MemGetSize,startup_mem],
     // do nothing
 	,	// else
-	[MVarDef,startup_mem,1,0]		
+	[MVarDef,startup_mem,1,0]
 ]
 
 

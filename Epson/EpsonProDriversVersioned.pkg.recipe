@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest version of the Epson printer driver specified and renames 
+	<string>Downloads the latest version of the Epson printer driver specified and renames
 the package with the version number appended. (h/t Rich Trouton for the technique.)
 
 See the parent (download) recipe for important recipe instructions.

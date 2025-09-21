@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe downloads the latest Vectorworks 2023 or 2024 installer app and creates a package that leverages the silent install 
-CLI method to automate installation. Input variables are used to specify which major version of Vectorworks you are 
-packaging (2023 or 2024) and to customize the installation package with the recipe user's license information. 
-The pkg is named with the name and the version number (e.g., the installer for Vectorworks 2024 SP7 would be named 
+	<string>This recipe downloads the latest Vectorworks 2023 or 2024 installer app and creates a package that leverages the silent install
+CLI method to automate installation. Input variables are used to specify which major version of Vectorworks you are
+packaging (2023 or 2024) and to customize the installation package with the recipe user's license information.
+The pkg is named with the name and the version number (e.g., the installer for Vectorworks 2024 SP7 would be named
 "Vectorworks-29.0.7"); if you want to include the year/major version in the pkg name, change the NAME variable accordingly.
 Should the download not have changed, no processing is done; this is done to save redundant copying of the 2+ GB installer.
 
@@ -14,7 +14,7 @@ Note: For Vectorworks 2025 or later, use the VectorworksInstallManagerWithServer
 
 This recipe differs from the regular Vectorworks2024.pkg recipe in that it aims to skip the initial Server dialogue box
 that appears when the user launches the app, providing the necessary settings in advance.
- 
+
 It also lets you set how you manage automatic updates. Set AUTO_UPDATES to 2 to turn auto updates off.
 (The default set by Vectorworks is 0, which is Weekly. If you want Monthly, use 1.)
 

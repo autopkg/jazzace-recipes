@@ -4,14 +4,14 @@
 <dict>
 	<key>Description</key>
 	<string>Takes the file specified by the --pkg (or -p) run option and builds a package
-that will install the file to /usr/local/outset/%ACTION_TYPE%. An Outset login-once override 
-will be added to Outset’s preferences so that all users will run the updated version of the 
-file supplied on next login (see the Outset wiki for information on Outset login-once overrides: 
+that will install the file to /usr/local/outset/%ACTION_TYPE%. An Outset login-once override
+will be added to Outset’s preferences so that all users will run the updated version of the
+file supplied on next login (see the Outset wiki for information on Outset login-once overrides:
 https://github.com/macadmins/outset/wiki/ScriptOverrides).
 
 This recipe requires the homebysix-recipes repo.
 
-The pkg will be named using the payload’s file name (up to the first period). 
+The pkg will be named using the payload’s file name (up to the first period).
 Underscores and spaces are removed for the package ID.
 
 This recipe assumes the item being passed (like a script) may not have a version number,
@@ -19,15 +19,15 @@ so it assigns an ever-increasing number (based on the current time) as the versi
 
 Suggested Usage:
 1.  Make a recipe override for each type of Outset folder you wish to target. Name the override
-    to match the target folder — for example: 
+    to match the target folder — for example:
         autopkg make-override OutsetLoginOverridePkgReqd.pkg -n Outset-login-once-with-override.pkg
 2.  Change the value of ACTION_TYPE to match the target folder for that recipe override.
 3.  Run the override with the --pkg option — for example:
         autopkg run Outset-login-once-with-override.pkg --pkg /path/to/payload
 
 Input Variables:
-The value for ACTION_TYPE should be login-once or login-privileged-once as appropriate. 
-(If you want to deploy to another one of Outset’s folders, use the OutsetPayloadPkgReqd.pkg 
+The value for ACTION_TYPE should be login-once or login-privileged-once as appropriate.
+(If you want to deploy to another one of Outset’s folders, use the OutsetPayloadPkgReqd.pkg
 recipe, as that recipe does not add a login-once override.)
 
 REVERSE_DOMAIN specifies what you would like the package identifier to begin with

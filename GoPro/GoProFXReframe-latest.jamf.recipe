@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This takes the GoPro FX reframe plug in pkg you have already downloaded, uploads it to your Jamf Pro Server/Distribution Point 
+	<string>This takes the GoPro FX reframe plug in pkg you have already downloaded, uploads it to your Jamf Pro Server/Distribution Point
 and creates/updates the policy that deploys it.
 
-To run this recipe, you must supply the location to the pkg you downloaded from 
+To run this recipe, you must supply the location to the pkg you downloaded from
 https://community.gopro.com/s/article/GoPro-FX-Reframe?language=en_US. For example:
 
     autopkg run GoProFXReframe-latest.jamf -p "/path/to/GoPro Reframe for Adobe 2.0.0-12.pkg"
@@ -18,8 +18,8 @@ The server/share details must be set using variables set in the environment or s
 
 The grahampugh-recipes repo is required.
 
-Note that the (Package) CATEGORY, GROUP_NAME, and POLICY_CATEGORY specified by the Input variables 
-must each exist on the server, otherwise the recipe will fail. Values for SITE and GROUP_NAME are 
+Note that the (Package) CATEGORY, GROUP_NAME, and POLICY_CATEGORY specified by the Input variables
+must each exist on the server, otherwise the recipe will fail. Values for SITE and GROUP_NAME are
 requested in the Input dictionary so that they may be used within the POLICY_TEMPLATE specified.
 </string>
 	<key>Identifier</key>

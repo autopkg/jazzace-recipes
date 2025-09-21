@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest version of the Epson SC-P700/P900 printer driver and renames 
+	<string>Downloads the latest version of the Epson SC-P700/P900 printer driver and renames
 the package with the driver version number appended. (h/t Rich Trouton for the technique.)
 
 See the parent (download) recipe for important recipe instructions.

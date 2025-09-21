@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest version of the specified Xerox Print Driver and copies the package to 
+	<string>Downloads the latest version of the specified Xerox Print Driver and copies the package to
 a local path of your choosing.
 Input keys:
 - DS_PKGS_PATH is the destination path for the copy. A trailing slash is not required/desired.

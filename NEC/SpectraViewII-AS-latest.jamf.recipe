@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe downloads SpectraViewII for Apple Silicon Macs, packages it, then uploads the pkg to your 
+	<string>This recipe downloads SpectraViewII for Apple Silicon Macs, packages it, then uploads the pkg to your
 Jamf Pro Server/Distribution Point and creates/updates the policy that deploys it.
 
 The server/share details must be set using variables set in the environment or specified in your override
@@ -11,8 +11,8 @@ The server/share details must be set using variables set in the environment or s
 
 The grahampugh-recipes and foigus-recipes repos are required.
 
-Note that the (Package) CATEGORY, GROUP_NAME, and POLICY_CATEGORY specified by the Input variables 
-must each exist on the server, otherwise the recipe will fail. Values for SITE and GROUP_NAME are 
+Note that the (Package) CATEGORY, GROUP_NAME, and POLICY_CATEGORY specified by the Input variables
+must each exist on the server, otherwise the recipe will fail. Values for SITE and GROUP_NAME are
 requested in the Input dictionary so that they may be used within the POLICY_TEMPLATE specified.
 </string>
 	<key>Identifier</key>

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Takes the latest release of the Stable Diffusion WebUI code from the 
+	<string>Takes the latest release of the Stable Diffusion WebUI code from the
 AUTOMATIC1111 GitHub project and builds a package that deploys it to /Users/Shared.</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.StableDiffusionWebUI</string>

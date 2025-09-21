@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest release of the Stable Diffusion WebUI code from the 
+	<string>Downloads the latest release of the Stable Diffusion WebUI code from the
 AUTOMATIC1111 GitHub project. No code signature is possible, hence its omission.</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.StableDiffusionWebUI</string>

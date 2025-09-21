@@ -4,7 +4,7 @@
 <dict>
 	<key>Description</key>
 	<string>Creates an installer pkg for Finale (v.25 and later) that installs properly using a management system.
-This recipe uses the PackageRequired option and assumes you are specifying the Disk Image that contains 
+This recipe uses the PackageRequired option and assumes you are specifying the Disk Image that contains
 the Finale Installer(s). For example:
 
 autopkg run Finale_NoGarritan.pkg --pkg /path/to/Finale26.2.dmg

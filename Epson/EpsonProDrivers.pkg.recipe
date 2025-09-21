@@ -11,9 +11,9 @@ Make separate overrides for each device driver you may want. An override is requ
 
 See the parent (download) recipe for important recipe instructions.
 
-Note: This recipe suppresses unnecessary copying of the package using the "StopProcessingIf" processor. 
-This means that any recipe that uses this as a parent recipe could stop execution before reaching the child. 
-You may need to remove the cache for the recipe in question and start again if you manually delete or move 
+Note: This recipe suppresses unnecessary copying of the package using the "StopProcessingIf" processor.
+This means that any recipe that uses this as a parent recipe could stop execution before reaching the child.
+You may need to remove the cache for the recipe in question and start again if you manually delete or move
 the package that this recipe creates.
 </string>
 	<key>Identifier</key>
@@ -21,7 +21,7 @@ the package that this recipe creates.
 	<key>Input</key>
 	<dict/>
 	<key>MinimumVersion</key>
-	<string>0.4.0</string>
+	<string>1.1</string>
 	<key>ParentRecipe</key>
 	<string>com.github.jazzace.download.EpsonProDrivers</string>
 	<key>Process</key>
@@ -47,14 +47,12 @@ the package that this recipe creates.
 		</dict>
 		<dict>
 			<key>Processor</key>
-			<string>Copier</string>
+			<string>PkgCopier</string>
 			<key>Arguments</key>
 			<dict>
-				<key>destination_path</key>
+				<key>pkg_path</key>
 				<string>%RECIPE_CACHE_DIR%/%NAME%.pkg</string>
-				<key>overwrite</key>
-				<true/>
-				<key>source_path</key>
+				<key>source_pkg</key>
 				<string>%pathname%/*.pkg</string>
 			</dict>
 		</dict>

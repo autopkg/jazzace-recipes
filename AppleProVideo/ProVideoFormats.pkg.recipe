@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads latest version of the Pro Video Formats provided by Apple for their pro apps and 
+	<string>Downloads latest version of the Pro Video Formats provided by Apple for their pro apps and
 extracts the package from the dmg, renaming it with the version number added.
 
 *** Note: The pkg installer is an updater that requires that you have one of the following installed:

@@ -3,8 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Create a pkg that runs the jamf setComputerName command using the info in the CSV file 
-at the path specified by CSV_PATH. The package ID will be constructed from the REVERSE_DOMAIN and 
+	<string>Create a pkg that runs the jamf setComputerName command using the info in the CSV file
+at the path specified by CSV_PATH. The package ID will be constructed from the REVERSE_DOMAIN and
 the NAME specified (so you probably don’t want to have spaces in your NAME).</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.JamfSetComputerName</string>

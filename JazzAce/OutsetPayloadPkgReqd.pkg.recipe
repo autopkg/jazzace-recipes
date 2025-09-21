@@ -10,7 +10,7 @@ script/package of the same name has already been run, use the OutsetLoginOverrid
 
 This recipe requires the homebysix-recipes repo.
 
-The pkg will be named using the payload’s file name (up to the first period). 
+The pkg will be named using the payload’s file name (up to the first period).
 Underscores and spaces are removed for the package ID.
 
 This recipe assumes the item being passed (like a script) may not have a version number,
@@ -18,7 +18,7 @@ so it assigns an ever-increasing number (based on the current time) as the versi
 
 Suggested Usage:
 1.  Make a recipe override for each type of Outset folder you wish to target. Name the override
-    to match the target folder — for example: 
+    to match the target folder — for example:
         autopkg make-override OutsetPayloadPkgReqd.pkg -n Outset-login-once.pkg
 2.  Change the value of ACTION_TYPE to match the target folder for that recipe override.
 3.  Run the override with the --pkg option — for example:

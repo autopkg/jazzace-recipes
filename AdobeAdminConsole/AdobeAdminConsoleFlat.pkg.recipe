@@ -3,26 +3,26 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Adds version information to the pkg name of an Adobe Admin Console-generated flat pkg 
+	<string>Adds version information to the pkg name of an Adobe Admin Console-generated flat pkg
 that you have already downloaded. This pkg is then suitable for uploading to your management system.
 (If you are still need to use bundle-style packages, use the AdobeAdminConsole.pkg recipe instead.)
 
-The Input variables are NAME (which will be used when renaming the package to NAME-version.pkg) and 
+The Input variables are NAME (which will be used when renaming the package to NAME-version.pkg) and
 PKG (the full path to the Adobe flat package on your system).
 
 There are two ways to use this recipe (or related child recipe):
-1. Create an override of AdobeAdminConsoleFlat.pkg for every title you deploy (e.g., 
-   autopkg make-override AdobeAdminConsoleFlat.pkg -n AdobePhotoshopFlat.pkg) and set the 
+1. Create an override of AdobeAdminConsoleFlat.pkg for every title you deploy (e.g.,
+   autopkg make-override AdobeAdminConsoleFlat.pkg -n AdobePhotoshopFlat.pkg) and set the
    Input variables in your override to the values needed for that title.
-2. Make a single override (or use the recipe without an override — NOT recommended) and specify 
+2. Make a single override (or use the recipe without an override — NOT recommended) and specify
    the Input variables at the command line at runtime (e.g.,
    autopkg run AdobeAdminConsoleFlat.pkg -p /path/to/AdobePackage.pkg -k NAME='Adobe Photoshop').
 
-If you consistently download your Adobe packages to the same location (e.g., the user’s Downloads 
-folder), Method 1 works well (and is similar to the Component Package method you may have used 
+If you consistently download your Adobe packages to the same location (e.g., the user’s Downloads
+folder), Method 1 works well (and is similar to the Component Package method you may have used
 before). Use Method 2 if you need more flexibility or if you rarely run this recipe.
 
-This pkg recipe differs from the AdobeAdminConsole.pkg recipe in which the NAME variable 
+This pkg recipe differs from the AdobeAdminConsole.pkg recipe in which the NAME variable
 had to match what you called the package when you downloaded it from the console.
 </string>
 	<key>Identifier</key>

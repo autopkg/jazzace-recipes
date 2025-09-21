@@ -7,7 +7,7 @@
 This recipe requires that you have Elliot Jordan's recipes (homebysix-recipes) in your RecipeRepos,
 as his VersionSplitter processor is used.
 Note that if your child recipe requires the current version number, the variable "version" will
-be set to the major version (e.g., 20). Use the variable "full_version" or re-fetch the value 
+be set to the major version (e.g., 20). Use the variable "full_version" or re-fetch the value
 using a processor like AppDmgVersioner.
 </string>
 	<key>Identifier</key>

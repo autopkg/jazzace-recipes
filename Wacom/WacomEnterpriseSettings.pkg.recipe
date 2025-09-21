@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Creates a package that installs a file at /Library/Preferences/com.wacomtablet.defaults.xml 
+	<string>Creates a package that installs a file at /Library/Preferences/com.wacomtablet.defaults.xml
 to enable Enterprise settings for the Wacom tablet driver.
 (This suppresses autolaunching of Wacom Experience Program and Wacom Center.)
 
 Use your own org information to set the PACKAGE_BUNDLE_ID in your override.
 
-This file is not expected to change, so the version is set to 1.0, 
+This file is not expected to change, so the version is set to 1.0,
 but you may change this in your override or using the -k option at runtime.
 </string>
 	<key>Identifier</key>
