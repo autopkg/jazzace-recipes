@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest PreBeta version of MDS (a.k.a. Mac Deploy Stick).</string>
+	<string>Downloads the latest PreBeta version of MDS (a.k.a. Mac Deploy Stick) using the Bitbucket API.</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.MDSPreBeta</string>
 	<key>Input</key>
@@ -17,13 +17,26 @@
 	<array>
 		<dict>
 			<key>Processor</key>
+			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>https://api.bitbucket.org/2.0/repositories/twocanoes/macdeploystick/downloads</string>
+				<key>download_dir</key>
+				<string>%RECIPE_CACHE_DIR%/downloads</string>
+				<key>filename</key>
+				<string>api_response.json</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
 			<string>URLTextSearcher</string>
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>href="(/twocanoes/macdeploystick/downloads/PreBeta-MDS_Build-[\d]+_Version-[\d.]+dmg)</string>
+				<string>"name": "(PreBeta-MDS_Build-[\d]+_Version-[\d.]+\.dmg)"</string>
 				<key>url</key>
-				<string>https://bitbucket.org/twocanoes/macdeploystick/downloads/</string>
+				<string>file://%RECIPE_CACHE_DIR%/downloads/api_response.json</string>
 			</dict>
 		</dict>
 		<dict>
@@ -32,7 +45,9 @@
 			<key>Arguments</key>
 			<dict>
 				<key>url</key>
-				<string>https://bitbucket.org%match%</string>
+				<string>https://bitbucket.org/twocanoes/macdeploystick/downloads/%match%</string>
+				<key>filename</key>
+				<string>%match%</string>
 			</dict>
 		</dict>
 		<dict>
