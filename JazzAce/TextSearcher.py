@@ -39,10 +39,7 @@ class TextSearcher(Processor):
             "description": "Regular expression (Python) to match against the text (text_in).",
             "required": True,
         },
-        "text_in": {
-        	"description": "Text to be searched",
-        	"required": True
-        },
+        "text_in": {"description": "Text to be searched", "required": True},
         "result_output_var_name": {
             "description": (
                 "The name of the output variable that is returned "

@@ -16,26 +16,31 @@
 # limitations under the License.
 """See docstring for VersionGenerator class"""
 
-from autopkglib import Processor, ProcessorError
 from datetime import datetime, timezone
+
+from autopkglib import Processor, ProcessorError
 
 __all__ = ["VersionGenerator"]
 
 
 class VersionGenerator(Processor):
     """Generates a string that is the number of seconds after 2021-05-21 23:00 UTC.
-	This can be used to create an ever-incrementing version number for pkgs/scripts
-	that do not have built-in (or meaningful) versioning. """
+    This can be used to create an ever-incrementing version number for pkgs/scripts
+    that do not have built-in (or meaningful) versioning."""
 
     description = __doc__
     input_variables = {}
     output_variables = {
-        "version": {"description": "Outputs an number (as a string) based on the current time in seconds."}
+        "version": {
+            "description": "Outputs an number (as a string) based on the current time in seconds."
+        }
     }
 
     def main(self):
         try:
-            self.env["version"] = str(int(datetime.now(timezone.utc).timestamp()) - 1621638000)
+            self.env["version"] = str(
+                int(datetime.now(timezone.utc).timestamp()) - 1621638000
+            )
         except Exception as err:
             # handle unexpected errors here
             raise ProcessorError(err)
