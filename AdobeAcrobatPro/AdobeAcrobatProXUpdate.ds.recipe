@@ -24,7 +24,7 @@ Note: You must use an override if you want to specify which version of Acrobat i
 		<string>/Volumes/DSServer/Users/Shared/Deploy/Packages</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>0.2.0</string>
+	<string>1.1</string>
 	<key>ParentRecipe</key>
 	<string>com.github.autopkg.download.AdobeAcrobatProXUpdate</string>
 	<key>Process</key>

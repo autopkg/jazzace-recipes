@@ -49,7 +49,7 @@ pane, etc.), so we use the three-decimal version.
 		<string>-h 136.159.206.7 -s 2 -g no -c no -k no -r no -b no -l yes -f 0 -z comp</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>0.2.0</string>
+	<string>1.1</string>
 	<key>ParentRecipe</key>
 	<string>com.github.autopkg.download.sassafras-k2client</string>
 	<key>Process</key>

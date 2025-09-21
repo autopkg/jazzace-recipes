@@ -36,7 +36,7 @@ make an override for each and specify a unique identifier using the -n option
 		<string></string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>0.3.1</string>
+	<string>1.1</string>
 	<key>Process</key>
 	<array>
 		<dict>

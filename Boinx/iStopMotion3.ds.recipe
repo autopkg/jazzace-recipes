@@ -23,7 +23,7 @@ Input keys:
 		<string>/Volumes/DSServer/Users/Shared/Deploy/Packages</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>0.2.0</string>
+	<string>1.1</string>
 	<key>ParentRecipe</key>
 	<string>com.github.jazzace.pkg.iStopMotion</string>
 	<key>Process</key>

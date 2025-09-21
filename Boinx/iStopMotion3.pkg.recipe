@@ -11,7 +11,7 @@ Expect this recipe to be removed at a future date.</string>
 	<key>Input</key>
 	<dict/>
 	<key>MinimumVersion</key>
-	<string>0.2.9</string>
+	<string>1.1</string>
 	<key>ParentRecipe</key>
 	<string>com.github.timsutton.download.iStopMotion</string>
 	<key>Process</key>

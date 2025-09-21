@@ -22,7 +22,7 @@ Input keys:
 		<string>/Volumes/DSServer/Users/Shared/Deploy/Packages</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>0.2.0</string>
+	<string>1.1</string>
 	<key>ParentRecipe</key>
 	<string>com.github.autopkg.pkg.FlashPlayerExtractPackage</string>
 	<key>Process</key>

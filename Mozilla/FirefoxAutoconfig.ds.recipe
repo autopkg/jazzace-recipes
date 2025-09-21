@@ -45,7 +45,7 @@ but will be overridden by DS_NAME when it gets copied to the local path of your 
 		<string>FirefoxAutoconfig</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>1.1</string>
     <key>ParentRecipe</key>
     <string>com.github.gregneagle.pkg.FirefoxAutoconfig</string>
     <key>Process</key>
