@@ -38,7 +38,7 @@ Tested with Versions 26 and 27 (specify the major version you want in FINALE_VER
 			<key>Arguments</key>
 			<dict>
 				<key>url</key>
-				<string>http://makemusic-downloads.makemusic.com/Finale/%version%/Mac/en-US/FinaleSetup.dmg</string>
+				<string>https://makemusic-downloads.makemusic.com/Finale/%version%/Mac/en-US/FinaleSetup.dmg</string>
 			</dict>
 		</dict>
 		<dict>
