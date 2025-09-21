@@ -1,9 +1,7 @@
 Finale Update Recipes
 =====================
 
-The FinaleUpdate recipes only fetch the latest updater for Finale 2014 when using the default `SPARKLE_FEED_URL`. While 2014.5 was technically a free update, it came in the form of a full installer, which must be downloaded in an authenticated session. Thus, the current recipe will continue to fetch the 2014d updater.
-
-Attempts have been made to make the recipe work for v.25 and later, but problems with the Sparkle feed have prevented it. The recipe also lacks Code Signature Verification. Thus the FinaleUpdate recipes are now deprecated.
+The FinaleUpdate recipes have been removed.
 
 Finale Full Installer Recipes
 =============================
