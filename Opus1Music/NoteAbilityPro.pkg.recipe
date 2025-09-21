@@ -62,6 +62,17 @@ This recipe only supports Version 4 as it is Universal and all previous versions
 				<string>%RECIPE_CACHE_DIR%/%NAME%/NoteAbilityPro*/*.pkg</string>
 			</dict>
 		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgCopier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%.pkg</string>
+				<key>source_pkg</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%/NoteAbilityPro*/*.pkg</string>
+			</dict>
+		</dict>
 	</array>
 </dict>
 </plist>
