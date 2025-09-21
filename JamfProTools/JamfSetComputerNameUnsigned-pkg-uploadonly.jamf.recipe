@@ -4,10 +4,10 @@
 <dict>
 	<key>Description</key>
 	<string>This recipe uploads the latest JamfSetComputerName pkg to your Jamf Pro Server/Distribution Point
-using variables set in the environment. This recipe does not sign the pkg 
+using variables set in the environment. This recipe does not sign the pkg
 (use JamfSetComputerName-pkg-uploadonly.jamf if you want the signed pkg version).
 
-The grahampugh-recipes repo is required. 
+The grahampugh-recipes repo is required.
 
 Note that the CATEGORY specified must exist on the server, otherwise the recipe will fail.
 (For further details on setting the server/share details, see https://github.com/grahampugh/jamf-upload/wiki/JamfUploader-AutoPkg-Processors.)

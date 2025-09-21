@@ -4,7 +4,7 @@
 <dict>
 	<key>Description</key>
 	<string>Downloads the latest version of the Pro Video Formats provided by Apple for their pro apps.
-    
+
 Note: The downloaded installer is an updater that requires that you have one of the following installed:
     * Final Cut Pro
     * Compressor

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads latest version of Dell UltraSharp Calibration Solution (made by X-Rite), 
+	<string>Downloads latest version of Dell UltraSharp Calibration Solution (made by X-Rite),
 extracts the package installer, and then copies the package to a local path of your choosing.
 
 Input keys:

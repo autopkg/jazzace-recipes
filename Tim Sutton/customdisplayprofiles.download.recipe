@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest release of customdisplayprofiles from GitHub. 
+	<string>Downloads the latest release of customdisplayprofiles from GitHub.
 No code signature is possible, hence its omission.
 You must specify the ARCHITECTURE: intel or applesilicon.</string>
 	<key>Identifier</key>

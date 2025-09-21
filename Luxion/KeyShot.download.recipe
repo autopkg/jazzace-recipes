@@ -5,7 +5,7 @@
 	<key>Description</key>
 	<string>Downloads the latest version of a particular major version of KeyShot for macOS.
 The recipe user must determine the product download number (six digits) and set that as
-the value of PRODUCT_ID in the Input dictionary. That will be found at the end of the 
+the value of PRODUCT_ID in the Input dictionary. That will be found at the end of the
 download link within your account. Based on what is known at the time of this writing,
 the following PRODUCT_IDs match the versions listed:
 

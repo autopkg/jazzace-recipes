@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe takes the ZBrush volume license installer app that you have already downloaded and 
+	<string>This recipe takes the ZBrush volume license installer app that you have already downloaded and
 creates a package that leverages the silent install CLI method to automate installation. Additionally, the
-postinstall script adds the volume licensing files (specific to your installation, provided by Pixologic) 
+postinstall script adds the volume licensing files (specific to your installation, provided by Pixologic)
 and a modified DefaultZScript.txt file (e.g., to keep ZHomePage from starting at launch every time)
 to the correct locations in the application's directories.
 This version of the recipe supports ZBrush 2021.5 and later and requires the homebysix-recipes repo.
@@ -14,14 +14,14 @@ Input Variables of note:
 • LIC_FILES_DIR is the path to the local *directory* that holds the volume licensing files
   (license_ZBrush*_1seat.lic and FloatingLicenseDLL.lib will be used);
 • ZSCRIPT_FILE is the path to the *file* you wish to use for DefaultZScript.txt
-  (a sample file that suppresses the launch of ZHomePage upon opening the app is included in 
+  (a sample file that suppresses the launch of ZHomePage upon opening the app is included in
   the repo for this recipe).
 
 Once the input variables are set (likely in an override), your command to create the pkg will
 look something like this:
 
     autopkg run ZBrushVolume.pkg -p ~/Downloads/ZBrush_2022.0.5_FL_Installer.dmg
-   
+
 (Substitute the actual path to your downloaded disk image.)</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.zbrushvolume</string>
@@ -51,9 +51,9 @@ look something like this:
 				<string>%PKG%</string>
 			</dict>
 			<key>Comment</key>
-			<string>The "version" that this processor extracts is the major version, 
+			<string>The "version" that this processor extracts is the major version,
 			which is used as the name of the parent folder in /Applications (e.g., 2021 FL).
-			The 2 FindAndReplace processor calls that follow extract the current version number 
+			The 2 FindAndReplace processor calls that follow extract the current version number
 			from the installer app name (e.g., 2021.6) and store it in the variable "output_string".</string>
 		</dict>
 		<dict>

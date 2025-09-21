@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest packaged release of appleloops and then copies the package to 
+	<string>Downloads the latest packaged release of appleloops and then copies the package to
 a local path of your choosing.
 This recipe requires the novaksam-recipes repo.
 Input keys:

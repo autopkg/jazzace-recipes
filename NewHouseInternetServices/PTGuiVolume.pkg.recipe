@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe takes the PTGui app (contained in a disk image that you have already downloaded) and 
+	<string>This recipe takes the PTGui app (contained in a disk image that you have already downloaded) and
 creates an installer package for the app plus the JSON file you created containing the license keys for activation
 (as per https://ptgui.com/support.html#2_10).
 
@@ -13,7 +13,7 @@ You should set this value in an override or at runtime using the -k flag.
 Your command to create the pkg will look something like this:
 
     autopkg run PTGuiVolume.pkg -p ~/Downloads/PTGui_12.11.dmg
-   
+
 (Substitute the actual path to your downloaded disk image.)</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.ptguivolume</string>

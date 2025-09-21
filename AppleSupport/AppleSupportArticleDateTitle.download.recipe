@@ -5,16 +5,16 @@
 	<key>Description</key>
 	<string>Downloads the latest version of a particular Apple Support Article (specified in the input keys)
 and, if it has updated, copies it to the designated directory as HTML.
-The HTML file is named with the modification date, Article Number, and the Article Title 
+The HTML file is named with the modification date, Article Number, and the Article Title
 (the date and title are automatically gathered from the downloaded file).
 
 Input Keys:
     ARTICLE is the Apple Support Article number. This is often just six digits, although certain pages
         still use the two letters (HT) plus six digits format (w.g., Apple security releases).
-    LANG is the language and country descriptor, consisting of two letters for the language, a dash, and 
+    LANG is the language and country descriptor, consisting of two letters for the language, a dash, and
         two letters for the country (e.g., en-us). Many will want to force the US version in order to get
-        the earliest indication of a change. 
-    SAVE_LOCATION is the path to the directory where the HTML file should be saved. The path should exist. 
+        the earliest indication of a change.
+    SAVE_LOCATION is the path to the directory where the HTML file should be saved. The path should exist.
 </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.AppleSupportArticleDateTitle</string>

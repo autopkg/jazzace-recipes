@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe packages a local App Store app (specified in the override) and then uploads the pkg 
+	<string>This recipe packages a local App Store app (specified in the override) and then uploads the pkg
 to your Jamf Pro Server/Distribution Point using variables set in the environment.
-The grahampugh-recipes and nmcspadden-recipes repos are required. 
+The grahampugh-recipes and nmcspadden-recipes repos are required.
 Note that the CATEGORY specified must exist on the server, otherwise the recipe will fail.
 (For further details on setting the server/share details, see https://github.com/grahampugh/jamf-upload/wiki/JamfUploader-AutoPkg-Processors.)
 </string>

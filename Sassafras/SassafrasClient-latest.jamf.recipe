@@ -19,8 +19,8 @@ The server/share details must be set using variables set in the environment or s
 
 The grahampugh-recipes repo is required.
 
-Note that the (Package) CATEGORY and POLICY_CATEGORY specified by the Input variables 
-must each exist on the server, otherwise the recipe will fail. Values for SITE and SCRIPT_NAME are 
+Note that the (Package) CATEGORY and POLICY_CATEGORY specified by the Input variables
+must each exist on the server, otherwise the recipe will fail. Values for SITE and SCRIPT_NAME are
 requested in the Input dictionary so that they may be used within the POLICY_TEMPLATE specified.
 </string>
 	<key>Identifier</key>

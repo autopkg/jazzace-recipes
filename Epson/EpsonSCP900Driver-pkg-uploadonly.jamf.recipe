@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe downloads the Epson SCP900 Driver package, versions it, and then uploads the pkg 
+	<string>This recipe downloads the Epson SCP900 Driver package, versions it, and then uploads the pkg
 to your Jamf Pro Server/Distribution Point using variables set in the environment.
-The grahampugh-recipes repo is required. 
+The grahampugh-recipes repo is required.
 Note that the CATEGORY specified must exist on the server, otherwise the recipe will fail.
 (For further details on setting the server/share details, see https://github.com/grahampugh/jamf-upload/wiki/JamfUploader-AutoPkg-Processors.)
 </string>

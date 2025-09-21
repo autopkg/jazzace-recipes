@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe takes the ZBrush installer app from Maxon and creates a package that leverages 
+	<string>This recipe takes the ZBrush installer app from Maxon and creates a package that leverages
 the silent install CLI method to automate installation.
 
 You may set a different Bundle ID for your package by changing the BUNDLE_ID Input variable.

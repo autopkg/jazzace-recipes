@@ -5,7 +5,7 @@
 	<key>Description</key>
 	<string>Downloads the most recent version of Ableton Live and creates an installer package.
 The major version and edition is specified through input variables (see the parent download recipe).
-In order to avoid pkgbuild errors, the version number (from CFBundleShortVersionString) is simplified 
+In order to avoid pkgbuild errors, the version number (from CFBundleShortVersionString) is simplified
 to eliminate parenthetical build info (the homebysix-recipes repo is required).
 If a new package is created, the temporary files needed during packaging are deleted.
 If you are using Live 9 or earlier, please use the previous version of this recipe.

@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe downloads the latest Vectorworks 2023 or 2024 installer app and creates a package that leverages the silent install 
-CLI method to automate installation. Input variables are used to specify which major version of Vectorworks you are 
-packaging (e.g., 2024) and to customize the installation package with the recipe user's license information. 
-The pkg is named with the name and the version number (e.g., the installer for Vectorworks 2024 SP2 would be named 
+	<string>This recipe downloads the latest Vectorworks 2023 or 2024 installer app and creates a package that leverages the silent install
+CLI method to automate installation. Input variables are used to specify which major version of Vectorworks you are
+packaging (e.g., 2024) and to customize the installation package with the recipe user's license information.
+The pkg is named with the name and the version number (e.g., the installer for Vectorworks 2024 SP2 would be named
 "Vectorworks-29.0.2"); if you want to include the year/major version in the pkg name, change the NAME variable accordingly.
 Should the download not have changed, no processing is done; this is done to save redundant copying of the 2+ GB installer.
 

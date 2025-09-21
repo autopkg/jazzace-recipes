@@ -4,7 +4,7 @@
 <dict>
 	<key>Description</key>
 	<string>Downloads the current release version of Lightwright.
-This recipe supports version 6.0.40 and later. 
+This recipe supports version 6.0.40 and later.
 </string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.lightwright</string>

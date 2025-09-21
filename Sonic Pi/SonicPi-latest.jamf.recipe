@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe downloads Sonic Pi, packages it, then uploads the pkg to your Jamf Pro Server/Distribution Point 
+	<string>This recipe downloads Sonic Pi, packages it, then uploads the pkg to your Jamf Pro Server/Distribution Point
 and creates/updates the policy that deploys it.
 
-If you need both the Intel and Apple Silicon versions of the app, change the value of NAME 
-to include some reference to the architecture so that you (and Jamf Pro) can distinguish the packages 
+If you need both the Intel and Apple Silicon versions of the app, change the value of NAME
+to include some reference to the architecture so that you (and Jamf Pro) can distinguish the packages
 (e.g., set NAME to Sonic Pi Intel).
 
 The server/share details must be set using variables set in the environment or specified in your override
@@ -15,8 +15,8 @@ The server/share details must be set using variables set in the environment or s
 
 The aanklewicz-recipes and grahampugh-recipes repos are required.
 
-Note that the (Package) CATEGORY, GROUP_NAME, and POLICY_CATEGORY specified by the Input variables 
-must each exist on the server, otherwise the recipe will fail. Values for SITE and GROUP_NAME are 
+Note that the (Package) CATEGORY, GROUP_NAME, and POLICY_CATEGORY specified by the Input variables
+must each exist on the server, otherwise the recipe will fail. Values for SITE and GROUP_NAME are
 requested in the Input dictionary so that they may be used within the POLICY_TEMPLATE specified.
 </string>
 	<key>Identifier</key>

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Takes the pkg installer of ZBrush created by the parent recipe and then copies the package to 
+	<string>Takes the pkg installer of ZBrush created by the parent recipe and then copies the package to
 a local path of your choosing.
 Input keys:
 - DS_PKGS_PATH is the destination path for the copy. A trailing slash is not required/desired.

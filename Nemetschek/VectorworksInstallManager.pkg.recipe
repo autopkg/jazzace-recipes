@@ -3,19 +3,19 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe downloads the latest Vectorworks Install Manager app (2025 or later) and creates a package that 
+	<string>This recipe downloads the latest Vectorworks Install Manager app (2025 or later) and creates a package that
 runs the Vectorworks Install Manager via shell script.
 
 This recipe uses Vectorworks Install Manager’s capability to download the installer (.vwim) at runtime.
 
-Input variables are used to specify which major version of Vectorworks you are installing (e.g., 2025) and 
+Input variables are used to specify which major version of Vectorworks you are installing (e.g., 2025) and
 to customize the installation package with the recipe user’s license information.
 You must also specify the numerical values for the USER_ID and GROUP_ID to be used for the install.
 The defaults are 0 and 80 respectively (root and admin).
 
-The pkg is named with the NAME and the version number of Vectorworks Install Manager; if you want to include the year/major version 
+The pkg is named with the NAME and the version number of Vectorworks Install Manager; if you want to include the year/major version
 in the pkg name, change the NAME variable accordingly.
- 
+
 Note: This recipe only works with Vectorworks 2025 (and later). Use the Vectorworks2024.pkg recipe for Vectorworks 2023 or 2024.
 </string>
 	<key>Identifier</key>

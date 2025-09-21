@@ -4,7 +4,7 @@
 <dict>
 	<key>Description</key>
 	<string>Downloads the latest version of the major version of Vectorworks specified via Input Variable.
-Please use the child recipe for your version of Vectorworks to avoid problems with 
+Please use the child recipe for your version of Vectorworks to avoid problems with
 Code Signature changes and download links.
 Note that this recipe only works for Vectorworks 2021 through 2024.</string>
 	<key>Identifier</key>
