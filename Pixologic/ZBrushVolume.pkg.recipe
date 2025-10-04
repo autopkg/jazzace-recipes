@@ -221,8 +221,6 @@ exit 0
 					</array>
 					<key>id</key>
 					<string>%bundleid%.%NAME%</string>
-					<key>options</key>
-					<string>purge_ds_store</string>
 					<key>pkgname</key>
 					<string>%NAME%-%output_string%</string>
 					<key>pkgroot</key>

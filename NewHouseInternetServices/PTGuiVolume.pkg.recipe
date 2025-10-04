@@ -133,8 +133,6 @@ Your command to create the pkg will look something like this:
 					</array>
 					<key>id</key>
 					<string>%bundleid%.%NAME%</string>
-					<key>options</key>
-					<string>purge_ds_store</string>
 					<key>pkgname</key>
 					<string>%NAME%-%version%</string>
 					<key>pkgroot</key>

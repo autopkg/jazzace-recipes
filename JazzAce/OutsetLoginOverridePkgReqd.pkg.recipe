@@ -208,8 +208,6 @@ It is recommended that you change this value in your override to match your orga
 					</array>
 					<key>id</key>
 					<string>%REVERSE_DOMAIN%.%output_string%</string>
-					<key>options</key>
-					<string>purge_ds_store</string>
 					<key>pkgdir</key>
 					<string>%RECIPE_CACHE_DIR%</string>
 					<key>scripts</key>

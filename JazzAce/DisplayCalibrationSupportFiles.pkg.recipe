@@ -217,8 +217,6 @@ in my jazzace-recipes repo for an example of using StringSplitter to grab the fi
 					</array>
 					<key>id</key>
 					<string>%BUNDLE_ID%</string>
-					<key>options</key>
-					<string>purge_ds_store</string>
 					<key>pkgname</key>
 					<string>%PKG_NAME%-%PKG_VERSION%</string>
 					<key>pkgroot</key>

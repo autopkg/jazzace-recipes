@@ -68,8 +68,6 @@ that deploys it to /usr/local/bin.</string>
 					</array>
 					<key>id</key>
 					<string>com.github.timsutton.customdisplayprofiles%ARCHITECTURE%</string>
-					<key>options</key>
-					<string>purge_ds_store</string>
 					<key>pkgname</key>
 					<string>%NAME%-%ARCHITECTURE%-%version%</string>
 					<key>pkgroot</key>
