@@ -127,8 +127,6 @@ cp "${loginxml}" "${targetdir}"
 					</array>
 					<key>id</key>
 					<string>net.nemetschek.vectorworks.%MAJOR_VERSION%.logindialog</string>
-					<key>options</key>
-					<string>purge_ds_store</string>
 					<key>pkgname</key>
 					<string>%NAME%-%MAJOR_VERSION%</string>
 					<key>pkgroot</key>

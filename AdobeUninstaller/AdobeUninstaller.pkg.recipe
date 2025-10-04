@@ -120,8 +120,6 @@ This recipe requires the homebysix-recipes repo.</string>
 					</array>
 					<key>id</key>
 					<string>com.adobe.PDApp.CCP.AdobeUninstaller</string>
-					<key>options</key>
-					<string>purge_ds_store</string>
 					<key>pkgname</key>
 					<string>%NAME%-%version%</string>
 					<key>pkgroot</key>

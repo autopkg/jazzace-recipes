@@ -124,8 +124,6 @@ echo '-_DisableAutoUpdates' >> "/Library/Preferences/Ableton/Live %version%/Opti
 					</array>
 					<key>id</key>
 					<string>%bundleid%-sassafras</string>
-					<key>options</key>
-					<string>purge_ds_store</string>
 					<key>pkgname</key>
 					<string>%NAME%-%version%</string>
 					<key>pkgroot</key>

@@ -53,8 +53,6 @@ AUTOMATIC1111 GitHub project and builds a package that deploys it to /Users/Shar
 				<dict>
 					<key>id</key>
 					<string>com.github.AUTOMATIC1111.StableDiffusionWebUI</string>
-					<key>options</key>
-					<string>purge_ds_store</string>
 					<key>pkgname</key>
 					<string>%NAME%-%version%</string>
 					<key>pkgroot</key>

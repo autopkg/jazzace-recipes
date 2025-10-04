@@ -83,8 +83,6 @@ but you may change this in your override or using the -k option at runtime.
 					</array>
 					<key>id</key>
 					<string>%PACKAGE_BUNDLE_ID%</string>
-					<key>options</key>
-					<string>purge_ds_store</string>
 					<key>pkgname</key>
 					<string>%NAME%-%version%</string>
 					<key>pkgroot</key>
