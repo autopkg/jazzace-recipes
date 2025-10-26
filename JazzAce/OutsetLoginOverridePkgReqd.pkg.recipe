@@ -212,9 +212,9 @@ It is recommended that you change this value in your override to match your orga
 					<string>%RECIPE_CACHE_DIR%</string>
 					<key>scripts</key>
 					<string>%RECIPE_CACHE_DIR%/scripts</string>
+					<key>pkgname</key>
+					<string>%name_no_ext%-%version%</string>
 				</dict>
-				<key>pkgname</key>
-				<string>%name_no_ext%-%version%</string>
 			</dict>
 		</dict>
 		<dict>
