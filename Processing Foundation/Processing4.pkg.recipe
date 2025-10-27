@@ -20,17 +20,12 @@
 			<key>Arguments</key>
 			<dict>
 				<key>input_plist_path</key>
-				<string>%RECIPE_CACHE_DIR%/%NAME%/Processing.app/Contents/Info.plist</string>
+				<string>%pathname%/Processing.app/Contents/Info.plist</string>
 			</dict>
 		</dict>
 		<dict>
 			<key>Processor</key>
 			<string>AppPkgCreator</string>
-			<key>Arguments</key>
-			<dict>
-				<key>app_path</key>
-				<string>%RECIPE_CACHE_DIR%/%NAME%/Processing.app</string>
-			</dict>
 		</dict>
 	</array>
 </dict>
