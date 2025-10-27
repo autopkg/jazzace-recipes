@@ -11,7 +11,7 @@
 	<key>MinimumVersion</key>
 	<string>2.0</string>
 	<key>ParentRecipe</key>
-	<string>com.github.jazzace.download.processing4</string>
+	<string>com.github.dataJAR-recipes.download.Processing 4</string>
 	<key>Process</key>
 	<array>
 		<dict>
@@ -20,17 +20,12 @@
 			<key>Arguments</key>
 			<dict>
 				<key>input_plist_path</key>
-				<string>%RECIPE_CACHE_DIR%/%NAME%/Processing.app/Contents/Info.plist</string>
+				<string>%pathname%/Processing.app/Contents/Info.plist</string>
 			</dict>
 		</dict>
 		<dict>
 			<key>Processor</key>
 			<string>AppPkgCreator</string>
-			<key>Arguments</key>
-			<dict>
-				<key>app_path</key>
-				<string>%RECIPE_CACHE_DIR%/%NAME%/Processing.app</string>
-			</dict>
 		</dict>
 	</array>
 </dict>
