@@ -11,7 +11,7 @@
 	<key>MinimumVersion</key>
 	<string>2.0</string>
 	<key>ParentRecipe</key>
-	<string>com.github.jazzace.download.processing4</string>
+	<string>com.github.dataJAR-recipes.download.Processing 4</string>
 	<key>Process</key>
 	<array>
 		<dict>
