@@ -35,7 +35,7 @@ requested in the Input dictionary so that they may be used within the POLICY_TEM
 	<key>MinimumVersion</key>
 	<string>2.0</string>
 	<key>ParentRecipe</key>
-	<string>com.andrewzirkel.download.dockutil</string>
+	<string>com.github.autopkg.jessepeterson.download.dockutil</string>
 	<key>Process</key>
 	<array>
 		<dict>
