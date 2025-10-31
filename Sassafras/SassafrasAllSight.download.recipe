@@ -3,63 +3,27 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest installer (as specified by INSTALLER_TYPE) for Sassafras AllSight/LabSight/KeySight.
-
-INSTALLER_TYPE can have a value of client, admin, or server. You may create an override and set this value yourself,
-or you can use the SassafrasClient, SassafrasAdmin, and SassafrasServer recipes respectively as a convenience.
-
-The dataJAR-recipes repo is required.
-</string>
+	<string></string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.download.sassafrasallsight</string>
 	<key>Input</key>
 	<dict>
-		<key>INSTALLER_TYPE</key>
-		<string>client</string>
-		<key>NAME</key>
-		<string>AllSight</string>
+		<key>WARNING_MESSAGE</key>
+		<string>This recipe has been deprecated.  Please use the recipe in vmiller-recipes</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>1.4</string>
+	<key>ParentRecipe</key>
+	<string>com.github.jazzace.download.sassafrasallsight</string>
 	<key>Process</key>
 	<array>
 		<dict>
 			<key>Processor</key>
-			<string>com.github.dataJAR-recipes.Shared Processors/CaseChanger</string>
+			<string>DeprecationWarning</string>
 			<key>Arguments</key>
 			<dict>
-				<key>input_string</key>
-				<string>%INSTALLER_TYPE%</string>
-				<key>wanted_case</key>
-				<string>capitalize</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>URLDownloader</string>
-			<key>Arguments</key>
-			<dict>
-				<key>url</key>
-				<string>https://www.sassafras.com/software/release/current/Installers/MacOS/%changed_string%/ksp-%INSTALLER_TYPE%.pkg</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>EndOfCheckPhase</string>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>CodeSignatureVerifier</string>
-			<key>Arguments</key>
-			<dict>
-				<key>expected_authority_names</key>
-				<array>
-					<string>Developer ID Installer: Sassafras Software, Inc. (7Z2KSDFMVY)</string>
-					<string>Developer ID Certification Authority</string>
-					<string>Apple Root CA</string>
-				</array>
-				<key>input_path</key>
-				<string>%pathname%</string>
+				<key>warning_message</key>
+				<string>%WARNING_MESSAGE%</string>
 			</dict>
 		</dict>
 	</array>

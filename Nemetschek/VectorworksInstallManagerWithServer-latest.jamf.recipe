@@ -41,7 +41,7 @@ requested in the Input dictionary so that they may be used within the POLICY_TEM
 	<key>MinimumVersion</key>
 	<string>2.0</string>
 	<key>ParentRecipe</key>
-	<string>com.github.jazzace.pkg.vectorworksinstallmgrwithserver</string>
+	<string>com.github.vmiller.pkg.vectorworksinstallmgrwithserver</string>
 	<key>Process</key>
 	<array>
 		<dict>

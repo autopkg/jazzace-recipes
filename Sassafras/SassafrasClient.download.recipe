@@ -3,20 +3,29 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest client installer for Sassafras AllSight/LabSight/KeySight.
-</string>
+    <string></string>
     <key>Identifier</key>
     <string>com.github.jazzace.download.sassafrasclient</string>
     <key>MinimumVersion</key>
     <string>1.4</string>
     <key>Input</key>
     <dict>
-        <key>INSTALLER_TYPE</key>
-        <string>client</string>
-        <key>NAME</key>
-        <string>AllSight</string>
+        <key>WARNING_MESSAGE</key>
+        <string>This recipe has been deprecated.  Please use the recipe in vmiller-recipes</string>
     </dict>
     <key>ParentRecipe</key>
-    <string>com.github.jazzace.download.sassafrasallsight</string>
+    <string>com.github.vmiller.download.sassafrasclient</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>DeprecationWarning</string>
+            <key>Arguments</key>
+            <dict>
+                <key>warning_message</key>
+                <string>%WARNING_MESSAGE%</string>
+            </dict>
+        </dict>
+    </array>
 </dict>
 </plist>
