@@ -3,151 +3,27 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe creates a package that copies a prepared LoginDialog.xml file to the
-appropriate space in the user account such that the server settings for your instance are
-pre-populated. The package must be run in a user context (e.g., GUI session, Outset login-once,
-ARD as current console user). Specify the full path to the LoginDialog.xml file in LOGIN_FILE_PATH.
-
-The easiest way to obtain a properly formatted LoginDialog.xml file is to launch Vectorworks,
-manually adjust the settings (including Do Not Show At Startup) in the GUI, click Login, then
-Quit. You will find the file at ~/Library/Application Support/Vectorworks/20##/Settings/SeriesG/
-(substituting your Major Version for 20## and Series for G, which you then use as input variables).
-
-Most users will find it easier to use one of the "WithServer" recipes, which build the LoginDialog.xml
-file automatically based on the input variables in the recipe.
-</string>
+	<string></string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.vectorworkslogin</string>
 	<key>Input</key>
 	<dict>
-		<key>LOGIN_FILE_PATH</key>
-		<string>/path/to/LoginDialog.xml</string>
-		<key>MAJOR_VERSION</key>
-		<string>2020</string>
-		<key>NAME</key>
-		<string>VectorworksLoginDialog</string>
-		<key>VW_SERIES</key>
-		<string>G</string>
+		<key>WARNING_MESSAGE</key>
+		<string>This recipe has been deprecated.  Please use the recipe in vmiller-recipes</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>1.4</string>
+	<key>ParentRecipe</key>
+	<string>com.github.vmiller.pkg.vectorworkslogin</string>
 	<key>Process</key>
 	<array>
 		<dict>
 			<key>Processor</key>
-			<string>PkgRootCreator</string>
+			<string>DeprecationWarning</string>
 			<key>Arguments</key>
 			<dict>
-				<key>pkgdirs</key>
-				<dict>
-					<key>private</key>
-					<string>0777</string>
-					<key>private/tmp</key>
-					<string>0777</string>
-					<key>private/tmp/vw</key>
-					<string>0777</string>
-				</dict>
-				<key>pkgroot</key>
-				<string>%RECIPE_CACHE_DIR%/%NAME%</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>Copier</string>
-			<key>Arguments</key>
-			<dict>
-				<key>destination_path</key>
-				<string>%pkgroot%/private/tmp/vw/LoginDialog.xml</string>
-				<key>overwrite</key>
-				<true/>
-				<key>source_path</key>
-				<string>%LOGIN_FILE_PATH%</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>PkgRootCreator</string>
-			<key>Arguments</key>
-			<dict>
-				<key>pkgdirs</key>
-				<dict/>
-				<key>pkgroot</key>
-				<string>%RECIPE_CACHE_DIR%/scripts</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>FileCreator</string>
-			<key>Arguments</key>
-			<dict>
-				<key>file_content</key>
-				<string>#!/bin/sh
-# Copies file at $loginxml (placed by the installer) to correct location in current user account.
-# Note: Must be run in user context.
-#
-# Set variables (constants) for script run
-vers="%MAJOR_VERSION%"
-loginxml="/private/tmp/vw/LoginDialog.xml"
-vwseries="%VW_SERIES%"
-loggedInUser=$( echo "show State:/Users/ConsoleUser" | scutil | awk '/Name :/ &amp;&amp; ! /loginwindow/ { print $3 }' )
-targetdir="/Users/${loggedInUser}/Library/Application Support/Vectorworks/${vers}/Settings/Series%VW_SERIES%"
-# Create directory structure for user file if not already present
-if ! [ -d "${targetdir}" ]
-then
-    mkdir -m 0775 -p "${targetdir}"
-    chown -R "${loggedInUser}" "/Users/${loggedInUser}/Library/Application Support/Vectorworks"
-fi
-cp "${loginxml}" "${targetdir}"
-</string>
-				<key>file_mode</key>
-				<string>0755</string>
-				<key>file_path</key>
-				<string>%RECIPE_CACHE_DIR%/scripts/postinstall</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>PkgCreator</string>
-			<key>Arguments</key>
-			<dict>
-				<key>pkg_request</key>
-				<dict>
-					<key>chown</key>
-					<array>
-						<dict>
-							<key>group</key>
-							<string>admin</string>
-							<key>mode</key>
-							<string>0777</string>
-							<key>path</key>
-							<string>private/tmp/vw/</string>
-							<key>user</key>
-							<string>root</string>
-						</dict>
-					</array>
-					<key>id</key>
-					<string>net.nemetschek.vectorworks.%MAJOR_VERSION%.logindialog</string>
-					<key>pkgname</key>
-					<string>%NAME%-%MAJOR_VERSION%</string>
-					<key>pkgroot</key>
-					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
-					<key>scripts</key>
-					<string>%RECIPE_CACHE_DIR%/scripts</string>
-					<key>version</key>
-					<string>%MAJOR_VERSION%</string>
-				</dict>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>PathDeleter</string>
-			<key>Arguments</key>
-			<dict>
-				<key>path_list</key>
-				<array>
-					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
-					<string>%RECIPE_CACHE_DIR%/scripts</string>
-				</array>
+				<key>warning_message</key>
+				<string>%WARNING_MESSAGE%</string>
 			</dict>
 		</dict>
 	</array>

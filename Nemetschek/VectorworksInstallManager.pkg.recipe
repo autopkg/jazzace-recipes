@@ -3,142 +3,27 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe downloads the latest Vectorworks Install Manager app (2025 or later) and creates a package that
-runs the Vectorworks Install Manager via shell script.
-
-This recipe uses Vectorworks Install Manager’s capability to download the installer (.vwim) at runtime.
-
-Input variables are used to specify which major version of Vectorworks you are installing (e.g., 2025) and
-to customize the installation package with the recipe user’s license information.
-You must also specify the numerical values for the USER_ID and GROUP_ID to be used for the install.
-The defaults are 0 and 80 respectively (root and admin).
-
-The pkg is named with the NAME and the version number of Vectorworks Install Manager; if you want to include the year/major version
-in the pkg name, change the NAME variable accordingly.
-
-Note: This recipe only works with Vectorworks 2025 (and later). Use the Vectorworks2024.pkg recipe for Vectorworks 2023 or 2024.
-</string>
+	<string>T</string>
 	<key>Identifier</key>
 	<string>com.github.jazzace.pkg.vectorworksinstallmanager</string>
 	<key>Input</key>
 	<dict>
-		<key>BUNDLE_ID</key>
-		<string>net.vectorworks.pkg.vectorworks%MAJOR_VERSION%viainstallmanager</string>
-		<key>GROUP_ID</key>
-		<string>80</string>
-		<key>NAME</key>
-		<string>Vectorworks Install Manager</string>
-		<key>USER_ID</key>
-		<string>0</string>
-		<key>VW_SERIAL_NO</key>
-		<string>GFXXXX-123456-ABCDEF-G7HI89</string>
+		<key>WARNING_MESSAGE</key>
+		<string>This recipe has been deprecated.  Please use the recipe in vmiller-recipes</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>1.4</string>
 	<key>ParentRecipe</key>
-	<string>com.github.jazzace.download.vectorworksinstallmanager</string>
+	<string>com.github.vmiller.pkg.vectorworksinstallmanager</string>
 	<key>Process</key>
 	<array>
 		<dict>
 			<key>Processor</key>
-			<string>Versioner</string>
+			<string>DeprecationWarning</string>
 			<key>Arguments</key>
 			<dict>
-				<key>input_plist_path</key>
-				<string>%RECIPE_CACHE_DIR%/Unarchived/Vectorworks %MAJOR_VERSION% Install Manager.app/Contents/Info.plist</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>PkgRootCreator</string>
-			<key>Arguments</key>
-			<dict>
-				<key>pkgdirs</key>
-				<dict/>
-				<key>pkgroot</key>
-				<string>%RECIPE_CACHE_DIR%/scripts</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>FileMover</string>
-			<key>Arguments</key>
-			<dict>
-				<key>source</key>
-				<string>%RECIPE_CACHE_DIR%/Unarchived/Vectorworks %MAJOR_VERSION% Install Manager.app</string>
-				<key>target</key>
-				<string>%RECIPE_CACHE_DIR%/scripts/Vectorworks %MAJOR_VERSION% Install Manager.app</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>FileCreator</string>
-			<key>Arguments</key>
-			<dict>
-				<key>file_content</key>
-				<string>#!/bin/sh
-# Installs Vectorworks using the Vectorworks Install Manager, which downloads the needed content at install time.
-# The Vectorworks Install Manager is located in the same folder as the scripts.
-#
-# Set variables (constants) for script run
-vers="%MAJOR_VERSION%"
-vwipathroot="$(dirname $0)"
-# Install Vectorworks by downloading on the fly
-"${vwipathroot}/Vectorworks ${vers} Install Manager.app/Contents/Resources/cli.sh" install --installdir "/Applications/Vectorworks ${vers}" --serial %VW_SERIAL_NO% --uid %USER_ID% --gid %GROUP_ID%
-# Check to verify app is in expected location; report error if not
-if [ ! -e "/Applications/Vectorworks ${vers}/Vectorworks ${vers}.app" ]; then
-    echo "Error in installing Vectorworks ${vers}" &gt;&gt; /var/log/vw_install.log
-    exit 1
-fi
-</string>
-				<key>file_mode</key>
-				<string>0755</string>
-				<key>file_path</key>
-				<string>%RECIPE_CACHE_DIR%/scripts/postinstall</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>PkgRootCreator</string>
-			<key>Arguments</key>
-			<dict>
-				<key>pkgdirs</key>
-				<dict/>
-				<key>pkgroot</key>
-				<string>%RECIPE_CACHE_DIR%/payload</string>
-			</dict>
-			<key>Comment</key>
-			<string>Payload-free package. This establishes the empty payload.</string>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>PkgCreator</string>
-			<key>Arguments</key>
-			<dict>
-				<key>pkg_request</key>
-				<dict>
-					<key>id</key>
-					<string>%BUNDLE_ID%</string>
-					<key>pkgname</key>
-					<string>%NAME%-%version%</string>
-					<key>scripts</key>
-					<string>%RECIPE_CACHE_DIR%/scripts</string>
-					<key>version</key>
-					<string>%version%</string>
-				</dict>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>PathDeleter</string>
-			<key>Arguments</key>
-			<dict>
-				<key>path_list</key>
-				<array>
-					<string>%RECIPE_CACHE_DIR%/payload</string>
-					<string>%RECIPE_CACHE_DIR%/scripts</string>
-					<string>%RECIPE_CACHE_DIR%/Unarchived</string>
-				</array>
+				<key>warning_message</key>
+				<string>%WARNING_MESSAGE%</string>
 			</dict>
 		</dict>
 	</array>
