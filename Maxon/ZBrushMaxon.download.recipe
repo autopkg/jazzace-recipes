@@ -10,6 +10,8 @@
 	<dict>
 		<key>NAME</key>
 		<string>ZBrush</string>
+		<key>URL_PATTERN</key>
+		<string>https://mx-app-blob-prod\.maxon\.net/mx-package-production/installer/macos/maxon/zbrush/releases/[\d\.]+/Maxon_ZBrush_[\d\.]+_Installer\.dmg</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>2.3</string>
@@ -21,7 +23,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>https://mx-app-blob-prod\.maxon\.net/mx-package-production/installer/macos/maxon/zbrush/releases/[\d\.]+/ZBrush_[\d\.]+_Installer\.dmg</string>
+				<string>%URL_PATTERN%</string>
 				<key>result_output_var_name</key>
 				<string>url</string>
 				<key>url</key>
